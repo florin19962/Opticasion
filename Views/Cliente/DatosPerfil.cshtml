@@ -1,0 +1,94 @@
+﻿@model Opticasion.Models.Cliente
+@{
+    Layout = "~/Views/Shared/_PanelPerfilCliente.cshtml";
+}
+@{
+    ViewData["Title"] = "Perfil";
+}
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+
+}
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="caja-datosPanel">
+                <div class="caja-header">
+                    <h3 class="">Datos Personales</h3>
+                </div>
+                <hr />
+                <form asp-action="UpdateDatosPersonales" asp-controller="Cliente" method="post">
+                    <div class="container caja-body">
+                        <div class="row mb-2">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input value="@_cliente.Nombre" id="nombre" asp-for="@Model.Nombre" type="text" class="form-control" placeholder="Tu nombre" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="nickname">Nick</label>
+                                    <input value="@_cliente.NickName" id="nickname" asp-for="@Model.NickName" type="text" class="form-control" placeholder="Tu nick" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="dni">DNI</label>
+                                    <input value="@_cliente.DNI" id="dni" asp-for="@Model.DNI" type="text" class="form-control" placeholder="DNI" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="apellidos">Apellidos</label>
+                                    <input value="@_cliente.Apellidos" id="apellidos" asp-for="@Model.Apellidos" type="text" class="form-control" placeholder="Tus apellidos" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="telefono">Telefono</label>
+                                    <input value="@_cliente.Telefono" id="telefono" asp-for="@Model.Telefono" type="text" class="form-control" placeholder="tu telefono" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="email">Correo de acceso</label>
+                                    <input value="@_cliente.CredencialesAcceso.Email"  required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" placeholder="Teclee la nueva cuenta de correo" />
+                                </div>
+                            </div>
+                            @*<div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="password">Contraseña actual</label>
+                                    <input value="@_cliente.CredencialesAcceso.HashPassword" disabled type="password" id="password" asp-for="@Model.CredencialesAcceso.HashPassword" class="form-control" placeholder="Contraseña actual" />
+                                </div>
+                            </div>*@
+                                                @*<div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="password">Nueva Contraseña </label>
+                                    <input type="password" id="password" class="form-control" placeholder="Nueva Contraseña" />
+                                </div>
+                            </div>*@
+                            <div class="caja-inferior-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

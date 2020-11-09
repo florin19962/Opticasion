@@ -1,0 +1,29 @@
+﻿
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    Layout = null;
+}
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h2>Busca tus gafas</h2>
+            <label>Contenido menu</label>
+        </div>
+    </div>
+</div>

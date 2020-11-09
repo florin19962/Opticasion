@@ -1,0 +1,32 @@
+﻿@model ItemCarrito
+<link rel="stylesheet" href="~/css/tienda.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
+
+
+<tr class="caja-itemCarrito">
+    <td>
+        <img src="~/img/fotoGafas/Fila.jpg" style="width: 150px;">
+        @*@Model.ItemGafa.FotoGafasUrl*@
+    </td>
+
+    <td>
+        <label>@Model.ItemGafa.Marca</label>
+    </td>
+
+    <td>
+        <label>@Model.ItemGafa.NombreModelo</label>
+    </td>
+
+    <td>
+        <label style="color: #17a2b8;font-weight: 500;">@(Model.ItemCantidadGafa * Model.ItemGafa.PrecioProd) €</label>
+    </td>
+
+    <td>
+        <a class="btnQuitarDeCesta" asp-controller="Pedido" 
+                                    asp-action="QuitarGafaPedido" 
+                                    asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.ItemGafa.GafasId} })">
+            <i class="far fa-times-circle fa-2x"></i>
+        </a>
+    </td>
+</tr>
+

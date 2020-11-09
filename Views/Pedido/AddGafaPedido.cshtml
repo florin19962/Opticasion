@@ -1,0 +1,87 @@
+﻿@model Pedido
+
+@{
+    ViewData["Title"] = "Detalles del pedido";
+}
+<link rel="stylesheet" href="~/css/tienda.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
+
+<div class="container">
+    
+    <div style="margin-bottom: 2%;margin-top: 1%;">
+        <h3 style="width: 50%;float: left;">Carrito de compras</h3>
+        <a class="btn btn-info"
+           asp-action="Index"
+           asp-controller="Tienda">
+            Seguir Comprando
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <table>
+                <hr />
+                <thead>
+                    <tr class="header-carrito">
+                        <th width="200" scope="col">ARTICULO</th>
+                        <th width="200" scope="col">MARCA</th>
+                        <th width="150" scope="col">MODELO</th>
+                        <th width="100" scope="col">PRECIO</th>
+                        <th width="100" scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        @foreach (ItemCarrito item in Model.ElementosCarro)
+                        {
+                            <partial name="_VistaMiniGafaCarrito" model="item" />
+                        }
+                </tbody>
+            </table>
+            
+           
+        </div>
+        <div class="col-4">
+            <div class="row caja-resumen-pedido">
+                <h3>RESUMEN DEL PEDIDO</h3>
+                <hr style="width: 100%;margin-top: 0;margin-bottom: 0;">
+                <p><strong> Entrega Prevista en 4-5 Días o puede recogerlo usted</strong></p>
+                <hr style="width: 100%;margin-top: 0;margin-bottom: 0;">
+                <div class="row" style="width: 100%;">
+                    <div class="col-6">
+                        <label>Subtotal</label>
+                    </div>
+                    <div class="col-6">
+                        <label class="dato-pedido">@Model.SubTotalPedido.ToString() €</label>
+                    </div>  
+                </div>
+                <div class="row" style="width: 100%;">
+                    <div class="col-6">
+                        <label>Envio (Gostos de envío-Fijo)</label>
+                    </div>
+                    <div class="col-6">
+                        <label class="dato-pedido">@Model.GastosEnvio €</label>
+                    </div>
+                </div>
+                <hr style="width: 100%;margin-top: 0;margin-bottom: 0;">
+                <div class="row" style="width: 100%;">
+                    <div class="col-6" style="padding-right: 0;">
+                        <label style="font-size:20px;">Total del Pedido</label>
+                    </div>
+                    <div class="col-6">
+                        <label class="dato-pedido" style="font-size:20px;">@Model.TotalPedido.ToString() €</label>
+                    </div>
+                </div>
+
+                <div class="row" style="width: 100%;align-content: center;">
+                    <div class="col-12" style="margin-left: 10%;">
+                        <a class="btn btnTramitarPedido"
+                           asp-controller="Pedido"
+                           asp-action="FinalizarPedido">
+                            TRAMITAR PEDIDO
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

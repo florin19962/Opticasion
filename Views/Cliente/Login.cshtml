@@ -1,0 +1,34 @@
+﻿@model Cliente.Credenciales;
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container-fluid">
+    <h1 style="position: absolute;top: 25%;color: #ff6400;right: 8%;">Bienvenido de nuevo!</h1>
+    <form asp-action="Login" asp-controller="Cliente" method="post">
+        <div class="main-login">
+            <div class="cajon-registro">
+                <p style="font-size: smaller;margin-left: 5%;"><b>¿Aun no tienes cuenta?</b> No te preocupes, la puedes hacer desde aquí en un abrir y cerrar de ojos</p>
+                <a class="btnRegistro" href="https://localhost:44367/Cliente/Registro">Crear una cuenta</a>
+            </div>
+            <div class="cajon-login">
+                <div asp-validation-summary="All" class="text-danger" style="font-size:12px;"></div>
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Email</legend>
+                    <input type="email" class="form-control" id="email" asp-for="@Model.Email" placeholder="Tu@ejemplo.com">
+                </fieldset>
+
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border">Password</legend>
+                    <input type="password" class="form-control" id="password" asp-for="@Model.Password" placeholder="Introduce tu contraseña aquí">
+                </fieldset>
+
+                <button type="submit" class="btnLogin">Iniciar sesión</button>
+                <a href="#" style="color: #ffffff;">
+                    <label style="margin-top: 5%; margin-left: 50%; font-size: 12px;">¿Has olvidado tu contraseña?</label>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<hr style="margin-bottom:-100%;"/>

@@ -1,0 +1,218 @@
+﻿@model Cliente
+@{
+    ViewData["Title"] = "Registro de usuario";
+}
+
+<link rel="stylesheet" href="~/css/registro.css" />
+<div class="container-fluid" style="position:inherit">
+    <form method="post" asp-action="Registro" asp-controller="Cliente">
+        <div class="cajon-principal">
+            <div class="cajon">
+                @*<img src="~/images/cabeceraRegistro.png" style="width: 100%;">*@
+                <p style="text-align: right;padding-right: 2%;padding-top:2%;font-weight:400;font-size: 13px;color: #242424;">
+                    Todos los campos marcados con<sup class="form-required-asterisk">*</sup> son obligatorios.
+                </p>
+                <fieldset class="caja-datos">
+                    <legend class="titulo">DATOS DE ACCESO</legend>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="email">CORREO ELECTRÓNICO *</label>
+                                <input type="text" class="form-control" id="email" asp-for="@Model.CredencialesAcceso.Email" placeholder="Direccion de email" required>
+                                <div>
+                                    <span asp-validation-for="@Model.CredencialesAcceso.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <p style="font-size: 12px;color: #666666;font-weight:400;"> Te enviaremos un correo electrónico para validar que tu dirección es correcta.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="password">CONTRASEÑA *</label>
+                                <input type="password" class="form-control" id="password" asp-for="@Model.CredencialesAcceso.Password" placeholder="Minimo de 8 caracteres" required>
+                                <div>
+                                    <span asp-validation-for="@Model.CredencialesAcceso.Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <p style="font-size: 12px;color: #666666;font-weight:400;">Su contraseña debe ser de 8 caracteres minimo.</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="repassword">CONFIRMA TU CONTRASEÑA *</label>
+                                <input type="password" class="form-control" id="repassword" placeholder="Confirmar contraseña" required>
+                                <div>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="caja-datos">
+                    <legend class="titulo">DATOS DIRECCION DE ENVIO</legend>
+                    <div class="form-group">
+                        <p style="font-size: 12px;color: #666666;font-weight:400;"> Estos datos serviran para poder realizar los envios en sus futuras compras.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="inputAddress">Dirección de envio</label>
+                                <input type="text" asp-for="@Model.DireccionPrincipal.Calle" class="form-control" id="inputAddress" placeholder="C/Nombre Calle, Número, Piso-Letra">
+                                <div>
+                                    <span asp-validation-for="@Model.DireccionPrincipal.Calle" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCP">Código Postal</label>
+                                <input type="text" asp-for="@Model.DireccionPrincipal.CP" class="form-control" id="inputCP" placeholder="28080">
+                                <div>
+                                    <span asp-validation-for="@Model.DireccionPrincipal.CP" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="inputProvincia">Provincia</label>
+                                <select style="width: 410px;" id="inputProvincia" asp-for="@Model.DireccionPrincipal.Provincia" class="form-control">
+                                    <option value="0" selected>Elija su provincia...</option>
+                                    @foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
+                                    {
+                                        <option value="@unaprov.CodPro">@unaprov.NombreProvincia</option>
+                                    }
+                                </select>
+                                <div>
+                                    <span asp-validation-for="@Model.DireccionPrincipal.Provincia" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLocalidad">Localidad</label>
+                                <select style="width: 410px;" id="inputLocalidad" asp-for="@Model.DireccionPrincipal.Localidad" class="form-control" disabled>
+                                    <option value="0" selected>Elija su localidad...</option>
+                                </select>
+                                <div>
+                                    <span asp-validation-for="@Model.DireccionPrincipal.Localidad" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="caja-datos">
+                    <legend class="titulo" style="margin-top: -6.5%;">DATOS PERSONALES</legend>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nombre">NOMBRE *</label>
+                                <input type="text" class="form-control" id="nombre" asp-for="@Model.Nombre" placeholder="Nombre" required>
+                                <div>
+                                    <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="apellidos">APELLIDOS *</label>
+                                <input type="text" class="form-control" id="Ape" asp-for="@Model.Apellidos" placeholder="Apellidos" required>
+                                <div>
+                                    <span asp-validation-for="@Model.Apellidos" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nickname">Nick *</label>
+                                <input type="text" class="form-control" id="nickname" asp-for="@Model.NickName" placeholder="Nick para la web" required>
+                                <div>
+                                    <span asp-validation-for="@Model.NickName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="dni">DNI *</label>
+                                <input type="text" class="form-control" id="dni" asp-for="@Model.DNI" placeholder="DNI" required>
+                                <div>
+                                    <span asp-validation-for="@Model.DNI" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="telefono">Telefono *</label>
+                                <input type="text" class="form-control" id="tel" asp-for="@Model.Telefono" placeholder="Telefono" required>
+                                <div>
+                                    <span asp-validation-for="@Model.Telefono" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <input class="custom-control custom-checkbox" style="width: 20px;display: inline-block;margin: 5% 2% 0px 5%;" type="checkbox" asp-for="@Model.PoliticaPrivacidadDatos" id="checkCondicionesUso">
+                        <label style="width: 80%;" for="checkbox-1">Marcando esta casilla confirmo que he leído y acepto la <a style="text-decoration: underline;color:#242424" href="">informacion del servicio y protección de datos de carácter personal y Politica de Cookies</a></label>
+                    </div>
+                    <div>
+                        <div>
+                            <button type="submit" class="btn btnSubmit">
+                                <span class="glyphicon glyphicon-ok">
+                                    CONTINUAR <i class="fas fa-chevron-right"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+    <div>
+    </div>
+</div>
+
+<!--section con script para hacer bordes de cajas en rojo cuando esta mal-->
+<script>
+    $(document).ready(function () {
+        $(".input-validation-error").css("border-color", "red");
+    });
+
+    Array.from(document.getElementsByClassName("input-validation-error")).forEach((el) => el.style.borderColor = "red");
+</script>
+<script>
+    function petAjax(codPro) {
+        var _pet = new XMLHttpRequest();
+        _pet.open('GET', 'https://localhost:44367/api/MunicipiosREST/' + codPro);
+        _pet.addEventListener("readystatechange", (evt) => {
+            if (_pet.status == 200 && _pet.readyState == 4) {
+                var _municipios = JSON.parse(_pet.responseText);
+                _municipios.forEach(
+                    (muni) => {
+                        var _opcEl = document.createElement("option");
+                        _opcEl.setAttribute("value", muni.codMun)
+                        _opcEl.appendChild(document.createTextNode(muni.nombreMunicipio));
+                        dropMun.appendChild(_opcEl);
+                    }
+                );
+            }
+        });
+        _pet.send();
+    }
+    //----------------------------------------------------------
+     var dropMun = document.getElementById("inputLocalidad");
+    document.getElementById("inputProvincia").addEventListener("change",
+        (evt) => {
+            Array.from(dropMun.childNodes).forEach(
+                (nodo) => {
+                    if (nodo.value != 0) {
+                        dropMun.removeChild(nodo);
+                    }
+                }
+            );
+
+            if (evt.target.value != "0") {
+                dropMun.removeAttribute("disabled");
+                petAjax(evt.target.value);
+            }
+        }
+    );
+</script>

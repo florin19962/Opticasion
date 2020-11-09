@@ -1,0 +1,131 @@
+/*CSS DEL PANEL INCIO*/
+.body-panel{
+    float: right;
+    background-color:#f0f0f0;
+}
+.cajon-externo {
+    background-color: #f0f0f0;
+    min-height: 630px;
+}
+a{
+    color:#484848;
+    font-size: 14px;
+    font-weight: 400;
+}
+a:hover{
+    text-decoration: none;
+    cursor: pointer;
+}
+.enlace {
+    height: 3%;
+    margin-left: 8%;
+    color: #484848;
+}
+enlace:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.cajon-pan {
+    margin-left: 20%;
+    width: 60%;
+    box-shadow: 3px 5px 7px rgb(0 0 0);
+    background: #222d32;
+    float: left;
+    padding: 25px;
+}
+.row{
+    margin-right: 0;
+}
+.logOut{
+    background: #fafafa; 
+    border: 1px solid #f0f0f0;
+    border-width: 1px 0;
+    padding: 2em; 
+    width: 100%;
+    height: 100px;
+    color: #484848;
+    margin-bottom: 5%;
+}
+.perfil h3 {
+    color: white;
+    font-size: 16px;
+}
+.perfil img{
+    border-radius:50px;
+
+}
+.perfil label {
+    color: #b8c7ce;
+}
+.enlaces-panel{
+    margin-left:10%;
+}
+    .enlaces-panel ul li {
+        padding: 10px;
+        border-bottom: 1px solid #676d71;
+        background-color: #222d32;
+    }
+    .enlaces-panel ul li a {
+        color: #b8c7ce;
+    }
+        .enlaces-panel ul li a:hover,
+        .enlaces-panel ul li:hover {
+            text-decoration: none;
+            color: white;
+            background-color: #1e272b;
+        }
+/*FIN PANEL*/
+/*------------------------------------------------------------------------------------------*/
+/*INICIO CSS MENU SUPERIOR PEQUEÑO*/
+.enlace-s {
+    float: right;
+    font-size: 13px;
+    margin-right: 8%;
+    padding-top: 6px;
+}
+    .menu-superior {
+    background: #222d32;
+    width: 100%;
+    height: 35px;
+}
+        .menu-superior a {
+            text-decoration: none!important;
+        }
+.enl {
+    color: #b8c7ce;
+    transition: 0.5s;
+}
+.enl:hover{
+    color:white;
+    transition: 0.5s;
+}
+/*FIN MENU SUP*/
+/*-----------------------------------------------------------------------------------------*/
+/*CUERPO DEL PANEL*/
+.caja-datosPanel {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #ff6700;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 3px 3px 3px rgb(0 0 0 / 25%);
+    top: 5%;
+    right: 5%;
+}
+.caja-header {
+    color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+}
+.caja-body{
+    padding:10px
+}
+.caja-inferior-footer {
+    border-top: 1px solid #f4f4f4;
+    padding: 10px;
+    background-color: #fff;
+    width: 100%;
+}
+/*FIN CUERPO PANEL*/

@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Registro completo";
+}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="~/css/registroOkActivar.css" />
+<div class="container-fluid" style="position:inherit">
+    <div class="cajon-principal">
+        <div class="cajon">
+            <img src="~/img/logo2.png" style="width: 30%;margin-left: 37%;height: 170px;">
+            <div class="row" style="margin-right: 0px;margin-left: 0px;">
+                <div class="col-12">
+                    <hr />
+                    <div class="form-group">
+                        <h5 style="text-align: center;">
+                            Hemos enviado un email a la dirección de correo electrónico que nos has proporcionado con instrucciones para activar tu cuenta.
+                            De esta forma sabremos que es correcta y podamos ponernos en contacto con usted.
+                            <p>Si no lo recibe, compruebe en su carpeta Spam o de correo no deseado.</p>
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <button class="btn btnVolver">
+                        <a asp-action="Index" asp-controller="Home">INICIO</a> 
+                    </button>
+                    <div class="enlaceInferior">
+                        <label>
+                            <a style="text-decoration: underline;color:#242424;font-size: 11px;" href="#">NO HE RECIBIDO NINGÚN MENSAJE</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

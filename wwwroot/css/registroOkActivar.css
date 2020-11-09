@@ -1,0 +1,85 @@
+.cajon-principal {
+    padding-top: 2.5%;
+    padding-bottom: 3%;
+}
+
+.cajon {
+    margin-left: 15%;
+    margin-right: 12%;
+    padding-top: 7%;
+    height: 83%;
+    border: 1px solid #c5c5c5;
+    box-shadow: 0 0 6px rgba(0,0,0,.16);
+    background: white;
+}
+
+.caja-datos {
+    border: none;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(85,170,85,.2);
+    width: 100%;
+    padding-left: 3%;
+    padding-bottom: 3%;
+}
+
+    .caja-datos div input {
+        width: 425px;
+        height: 40px;
+        color: #484848;
+        font-weight: 300;
+        font-size: 12px;
+        border-radius: 0px;
+    }
+
+.link {
+    color: #757676;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 400;
+    font-size: large;
+}
+
+.titulo {
+    text-transform: uppercase;
+    margin-left: -1rem;
+    font-size: 16px;
+    color: #242424;
+    margin-bottom: -0.75rem;
+    padding: 0 1rem;
+    letter-spacing: 1px;
+    background-color: white;
+    width: unset;
+}
+
+.enlaceInferior label {
+    font-weight: 600;
+    margin-left: 44%;
+    margin-bottom: 5%;
+}
+
+.custom-control {
+    text-align: left;
+    padding-left: 21%;
+    padding-right: 20%;
+    font-size: 14px;
+    font-weight: 400;
+    padding-top: 5%;
+}
+
+.btnVolver {
+    font-size: 13px;
+    letter-spacing: .15em;
+    font-weight: 600;
+    padding: 1rem 0;
+    min-width: 20%;
+    display: block;
+    background-color: black;
+    margin-top: 5%;
+    margin-left: 43%;
+    margin-bottom: 3%;
+}
+
+.btnVolver a{
+    text-decoration:none;
+    color:white;
+}

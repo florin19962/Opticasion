@@ -1,0 +1,97 @@
+/*CSS CAJON LOGIN*/
+.cajon-login {
+    height: 300px;
+    width: 25%;
+    position: absolute;
+    left: 65%;
+    top: 35%;
+    background-color: #ffc4c473;
+    padding: 20px 10px 10px 10px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 3%;
+}
+
+.main-login {
+    background: url(../img/fondoLogin.png) no-repeat center;
+    width: 100%;
+    height: 710px;
+}
+
+.btnLogin {
+    background-color: #ff7922;
+    border-radius: 4px;
+    padding: 5px 100px 5px 100px;
+    margin-left: 5%;
+    color: white;
+    border: none;
+    box-shadow: 2px 4px 7px 0px #00000099;
+    transition: .5s;
+}
+    .btnLogin:hover {
+        background-color: #ff6400;
+        box-shadow: 2px 6px 10px 1px #000000;
+        transition: .5s;
+    }
+fieldset.scheduler-border input {
+    border: none;
+    background-color: #fff0;
+    height: 24px;
+    padding: 0px 0px;
+    font-size: 13px;
+    font-weight: 300;
+}
+    fieldset.scheduler-border input:hover,
+    fieldset.scheduler-border input:focus {
+        background-color: #fff0 !important;
+        box-shadow: none;
+    }
+#email input{
+    outline: 0 none;
+}
+
+fieldset.scheduler-border {
+    border: 1px groove #afafaf96 !important;
+    padding: 0px 0px 0px 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+}
+
+legend.scheduler-border {
+    width: inherit;
+    padding: 0 10px;
+    border-bottom: none;
+    color: #ff6400;
+    font-size: 14px;
+}
+
+/*CSS CAJON REGISTRO*/
+.cajon-registro {
+    height: 165px;
+    width: 20%;
+    position: absolute;
+    left: 2%;
+    top: 35%;
+    background-color: #ffc4c4ab;
+    padding: 20px 10px 10px 10px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 3%;
+}
+.btnRegistro {
+    background-color: #ff7922;
+    width: 100%;
+    border-radius: 4px;
+    padding: 5px 40px 5px 40px;
+    margin-left: 10%;
+    color: white !important;
+    border: none;
+    box-shadow: 2px 4px 7px 0px #00000099;
+    text-decoration: none !important;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    transition: .5s;
+}
+    .btnRegistro:hover {
+        background-color: #ff6400;
+        box-shadow: 2px 6px 10px 1px #000000;
+        transition: .5s;
+    }

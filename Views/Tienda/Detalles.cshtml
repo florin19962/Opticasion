@@ -1,0 +1,99 @@
+﻿@model Opticasion.Models.Gafas
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+
+}
+@{
+    ViewData["Title"] = "Detalles de las gafas";
+}
+<link rel="stylesheet" href="~/css/tienda.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            @*<img src="@Model.FotoGafasUrl" />*@
+            <img src="~/img/fotoGafas/Fila.jpg" width="550px" />
+        </div>
+        <div class="col-md-6">
+            <div class="col-6">
+                <label class="detallemarca">@Model.Marca</label>
+            </div>
+            <div class="col-6">
+                <label>Nombre del vendedor: @Model.VendedorId</label>
+            </div>
+            <div class="col-12">
+                <label class="detallemodelo">>Modelo: @Model.NombreModelo</label>
+            </div>
+            <div class="col-12">
+                <label class="detallegenero">>Genero: @Model.Genero</label>
+            </div>
+            <div class="col-12" style="margin-top:5%">
+                <label>>Descripción del producto:</label>
+                <div class="card">
+                    @Model.Descripcion
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label class="detalleprecio"><strong>Precio: @Model.PrecioProd.ToString()€</strong></label>
+                </div>
+                <div class="col-6">
+
+                    @if (_cliente != null)
+                    {
+                        <div id="btnCarro-@Model.GafasId" style="margin-top:7%">
+                            <a class="btnCarro"
+                               asp-controller="Pedido"
+                               asp-action="AddGafaPedido"
+                               asp-all-route-data="@(new Dictionary<string, string>() { { "id", @Model.GafasId }, { "cantidad", "1"}  })">
+                                Añadir al carrito
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn-comprarTienda"
+                           asp-controller="Cliente"
+                           asp-action="Login">
+                            Iniciar Sesion
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row text-center">
+        <div class="col-6">
+            Todos nuestro productos estan revisados y calificada su calidad para su tranquilidad
+            <br /><hr />
+            <div class="col-6" style="float: right;">
+                <i class="fas fa-search fa-3x"></i>
+            </div>
+            <div class="col-6">
+                <i class="far fa-thumbs-up fa-3x"></i>
+            </div>
+        </div>
+        <div class="col-6">
+            Los productos tienen nuestro certificado de autenticidad otorgado por profesionales
+            <br /><hr />
+            <div>
+                <i class="fas fa-certificate fa-3x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+
