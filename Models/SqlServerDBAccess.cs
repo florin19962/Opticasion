@@ -474,7 +474,7 @@ namespace Opticasion.Models
                 _insertarProducto.Connection = __miconexion;
                 _insertarProducto.CommandType = CommandType.Text;
 
-                _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (GafasId,NombreModelo,PrecioProd,Descripcion,VendedorId,Marca,Genero,IdCategoria) VALUES (@GafasId,@NombreModelo,@PrecioProd,@Descripcion,@VendedorId,@Marca,@Genero,@IdCategoria)";
+                _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (GafasId,NombreModelo,PrecioProd,Descripcion,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria) VALUES (@GafasId,@NombreModelo,@PrecioProd,@Descripcion,@VendedorId,@Marca,@Genero,@IdCategoria)";
                 //_insertarProducto.CommandText = "INSERT INTO dbo.Gafas (GafasId,PrecioProd,Marca,IdCategoria) VALUES (@GafasId,@PrecioProd,@Marca,@IdCategoria)";
                 _insertarProducto.Parameters.AddWithValue("@GafasId",newgafas.GafasId);
                 _insertarProducto.Parameters.AddWithValue("@NombreModelo", newgafas.NombreModelo);
@@ -482,6 +482,7 @@ namespace Opticasion.Models
                 _insertarProducto.Parameters.AddWithValue("@Descripcion", newgafas.Descripcion);
                 //_insertarProducto.Parameters.AddWithValue("@FotoGafasUrl", newgafas.FotoGafasUrl);
                 _insertarProducto.Parameters.AddWithValue("@VendedorId", newgafas.VendedorId);
+                _insertarProducto.Parameters.AddWithValue("@CodigoVerificacion", newgafas.CodigoVerificacion);
                 _insertarProducto.Parameters.AddWithValue("@Marca", newgafas.Marca);
                 _insertarProducto.Parameters.AddWithValue("@Genero", newgafas.Genero);
                 _insertarProducto.Parameters.AddWithValue("@IdCategoria", Convert.ToInt16(newgafas.IdCategoria));

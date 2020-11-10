@@ -25,6 +25,11 @@ namespace Opticasion.Controllers
         
         public ActionResult Index()
         {
+            if (TempData["Message"] != null)
+            {
+                ViewBag.Message = TempData["Message"].ToString();
+            }
+
             String id;
             if (RouteData.Values.ContainsKey("IdCategoria"))
             {

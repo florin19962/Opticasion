@@ -11,6 +11,7 @@ using Opticasion.Models;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.IO;
 
 namespace Opticasion.Controllers
 {
@@ -62,11 +63,7 @@ namespace Opticasion.Controllers
                 int _filasRegistradas = this._accessDB.RegistrarProducto(newgafas);
                 if (_filasRegistradas == 1)
                 {
-                    //@TempData["Message"] = "Producto cargado en la base de datos correctamente";
-                    //if(TempData["Message"] !=null)
-                    //ViewBag.Message = TempData["Message"].ToString();
                     return View();
-                    
                 }
                 else
                 {
@@ -74,6 +71,20 @@ namespace Opticasion.Controllers
                     return View(newgafas);
                 }
             }
+        }
+       
+        //MIRAR ESTE METODO PARA SUBIR IMAGENES!!
+        [HttpPost]
+        public async Task<IActionResult> UploadImagenCliente([FromBody]IFormFile fichImagen)
+        {
+            String _nombreFich = fichImagen.FileName.Split(@"\").Last<String>();
+            FileStream _lector = new FileStream(Path.Combine("/ImagenesProductos/", _nombreFich),
+                                                FileMode.Create);
+            await fichImagen.CopyToAsync(_lector);
+            //almacenar en la BD en la tabla ... en campo URLImagen: "/imagenes/Agapea/", _nombreFich
+            return Ok(new { StatusCode = 200, Mensaje = "fichero subido con exito" });
+
+
         }
     }
 }

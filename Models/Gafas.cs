@@ -13,7 +13,7 @@ namespace Opticasion.Models
         public string NombreModelo { get; set; }
         public Decimal PrecioProd { get; set; }
         public string Descripcion { get; set; }
-        public IFormFile FotoGafasUrl { get; set; }
+        public string FotoGafasUrl { get; set; }
         public string VendedorId { get; set; }
         public int CodigoVerificacion { get; set; }
         public string Marca { get; set; }
@@ -28,7 +28,7 @@ namespace Opticasion.Models
                      string nombremodelo,
                      Decimal precioprod,
                      string descripcion,
-                     IFormFile fotogafasurl,
+                     string fotogafasurl,
                      string vendedorid,
                      int codigoverificacion,
                      string marca,
