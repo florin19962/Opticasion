@@ -70,11 +70,11 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="inputProvincia">Provincia</label>
-                                    <select id="inputProvincia" asp-for="@_cliente.DireccionPrincipal.Provincia" class="form-control">
-                                        @foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
+                                    <select id="inputProvincia" asp-for="@_cliente.DireccionPrincipal.Provincia" class="form-control" disabled>
+                                        @*@foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
                                         {
                                             <option value="@unaprov.CodPro">@unaprov.NombreProvincia</option>
-                                        }
+                                        }*@
                                     </select>
                                 </div>
                             </div>
@@ -89,11 +89,11 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="inputMunicipio">Localidad</label>
-                                    <select id="inputMunicipio" asp-for="@_cliente.DireccionPrincipal.Localidad" class="form-control">
-                                        @foreach (Municipio unmun in (ViewData["listaMunicipios"] as List<Municipio>))
+                                    <select id="inputMunicipio" asp-for="@_cliente.DireccionPrincipal.Localidad" class="form-control" disabled>
+                                        @*@foreach (Municipio unmun in (ViewData["listaMunicipios"] as List<Municipio>))
                                         {
                                             <option value="@unmun.CodMun">@unmun.NombreMunicipio</option>
-                                        }
+                                        }*@
                                     </select>
                                 </div>
                             </div>
@@ -151,9 +151,9 @@
                     </div>
                     <div class="row" style="width: 100%;align-content: center;">
                         <div class="col-12" style="margin-left: 10%;">
-                            <buttom type="submit" class="btn btnPagarPedido">
+                            <button type="submit" class="btn btnPagarPedido">
                                 Realizar Pago
-                            </buttom>
+                            </button>
                         </div>
                     </div>
                 </div>

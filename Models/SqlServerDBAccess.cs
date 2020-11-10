@@ -19,7 +19,7 @@ namespace Opticasion.Models
             try
             {
                 
-                //-----------ahora inserto los datos de direccion si no hay errores--------
+                //-----------inserto los datos de direccion del cliente-----------------------
                 SqlConnection __miconexion = new SqlConnection();
                 __miconexion.ConnectionString = this._conexionDB;
                 __miconexion.Open();
@@ -38,7 +38,7 @@ namespace Opticasion.Models
                 int _datosDireccionInsert = _cmd.ExecuteNonQuery();
                 if (_datosDireccionInsert == 1)
                 {
-                //-----inserto primero los datos del cliente-----------------------------------   
+                //-----inserto el resto de datos del cliente-----------------------------------   
                     _cmd = null;
                     _cmd = new SqlCommand();
                     _cmd.Connection = __miconexion;
@@ -340,7 +340,6 @@ namespace Opticasion.Models
             }
             catch (Exception ex)
             {
-
                 return 0;
             }
 
@@ -507,7 +506,60 @@ namespace Opticasion.Models
         public int RegistrarPedido(Pedido newpedido)
         {
             //AQUI METODO PARA METER PEDIDO EN TABLA DE PEDIDOS
-            return 1;
+            try
+            {
+
+                //-----------inserto los articulos en la tabla ProdPedido--------
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
+
+                SqlCommand _cmd = new SqlCommand();
+                _cmd.Connection = __miconexion;
+                _cmd.CommandType = CommandType.Text;
+                //aqui habria que hacer un iterator para todos mis articulos de la cesta e ir metiendo de uno en uno en tabla hasta terminar
+                _cmd.CommandText = "INSERT INTO dbo.ProdPedido (IdProductos, Detalles, GafasId) VALUES (@IdProductos, @Detalles, @GafasId)";
+                _cmd.Parameters.AddWithValue("@IdProductos", "Lista-" + newpedido.DNICliente);
+                _cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[0].ItemGafa.NombreModelo);
+                _cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[0].ItemGafa.GafasId);
+                
+                int _datosArticuloInsert = _cmd.ExecuteNonQuery();
+                if (_datosArticuloInsert == 1)
+                {
+                    //-----si todo ok ahora inserto el resto de datos del pedido en tabla Pedido-----------------------------------   
+                    _cmd = null;
+                    _cmd = new SqlCommand();
+                    _cmd.Connection = __miconexion;
+                    _cmd.CommandType = CommandType.Text;
+
+                    _cmd.CommandText = "INSERT INTO dbo.Pedidos (IdProductos, IdDireccion, FechaPedido, GastosEnvio, TotalPedido, DNICliente, CuentaCliente)VALUES (@IdProductos, @IdDireccion, @FechaPedido, @GastosEnvio, @TotalPedido, @DNICliente, @CuentaCliente)";
+                    _cmd.Parameters.AddWithValue("@IdProductos", "Lista-" + newpedido.DNICliente);
+                    _cmd.Parameters.AddWithValue("@IdDireccion", newpedido.DireccionEnvio);
+                    _cmd.Parameters.AddWithValue("@FechaPedido", newpedido.FechaPedido);
+                    _cmd.Parameters.AddWithValue("@GastosEnvio", newpedido.GastosEnvio);
+                    _cmd.Parameters.AddWithValue("@TotalPedido", newpedido.TotalPedido);
+                    _cmd.Parameters.AddWithValue("@DNICliente", newpedido.DNICliente);
+                    _cmd.Parameters.AddWithValue("@CuentaCliente", newpedido.CuentaCliente);
+
+                    int _datosPedidoInsert = _cmd.ExecuteNonQuery();
+                    if (_datosPedidoInsert == 1)
+                    {
+                        return _datosPedidoInsert;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
         }
         #endregion
     }

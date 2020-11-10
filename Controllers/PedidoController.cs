@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Opticasion.Interfaces;
 using Opticasion.Models;
+using RestSharp;
 
 namespace Opticasion.Controllers
 {
@@ -130,32 +131,48 @@ namespace Opticasion.Controllers
             {
                 ModelState.AddModelError("", "No tiene nada en su carrito");
                 //Falta mostra con un mensaje de alerta que no tiene nada en el carrito ya que el ModelState no muestra nada.
-                return RedirectToAction("Index", "Tienda");
+                return RedirectToAction("Index","Tienda");
             }
         }
 
 
         [HttpPost]
-        public IActionResult FinalizarPedido(Pedido newpedido)
+        public IActionResult FinalizarPedido(Pedido datospedido)
         {
+            Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+            Pedido _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+            _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+            _pedido.CuentaCliente = datospedido.CuentaCliente;
+            _pedido.FechaPedido = DateTime.Now;
+            this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
+            datospedido = _pedido;
+            
+            
             if (!ModelState.IsValid)
             {
-                return View(newpedido);
+                return View(datospedido);
             }
             else
             {//hacer el INSERT en la bd...
-                int _filasRegistradas = this._accessDB.RegistrarPedido(newpedido);
+                int _filasRegistradas = this._accessDB.RegistrarPedido(datospedido);
                 if (_filasRegistradas == 1)
                 {
+                    HttpContext.Session.Remove("pedido");
+                    
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
-                    return RedirectToAction("CompraOK");
+                    return RedirectToAction("CompraOK", "Pedido");
                 }
                 else
                 {
                     ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
-                    return View(newpedido);
+                    return View(datospedido);
                 }
             }
+        }
+
+        public IActionResult CompraOK()
+        {
+            return View();
         }
 
 
