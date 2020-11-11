@@ -28,7 +28,7 @@
             <div class="col-8">
                 <div class="cajon-datos-pago">
                     <fieldset class="caja-datosPago">
-                        <legend class="tituloPago">DATOS DE CLIENTE</legend>
+                        <legend class="tituloPago">DATOS CLIENTE</legend>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
@@ -71,10 +71,10 @@
                                 <div class="form-group">
                                     <label for="inputProvincia">Provincia</label>
                                     <select id="inputProvincia" asp-for="@_cliente.DireccionPrincipal.Provincia" class="form-control" disabled>
-                                        @*@foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
+                                        @foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
                                         {
                                             <option value="@unaprov.CodPro">@unaprov.NombreProvincia</option>
-                                        }*@
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -90,17 +90,17 @@
                                 <div class="form-group">
                                     <label for="inputMunicipio">Localidad</label>
                                     <select id="inputMunicipio" asp-for="@_cliente.DireccionPrincipal.Localidad" class="form-control" disabled>
-                                        @*@foreach (Municipio unmun in (ViewData["listaMunicipios"] as List<Municipio>))
+                                        @foreach (Municipio unmun in (ViewData["listaMunicipios"] as List<Municipio>))
                                         {
                                             <option value="@unmun.CodMun">@unmun.NombreMunicipio</option>
-                                        }*@
+                                        }
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                     <fieldset class="caja-datosPago">
-                        <legend class="tituloPago">DATOS DEL PAGO</legend>
+                        <legend class="tituloPago">DATOS PAGO</legend>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
