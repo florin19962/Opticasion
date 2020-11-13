@@ -77,26 +77,28 @@ enlace:hover {
 /*FIN PANEL*/
 /*------------------------------------------------------------------------------------------*/
 /*INICIO CSS MENU SUPERIOR PEQUEÑO*/
-.enlace-s {
-    float: right;
-    font-size: 13px;
-    margin-right: 8%;
-    padding-top: 6px;
-}
-    .menu-superior {
+
+.menu-superior {
     background: #222d32;
     width: 100%;
     height: 35px;
 }
-        .menu-superior a {
-            text-decoration: none!important;
-        }
+    .menu-superior a {
+        text-decoration: none!important;
+    }
 .enl {
-    color: #b8c7ce;
-    transition: 0.5s;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10%;
+    margin-top: 5px;
+    
 }
-.enl:hover{
-    color:white;
+    .enl a {
+        color: #b8c7ce !important;
+        transition: 0.5s;
+    }
+.enl a:hover{
+    color:white !important;
     transition: 0.5s;
 }
 /*FIN MENU SUP*/

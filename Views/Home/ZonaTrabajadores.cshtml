@@ -1,136 +1,153 @@
 ﻿@model Gafas
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
 @{
     ViewData["Title"] = "Registro de productos";
+}
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
 }
 
 <link rel="stylesheet" href="~/css/registro.css" />
 <div class="container-fluid" style="position:inherit">
-    @*@if (ViewBag.Message != null)
+    @if (ViewBag.showSuccessAlert == true)
     {
         <div class="alert alert-success" role="alert">
-            @ViewBag.Message
+            <label>Los datos se guardaron correctamente</label>
         </div>
     }
-    else
+    @if (ViewBag.showSuccessAlert == false)
     {
         <div class="alert alert-danger" role="alert">
-            @ViewBag.Message
+            <label>Se produjo algun error en la carga.</label>
         </div>
-    }*@
-    <form method="post" asp-action="ZonaTrabajadores" asp-controller="Home" enctype="multipart/form-data">
-        <center>
-            <fieldset class="caja-datos">
-                <legend class="titulo">Datos del producto</legend>
-                <div class="row" style="margin-right: 3%;">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="vendedirid">Nombre vendedor *</label>
-                            <input type="text" class="form-control" id="vendedirid" asp-for="@Model.VendedorId">
-                            <div>
-                                <span asp-validation-for="@Model.VendedorId" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="idcategoria">Id Categoria *</label>
-                            <input type="text" class="form-control" id="idcategoria" asp-for="@Model.IdCategoria">
-                            <div>
-                                <span asp-validation-for="@Model.IdCategoria" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="gafasid">GafasId *</label>
-                            <input type="text" class="form-control" id="gafasid" asp-for="@Model.GafasId">
-                            <div>
-                                <span asp-validation-for="@Model.GafasId" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="precioprod">Precio del producto *</label>
-                            <input type="text" class="form-control" id="precioprod" asp-for="@Model.PrecioProd">
-                            <div>
-                                <span asp-validation-for="@Model.PrecioProd" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="marca">Marca *</label>
-                            <input type="text" class="form-control" id="marca" asp-for="@Model.Marca">
-                            <div>
-                                <span asp-validation-for="@Model.Marca" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="nombremodelo">Nombre Modelo</label>
-                            <input type="text" class="form-control" id="nombremodelo" asp-for="@Model.NombreModelo">
-                            <div>
-                                <span asp-validation-for="@Model.NombreModelo" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="descripcion">Descripción</label>
-                            <textarea type="text" class="form-control" id="descripcion" asp-for="@Model.Descripcion" maxlength="150"></textarea>
-                            <div>
-                                <span asp-validation-for="@Model.Descripcion" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="genero">Genero</label>
-                            <input type="text" class="form-control" id="genero" asp-for="@Model.Genero">
-                            <div>
-                                <span asp-validation-for="@Model.Genero" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="fotogafasurl">Foto del producto</label>
-                            <input type="file" accept="image/png, .jpeg, .jpg, image/gif" size="25" class="form-control" id="fotogafasurl" asp-for="@Model.FotoGafasUrl">
-                            <div>
-                                <span asp-validation-for="@Model.FotoGafasUrl" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <div class="col">
-                <div class="form-group">
-                    <button class="btn btn-success" type="submit">
-                        Guardar producto
-                    </button>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <button class="btn btn-danger" type="reset">
-                        Vaciar
-                    </button>
-                </div>
-            </div>
-
-
-        </center>
-    </form>
+    }
     <div>
-        @*<img src="~/images/footerRegistro.png" style="width: 100%;">*@
+        <a class="btn btn-info" style="margin-left: 85%;margin-top:1%;" asp-action="Index" asp-controller="Home">Ver listado de productos</a>
+    </div>
+    <div>
+        <form method="post" asp-action="ZonaTrabajadores" asp-controller="Home" enctype="multipart/form-data">
+            <center>
+                <fieldset class="caja-datos">
+                    <legend class="titulo">Datos del producto</legend>
+                    <div class="row" style="margin-right: 3%;">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="vendedirid">Nombre vendedor *</label>
+                                <input type="text" class="form-control" id="vendedirid" asp-for="@Model.VendedorId">
+                                <div>
+                                    <span asp-validation-for="@Model.VendedorId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="idcategoria">Id Categoria *</label>
+                                <input type="text" class="form-control" id="idcategoria" asp-for="@Model.IdCategoria">
+                                <div>
+                                    <span asp-validation-for="@Model.IdCategoria" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="gafasid">GafasId *</label>
+                                <input type="text" class="form-control" id="gafasid" asp-for="@Model.GafasId">
+                                <div>
+                                    <span asp-validation-for="@Model.GafasId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="precioprod">Precio del producto *</label>
+                                <input type="text" class="form-control" id="precioprod" asp-for="@Model.PrecioProd">
+                                <div>
+                                    <span asp-validation-for="@Model.PrecioProd" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="marca">Marca *</label>
+                                <input type="text" class="form-control" id="marca" asp-for="@Model.Marca">
+                                <div>
+                                    <span asp-validation-for="@Model.Marca" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="nombremodelo">Nombre Modelo</label>
+                                <input type="text" class="form-control" id="nombremodelo" asp-for="@Model.NombreModelo">
+                                <div>
+                                    <span asp-validation-for="@Model.NombreModelo" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="descripcion">Descripción</label>
+                                <textarea type="text" class="form-control" id="descripcion" asp-for="@Model.Descripcion" maxlength="150"></textarea>
+                                <div>
+                                    <span asp-validation-for="@Model.Descripcion" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="genero">Genero</label>
+                                <input type="text" class="form-control" id="genero" asp-for="@Model.Genero">
+                                <div>
+                                    <span asp-validation-for="@Model.Genero" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="fotogafasurl">Foto del producto</label>
+                                <input asp-for="@Model.FotoGafasUrl" size="25" class="form-control custom-file-input" id="fotogafasurl">
+                                <div>
+                                    <span asp-validation-for="@Model.FotoGafasUrl" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">
+                            Guardar producto
+                        </button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button class="btn btn-danger" type="reset">
+                            Vaciar
+                        </button>
+                    </div>
+                </div>
+
+
+            </center>
+        </form>
     </div>
 </div>
 
 <!--section con script para hacer bordes de cajas en rojo cuando esta mal-->
 <script type="text/javascript">
-        $(document).ready(function () {
-            $(".input-validation-error").css("border-color", "red");
-        });
+    $(document).ready(function () {
+        $(".input-validation-error").css("border-color", "red");
+    });
 </script>

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using Opticasion.Interfaces;
 using Opticasion.Models;
+using RestSharp;
 
 namespace Opticasion.Controllers
 {
@@ -123,19 +126,16 @@ namespace Opticasion.Controllers
             {
                 if (this._accessDB.ComprobarCredsCliente(creds.Email, creds.Password))
                 {   //Si la usuario logueado es un admin y su contraseña esta bien entrara en otra vista
-                    if(creds.Email.Equals("admin@hotmail.com"))
+                    Cliente _clienteSesion = this._accessDB.DevolverCliente(creds.Email);
+                    if (_clienteSesion.Tipo.Equals("Trabajador"))
                     {
-                        Cliente _clienteSesion = this._accessDB.DevolverCliente(creds.Email);
                         this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
-
                         return RedirectToAction("ZonaTrabajadores", "Home");
                     }
                     else {
                     //login ok, creamos variable de sesion: cliente
-                    Cliente _clienteSesion = this._accessDB.DevolverCliente(creds.Email);
-                    this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
-
-                    return RedirectToAction("Index", "Home");
+                        this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 else
@@ -151,6 +151,12 @@ namespace Opticasion.Controllers
             }
         }
 
+        //-----------------------------LOGOUT---------------------------------------------
+        public RedirectToActionResult btnLogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
         //----------------------------PERFIL-----------------------------------------------
         [HttpGet]
         public IActionResult DatosPerfil()

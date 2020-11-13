@@ -5,7 +5,6 @@
 @{
     ViewData["Title"] = "Finalizar compra";
 }
-   
 @{
     Cliente _cliente;
     try
@@ -23,7 +22,7 @@
 
 <div class="container">
     <div class="row">
-        <form method="post" asp-action="FinalizarPedido" asp-controller="Pedido" style="display: flex;">
+        <form method="POST" asp-action="FinalizarPedido" asp-controller="Pedido" style="display: flex;">
             <!-----------------body con formulario para realizar pago e informacion de direcion del envio------>
             <div class="col-8">
                 <div class="cajon-datos-pago">
@@ -105,6 +104,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label for="cuenta">Cuenta Bancaria (IBAN)</label>
+
                                     <input id="cuenta" asp-for="@Model.CuentaCliente" type="text" class="form-control" placeholder="ES66 0019 0020 9612 3456 7890" required/>
                                 </div>
                             </div>

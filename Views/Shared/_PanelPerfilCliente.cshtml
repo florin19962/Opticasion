@@ -33,8 +33,15 @@
 </head>
 <body>
     <div class="row">
-        <div class="menu-superior">       
-            <a class="enlace-s" href="" onclick="logOut()"><p class="enl"><i class="fas fa-sign-out-alt"></i> Cerrar Sessión</p></a>
+        <div class="menu-superior">
+            <div>
+                <ul>
+                    <li class="enl"><i class="fas fa-sign-out-alt" style="color: #b8c7ce;margin:3px 10px;"></i>@Html.ActionLink("Cerrar Sessión", "btnLogOut", "Cliente")</li>
+                </ul>
+            </div>
+                    
+                
+            
         </div>
         <div class="col-5 cajon-externo">
             <div class="cajon-pan">

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,31 +10,64 @@ namespace Opticasion.Models
 {
     public class Gafas
     {
+        [Required(ErrorMessage = "El Id es obligatorio")]
         public string GafasId { get; set; }
+
+
+        [Required(ErrorMessage = "El Nombre del modelo es obligatorio")]
         public string NombreModelo { get; set; }
+
+
+        [Required(ErrorMessage = "El Precio es obligatorio")]
         public Decimal PrecioProd { get; set; }
+
+
+        [Required(ErrorMessage = "Es necesaria una breve descripción")]
         public string Descripcion { get; set; }
-        public string FotoGafasUrl { get; set; }
+
+
+        //[Required(ErrorMessage = "La Foto es obligatoria")]
+        public IFormFile FotoGafasUrl { get; set; }
+
+        public string FotoGafaString { get; set; }
+
+
+        [Required(ErrorMessage = "El Nombre del cliente es obligatorio")]
         public string VendedorId { get; set; }
+
+
         public int CodigoVerificacion { get; set; }
+
+
+        [Required(ErrorMessage = "La Marca es obligatoria")]
+        //[RegularExpression(@"Gafas de sol", ErrorMessage = "Formato de la marca invalido: Gafas")]
         public string Marca { get; set; }
+
+
+        [Required(ErrorMessage = "Debe seleccionar un Genero")]
         public string Genero { get; set; }
+
+
+        [Required(ErrorMessage = "Debe seleccionar una Categoria")]
         public int IdCategoria { get; set; }
+
+        public DateTime FechaPublicacion { get; set; }
 
         public Gafas()
         {
-
+            //[RegularExpression(@"^[0-9]{9}$", ErrorMessage = "formato Tlfno invalido: 606707808")]
         }
         public Gafas(string gafasid,
                      string nombremodelo,
                      Decimal precioprod,
                      string descripcion,
-                     string fotogafasurl,
+                     IFormFile fotogafasurl,
                      string vendedorid,
                      int codigoverificacion,
                      string marca,
                      string genero,
-                     int idcategoria
+                     int idcategoria,
+                     DateTime fechapublicacion
                      )
         {
             this.GafasId = gafasid;
@@ -46,6 +80,7 @@ namespace Opticasion.Models
             this.Marca = marca;
             this.Genero = genero;
             this.IdCategoria = idcategoria;
+            this.FechaPublicacion = fechapublicacion;
         }
     }
 }

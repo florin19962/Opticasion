@@ -24,6 +24,68 @@
         <div class="col">
             <h2>Busca tus gafas</h2>
             <label>Contenido menu</label>
+            <form class="form-inline">
+                <input id="cajaBuscar" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Busca tus favoritas">
+                <div class="input-group-append">
+                    <a class="btn btn-group-sm" id="botonBuscar">
+                        <i class="fas fa-search" style="color: #757575;"></i>
+                    </a>
+                </div>
+            </form>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radNombreModelo" name="radOpciones" class="custom-control-input" checked>
+                <label class="custom-control-label" for="radNombreModelo">Titulo</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radNombreModelo" name="radOpciones" class="custom-control-input">
+                <label class="custom-control-label" for="radNombreModelo">Genero</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radNombreModelo" name="radOpciones" class="custom-control-input">
+                <label class="custom-control-label" for="radNombreModelo">Precio</label>
+            </div>
         </div>
     </div>
 </div>
+
+@*
+    <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input type="text" id="cajaBuscar" class="form-control" placeholder="Busca por libro, Autor, ISBN..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <a class="btn btn-group-sm" id="botonBuscar">
+                                <img src="~/images/BotonBuscar.png" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio"
+                               id="radTitulo"
+                               name="radOpciones"
+                               class="custom-control-input"
+                               checked>
+                        <label class="custom-control-label"
+                               for="radTitulo">Titulo</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio"
+                               id="radAutores"
+                               name="radOpciones"
+                               class="custom-control-input">
+                        <label class="custom-control-label" for="radAutores">Autores</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio"
+                               id="radISBN"
+                               name="radOpciones"
+                               class="custom-control-input">
+                        <label class="custom-control-label" for="radISBN">ISBN</label>
+                    </div>
+                </div>
+            </div>
+*@

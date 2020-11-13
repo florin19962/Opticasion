@@ -29,13 +29,13 @@ namespace Opticasion.Controllers
             try
             {
                 Pedido _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+                ViewBag.showSuccessAlert = true;
                 return View(_pedido);
             }
             catch (ArgumentNullException ex)
-            {
-                ModelState.AddModelError("", "No tiene nada en su carrito");
+            {             
                 //Falta mostra con un mensaje de alerta que no tiene nada en el carrito ya que el ModelState no muestra nada.
-                TempData["Message"] = "Su carrito esta vacio, compre algo antes";
+                ModelState.AddModelError("", "Error, variable de sesion vacia");
                 return RedirectToAction("Index", "Tienda");
             }
         }
@@ -127,6 +127,8 @@ namespace Opticasion.Controllers
                 Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
                 ViewData["listaProvincias"] = this._accessDB.DevolverProvincias();
                 ViewData["listaMunicipios"] = this._accessDB.DevolverMunicipios();
+                
+                //this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
                 return View(_pedido);
             }
             catch (ArgumentNullException ex)
@@ -157,10 +159,11 @@ namespace Opticasion.Controllers
             else
             {//hacer el INSERT en la bd...
                 int _filasRegistradas = this._accessDB.RegistrarPedido(datospedido);
+                //antes de mandar email hacer metodo para recoger de la tabla el pedido y pintar 
+                //en el correo el id del pedio y el listado de items del pedido que lo hago con foreach 
+                //en el metodo de devolucion y en el de regristrar pedido tambien(FALTA)!!
                 if (_filasRegistradas == 1)
                 {                   
-                    //antes de mandar email hacer metodo para recoger de la tabla el pedido y pintar en el correo el id del pedio!!
-
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
                     String _mensajeHTMLEmail = "<h2>Estimado/a " + _clienteSesion.Nombre + " " + _clienteSesion.Apellidos + "</h2> <br>" +
                             "<div align='center'>" +

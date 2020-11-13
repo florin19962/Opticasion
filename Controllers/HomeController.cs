@@ -12,6 +12,9 @@ using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.IO;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.SqlServer.Server;
 
 namespace Opticasion.Controllers
 {
@@ -20,13 +23,17 @@ namespace Opticasion.Controllers
         private IDBAccess _accessDB;
         private IClienteEnvioEmail _clienteEmail;
         private IHttpContextAccessor _httpContext;
+        private IHostingEnvironment _env;
+
         public HomeController(IDBAccess servicioDB,
                                  IClienteEnvioEmail clienteMAILJET,
-                                 IHttpContextAccessor httpContext)
+                                 IHttpContextAccessor httpContext,
+                                 IHostingEnvironment env)
         {
             this._accessDB = servicioDB;
             this._clienteEmail = clienteMAILJET;
             this._httpContext = httpContext;
+            this._env = env;
         }
         //GET: /Home/
         [HttpGet]
@@ -40,7 +47,32 @@ namespace Opticasion.Controllers
         [HttpGet]
         public IActionResult ZonaTrabajadores()
         {
-            return View();
+            //comprobamos que el usuario este logueado y sea un trabajador para poder acceder a esta zona
+            try
+            {
+                Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+                //si el tipo de usuario registrado devuelto por la sesion es un trabajador entra aqui
+                if (_clienteSesion.Tipo.Equals("Trabajador"))
+                {
+                    this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                    return View();
+                }
+                //si es otro tipo de usuario vuelve a home y mando mensaje
+                else
+                {
+                    //aqui habria que mandar un mensaje por ViewBag al cliente de que no tiene acceso aquí
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception)
+            {
+                //no existe variable de sesion cliente...muestro vista Login por si se quieren colar por url a pelo
+                return RedirectToAction("Login","Cliente");
+            }
+
+
+
+
         }
 
 
@@ -54,37 +86,58 @@ namespace Opticasion.Controllers
             }
             else
             {
-                //generamos un codigo aleatorio provisional  para la verificacion y lo metemos en bd
+                //generamos un codigo aleatorio provisional  para la verificacion para la recogida del producto si el cliente viene al local y lo metemos en bd
                 Random r = new Random();
                 int numeroAleatorio;
                 numeroAleatorio = r.Next(10000000, 99999999);
-                newgafas.CodigoVerificacion = numeroAleatorio;
+                //METER TAMBIEN COLOR DE GAFAS Y FORMA PARA TENER MAS FILTROS EN LA TIENDA
 
-                int _filasRegistradas = this._accessDB.RegistrarProducto(newgafas);
-                if (_filasRegistradas == 1)
+                newgafas.CodigoVerificacion = numeroAleatorio;
+                newgafas.FechaPublicacion = DateTime.Now;//REVISAR QUE ESTO SE INSERTA BIEN Y A LA HORA DE BUSCAR POR FECHA FUNCIONA
+                //CODIGOOO PARA SUBIDA IMAGEN--------------------------------------------------------------------------------------------------------------------------------------
+
+                //asociamos la imagen con un nombre unico o ponemos una por defecto en caso de que no la pasen
+                String formatoImg = ".png";
+                if (newgafas.FotoGafasUrl == null)
                 {
-                    return View();
+                    newgafas.FotoGafaString = "GafaIconoDefecto.png";
                 }
                 else
                 {
+                    formatoImg = "." + newgafas.FotoGafasUrl.ContentType.Split("/")[1];
+
+                    newgafas.FotoGafaString = "imagenGafas-" + newgafas.GafasId + formatoImg;
+
+                    //newgafas.FotoGafaString = newgafas.FotoGafaString.Replace('/', '-').Replace(':', '-');
+                }
+
+
+
+
+                //FIN CODIGO IMAGEN--------------------------------------------------------------------------------------------------------------------------------------------------
+                int _filasRegistradas = this._accessDB.RegistrarProducto(newgafas);
+                if (_filasRegistradas == 1)
+                {
+                    //guardamos la imagen si se inserta bien y si se a seleccionado
+                    if (newgafas.FotoGafasUrl != null)
+                    {
+                        using (var fileStream = new FileStream(this._env.WebRootPath + "/ImagenesProductos/" + newgafas.FotoGafaString, FileMode.Create))
+                        {
+                            newgafas.FotoGafasUrl.CopyToAsync(fileStream);
+                        }
+                    }
+
+                    ViewBag.showSuccessAlert = true;
+                    return View();
+
+                }
+                else
+                {
+                    ViewBag.showSuccessAlert = false;
                     ModelState.AddModelError("", "Ha habido un error en el registro de sus datos, intentelo de nuevo mas tarde.");
                     return View(newgafas);
                 }
             }
-        }
-       
-        //MIRAR ESTE METODO PARA SUBIR IMAGENES!!
-        [HttpPost]
-        public async Task<IActionResult> UploadImagenCliente([FromBody]IFormFile fichImagen)
-        {
-            String _nombreFich = fichImagen.FileName.Split(@"\").Last<String>();
-            FileStream _lector = new FileStream(Path.Combine("/ImagenesProductos/", _nombreFich),
-                                                FileMode.Create);
-            await fichImagen.CopyToAsync(_lector);
-            //almacenar en la BD en la tabla ... en campo URLImagen: "/imagenes/Agapea/", _nombreFich
-            return Ok(new { StatusCode = 200, Mensaje = "fichero subido con exito" });
-
-
         }
     }
 }

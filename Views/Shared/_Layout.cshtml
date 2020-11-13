@@ -2,18 +2,34 @@
     Layout = null;
 }
 
-
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
 
-@{
-    Cliente _cliente;
+<!--cargo cookie pedido para mostrar cantidad de elementos en el icono del carrito-->
+@{ 
+    Pedido _pedido;
+    string cantidad = "0";
     try
     {
-        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
-    }
-    catch (Exception)
+        _pedido = JsonConvert.DeserializeObject<Pedido>(Context.Session.GetString("pedido"));
+        cantidad = _pedido.ElementosCarro.Count.ToString();
+    }catch (Exception)
     {
+        _pedido = null;
+
+        if (_pedido == null)
+        {
+            cantidad = "0";//pongo a 0 para que no pete la variable y la cookie
+        }
+    }
+
+}
+<!--cargo cookie cliente para ver datos en pantalla-->
+@{
+    Cliente _cliente;
+    try{
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }catch (Exception){
         // ...no hay variable de sesion de cliente logueado...
         _cliente = null;
     }
@@ -36,13 +52,12 @@
     <title>@ViewBag.Title - Opticasion</title>
 </head>
 <body>
-    <!--    barrita superior -->
+    <!----- barrita superior -->
     <div class="mini-menu alert alert-dismissible fade show" role="alert">
         <div>
-
             <div style="text-align: center;">
                 <div class="externo" style="color: #ffffff;">
-                    <p>Cualquier duda que tenga, no dude en hacerla a traves del formulario que se le facilita desde <a href="#" style="color: #000000;">aquí.</a></p>
+                    <p>Cualquier duda que tenga, no dude en contactarnos a traves del formulario que se le facilita <a href="#" style="color: #000000;">aquí.</a></p>
                 </div>
             </div>
         </div>
@@ -82,14 +97,14 @@
                                 </div>
                                 <div style="float: left;margin-left: 2%;">
                                     <ul class="listaMarcas">
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Police">Police</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Dior">Dior</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Fila">Fila</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Lozza">Lozza</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Ray Ban">Ray Ban</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Tous">Tous</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Emporio Armani">Emporio Armani</a></li>
-                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas de Guess">Guess</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Police">Police</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Dior">Dior</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Fila">Fila</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Lozza">Lozza</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Ray Ban">Ray Ban</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Tous">Tous</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Emporio Armani">Emporio Armani</a></li>
+                                        <li><a href="https://localhost:44367/Tienda/Buscar/Marca/Monturas Guess">Guess</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -137,7 +152,7 @@
                             </a>
                             <div class="dropdown-menu cajones-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: #646b75e6;">
                                 <div class="text-center">
-                                    <a href="https://localhost:44367/Tienda/Buscar/IdCategoria/2" style="color:#616161;">Ver todos los accesorios</a>
+                                    <a href="https://localhost:44367/Tienda/Buscar/IdCategoria/3" style="color:#616161;">Ver todos los accesorios</a>
                                 </div>
                                 <hr />
                                 <div class="producto">
@@ -218,32 +233,24 @@
                         <label class="custom-control-label" for="radNombreModelo">NombreModelo</label>
                     </div>
                 </div>
-
-
-
-
+                <!-----------------------Menu funciones usuario(Login,Carrito,ZonaTrabajo,CerrarSesion)------------>
                 @if (_cliente != null)
                 {
-                    @if (_cliente.CredencialesAcceso.Email != ("admin@hotmail.com"))
+                    @if (!(_cliente.Tipo.Equals("Trabajador")))
                     {
-                        <div class="cuenta">
-                            <ul>
+                        <div class="navbar-collapse collapse cuentaCli">
+                            <ul class="nav navbar-nav">
                                 <li>
                                     <a asp-action="DatosPerfil" asp-controller="Cliente">
-                                        <i class="fas fa-user"> Perfil de, @_cliente.NickName</i>
+                                        <i class="fas fa-user"> Perfil @_cliente.NickName</i>
                                     </a>
                                 </li>
-                            </ul>
-                        </div>
-                        @*ICONO PARA DESCONECTAR
-                            <i class="fas fa-sign-out-alt"></i>*@
-
-                        <!--    Parte del carrito -->
-                        <div class="mini-carrito">
-                            <ul>
-                                <li class="">
+                                <li>
                                     <a asp-action="Carrito" asp-controller="Pedido">
-                                        <i class="fas fa-shopping-cart">Cart</i>
+                                        <i class="fas fa-shopping-cart" style="font-size: 25px;">
+                                            <!--cargo variable cantidad con la cantidad de elementos del pedido desde la cookie-->
+                                            <span class="badge badge-info">@cantidad</span>
+                                        </i>
                                     </a>
                                 </li>
                             </ul>
@@ -251,16 +258,18 @@
                     }
                     else
                     {
-                        <div class="cuenta">
-                            <ul>
+                        <div class="navbar-collapse collapse cuenta">
+                            <ul class="nav navbar-nav">
                                 <li>
                                     <a asp-action="ZonaTrabajadores" asp-controller="Home">
-                                        Zona Trabajo
+                                        <i class="fas fa-user-tie">Zona Trabajo</i>
                                     </a>
                                 </li>
                                 <li>
                                     <a asp-action="DatosPerfil" asp-controller="Cliente">
-                                        <i class="fas fa-user"> Perfil de, @_cliente.NickName</i>
+                                        <i class="fas fa-user"> Perfil</i>
+                                        @* Dejar perfil sin nombre para que quepan enlaces *@
+                                        @*<i class="fas fa-user"> Perfil @_cliente.NickName</i>*@
                                     </a>
                                 </li>
                             </ul>
@@ -269,14 +278,15 @@
                 }
                 else
                 {
-                    <!--    Parte de login y registro  -->
-                    <div class="cuenta">
-                        <ul>
-                            <li><a href="https://localhost:44367/Cliente/Login"><i class="fas fa-user"> Acceso clientes</i></a></li>
+                    <!--  Parte de login y registro  -->
+                    <div class="navbar-collapse collapse cuentaCli">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="https://localhost:44367/Cliente/Login"><i class="fas fa-user"> LogIn Usuarios</i></a>
+                            </li>
                         </ul>
                     </div>
                 }
-
             </div>
         </nav>
     </div>

@@ -4,11 +4,14 @@
 }
 
 <div class="container-fluid">
-    <h1 style="position: absolute;top: 25%;color: #ff6400;right: 8%;">Bienvenido de nuevo!</h1>
+    @*<h1>Nos alegramos de verte</h1>*@
+    <h1 style="position: absolute;top: 25%;color: #ff6400;right: 10%;">Bienvenido de nuevo!</h1>
     <form asp-action="Login" asp-controller="Cliente" method="post">
         <div class="main-login">
             <div class="cajon-registro">
-                <p style="font-size: smaller;margin-left: 5%;"><b>¿Aun no tienes cuenta?</b> No te preocupes, la puedes hacer desde aquí en un abrir y cerrar de ojos</p>
+                <p style="font-size: smaller;margin-left: 5%;">
+                    <b>¿Aun no tienes cuenta?</b> No te preocupes, la puedes hacer desde aquí en un abrir y cerrar de ojos
+                </p>
                 <a class="btnRegistro" href="https://localhost:44367/Cliente/Registro">Crear una cuenta</a>
             </div>
             <div class="cajon-login">

@@ -21,7 +21,7 @@
             <a asp-controller="Tienda"
                asp-action="DetallesGafas"
                asp-all-route-data="@(new Dictionary<String, String>() { { "id", @Model.GafasId } });">
-                <img src="~/img/fotoGafas/Fila.jpg" width="100%" />
+                <img src="~/ImagenesProductos/@Model.FotoGafaString"  width="100%" alt="Alternate Text" />
             </a>
         </div>
     </div>
