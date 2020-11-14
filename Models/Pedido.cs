@@ -10,6 +10,7 @@ namespace Opticasion.Models
         #region "...propiedades de clase..."
 
         public String IdPedido { get; set; }
+        //public ProdPedido ListaProd { get; set; }
         public String DNICliente { get; set; }
         public DateTime FechaPedido { get; set; }
         public Decimal GastosEnvio { get; set; }
@@ -20,12 +21,20 @@ namespace Opticasion.Models
             {
                 return this._calculaSubTotalPedido();
             }
+            set
+            {
+
+            }
         }
         public Decimal TotalPedido
         {
             get
             {
                 return this._calculaTotalPedido();
+            }
+            set
+            {
+
             }
         }
         public List<ItemCarrito> ElementosCarro { get; set; }
@@ -39,7 +48,10 @@ namespace Opticasion.Models
         {
             //calcular la suma de precio gafa * cantidad y devolverlo a la propiedad TotalPedido
             Decimal _subtotalPedido = 0;
-
+            if(this.ElementosCarro == null)
+            {
+                return 0;
+            }
             foreach (ItemCarrito unitem in this.ElementosCarro)
             {
                 _subtotalPedido = _subtotalPedido + (unitem.ItemGafa.PrecioProd * unitem.ItemCantidadGafa);
@@ -53,18 +65,6 @@ namespace Opticasion.Models
             return this.SubTotalPedido + this.GastosEnvio;
         }
         #endregion
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

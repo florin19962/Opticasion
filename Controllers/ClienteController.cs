@@ -110,7 +110,6 @@ namespace Opticasion.Controllers
             }
             catch (Exception)
             {
-
                 //no existe variable de sesion cliente...muestro vista Login
                 return View();
             }
@@ -169,6 +168,7 @@ namespace Opticasion.Controllers
         public IActionResult UpdateDatosPersonales(Cliente newcliente)
         {
             string _email = newcliente.CredencialesAcceso.Email;
+            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
             int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
 
             if (_filasRegistradas == 1)

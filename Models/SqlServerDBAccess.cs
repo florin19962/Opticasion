@@ -529,13 +529,28 @@ namespace Opticasion.Models
                 _cmd.Connection = __miconexion;
                 _cmd.CommandType = CommandType.Text;
                 //aqui habria que hacer un iterator para todos mis articulos de la cesta e ir metiendo de uno en uno en tabla hasta terminar
-                _cmd.CommandText = "INSERT INTO dbo.ProdPedido (IdProductos, Detalles, GafasId) VALUES (@IdProductos, @Detalles, @GafasId)";
-                _cmd.Parameters.AddWithValue("@IdProductos", "Lista-" + newpedido.DNICliente);
-                _cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[0].ItemGafa.NombreModelo);
-                _cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[0].ItemGafa.GafasId);
-                
+                _cmd.CommandText = "INSERT INTO dbo.ProdPedido (IdPedido, Detalles, GafasId) VALUES (@IdPedido, @Detalles, @GafasId)";
+
+                //_cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[0].ItemGafa.NombreModelo);
+                //_cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[0].ItemGafa.GafasId);
+                _cmd.Parameters.AddWithValue("@IdPedido", newpedido.IdPedido);
+                try { 
+                    for (int i = 0; i < newpedido.ElementosCarro.Count; i++)
+                    {
+                    
+                        _cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[i].ItemGafa.NombreModelo);
+                        _cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[i].ItemGafa.GafasId);
+                        _cmd.ExecuteNonQuery();
+                    }
+                }
+                catch(Exception)
+                {
+
+                }
+
+
                 int _datosArticuloInsert = _cmd.ExecuteNonQuery();
-                if (_datosArticuloInsert == 1)
+                if (_datosArticuloInsert >= 1)
                 {
                     //-----si todo ok ahora inserto el resto de datos del pedido en tabla Pedido-----------------------------------   
                     _cmd = null;
@@ -543,8 +558,7 @@ namespace Opticasion.Models
                     _cmd.Connection = __miconexion;
                     _cmd.CommandType = CommandType.Text;
 
-                    _cmd.CommandText = "INSERT INTO dbo.Pedidos (IdProductos, IdDireccion, FechaPedido, GastosEnvio, TotalPedido, DNICliente, CuentaCliente)VALUES (@IdProductos, @IdDireccion, @FechaPedido, @GastosEnvio, @TotalPedido, @DNICliente, @CuentaCliente)";
-                    _cmd.Parameters.AddWithValue("@IdProductos", "Lista-" + newpedido.DNICliente);
+                    _cmd.CommandText = "INSERT INTO dbo.Pedidos (IdDireccion, FechaPedido, GastosEnvio, TotalPedido, DNICliente, CuentaCliente)VALUES (@IdDireccion, @FechaPedido, @GastosEnvio, @TotalPedido, @DNICliente, @CuentaCliente)";
                     _cmd.Parameters.AddWithValue("@IdDireccion", newpedido.DireccionEnvio);
                     _cmd.Parameters.AddWithValue("@FechaPedido", newpedido.FechaPedido);
                     _cmd.Parameters.AddWithValue("@GastosEnvio", newpedido.GastosEnvio);
@@ -572,6 +586,49 @@ namespace Opticasion.Models
                 return 0;
             }
         }
+
+        //public Pedido DevolverPedido(string idproductos)
+        //{
+        //    try
+        //    {
+        //        SqlConnection __miconexion = new SqlConnection();
+        //        __miconexion.ConnectionString = this._conexionDB;
+        //        __miconexion.Open();
+
+        //        SqlCommand __micomando = new SqlCommand();
+        //        __micomando.Connection = __miconexion;
+        //        __micomando.CommandType = CommandType.Text;
+        //        __micomando.CommandText = "SELECT * FROM dbo.Pedidos p, dbo.ProdPedido pr WHERE p.IdProductos=pr.IdProductos";
+        //        __micomando.Parameters.AddWithValue("@IdProductos", idproductos);
+
+        //        return __micomando
+        //                .ExecuteReader()
+        //                .Cast<IDataRecord>()
+        //                .Select((fila) => new Pedido()
+        //                {
+        //                    IdPedido = fila["IdPedido"].ToString(),
+        //                    //ListaProd = new ProdPedido()
+        //                    //{
+        //                    //    IdProductos = fila["IdProductos"].ToString(),
+        //                    //    Detalles = fila["Detalles"].ToString(),
+        //                    //    GafasId = fila["GafasId"].ToString()
+        //                    //},
+        //                    DireccionEnvio = fila["IdDireccion"].ToString(),
+        //                    FechaPedido = (DateTime)fila["FechaPedido"],
+        //                    TotalPedido = (decimal)fila["TotalPedido"],
+        //                    DNICliente = fila["DNICliente"].ToString(),
+        //                    GastosEnvio = (decimal)fila["GastosEnvio"],
+        //                    CuentaCliente = fila["CuentaCliente"].ToString()
+        //                })
+        //                .Single<Pedido>();
+
+        //    }
+        //    catch (SqlException ex)
+        //    {
+
+        //        return null;
+        //    }
+        //}
         #endregion
     }
 }

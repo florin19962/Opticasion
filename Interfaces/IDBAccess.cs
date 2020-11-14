@@ -25,6 +25,8 @@ namespace Opticasion.Interfaces
         Gafas BuscarGafas(string gafasid);
 
         int RegistrarPedido(Pedido newpedido);
+        //Pedido DevolverPedido(String dnicliente);
+
         #endregion
     }
 }

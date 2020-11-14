@@ -1,4 +1,5 @@
-﻿@model Pedido
+﻿@model Opticasion.Models.Pedido
+
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
 
@@ -22,7 +23,7 @@
 
 <div class="container">
     <div class="row">
-        <form method="POST" asp-action="FinalizarPedido" asp-controller="Pedido" style="display: flex;">
+        <form asp-action="FinalizarPedidoPago" asp-controller="Pedido" method="post" style="display: flex;">
             <!-----------------body con formulario para realizar pago e informacion de direcion del envio------>
             <div class="col-8">
                 <div class="cajon-datos-pago">
@@ -129,7 +130,7 @@
                             <label>Subtotal</label>
                         </div>
                         <div class="col-6">
-                            <label class="dato-pedido">@Model.SubTotalPedido.ToString() €</label>
+                            <label value="@Model.SubTotalPedido.ToString()" class="dato-pedido">@Model.SubTotalPedido.ToString() €</label>
                         </div>
                     </div>
                     <div class="row" style="width: 100%;">
@@ -137,7 +138,7 @@
                             <label>Envio (Gostos de envío-Fijo)</label>
                         </div>
                         <div class="col-6">
-                            <label class="dato-pedido">@Model.GastosEnvio €</label>
+                            <label value="@Model.GastosEnvio" class="dato-pedido">@Model.GastosEnvio.ToString() €</label>
                         </div>
                     </div>
                     <hr style="width: 100%;margin-top: 0;margin-bottom: 0;">
@@ -146,7 +147,7 @@
                             <label style="font-size:20px;">Total del Pedido</label>
                         </div>
                         <div class="col-6">
-                            <label class="dato-pedido" style="font-size:20px;">@Model.TotalPedido.ToString() €</label>
+                            <label value="@Model.TotalPedido" class="dato-pedido" style="font-size:20px;">@Model.TotalPedido.ToString() €</label>
                         </div>
                     </div>
                     <div class="row" style="width: 100%;align-content: center;">

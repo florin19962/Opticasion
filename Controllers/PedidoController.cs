@@ -64,6 +64,7 @@ namespace Opticasion.Controllers
                 _pedido.FechaPedido = DateTime.Now;
                 _pedido.DNICliente = _clienteSesion.DNI;
                 _pedido.DireccionEnvio = _clienteSesion.DireccionPrincipal.IdDireccion;
+                _pedido.CuentaCliente = "";
                 _pedido.ElementosCarro.Add(
                                         new ItemCarrito()
                                         {
@@ -124,11 +125,9 @@ namespace Opticasion.Controllers
             try
             {
                 Pedido _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
-                Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
                 ViewData["listaProvincias"] = this._accessDB.DevolverProvincias();
                 ViewData["listaMunicipios"] = this._accessDB.DevolverMunicipios();
                 
-                //this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
                 return View(_pedido);
             }
             catch (ArgumentNullException ex)
@@ -141,29 +140,25 @@ namespace Opticasion.Controllers
 
 
         [HttpPost]
-        public IActionResult FinalizarPedido(Pedido datospedido)
+        public IActionResult FinalizarPedidoPago(Pedido datospedido)
         {
-            Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
             Pedido _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
-            _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
-            _pedido.CuentaCliente = datospedido.CuentaCliente;
-            _pedido.FechaPedido = DateTime.Now;
-            this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
-            datospedido = _pedido;
-            
-            
+            Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
             if (!ModelState.IsValid)
             {
                 return View(datospedido);
             }
             else
             {//hacer el INSERT en la bd...
+                _pedido.CuentaCliente = datospedido.CuentaCliente;
+                _pedido.IdPedido = _pedido.IdPedido + 1;
+                datospedido = _pedido;
                 int _filasRegistradas = this._accessDB.RegistrarPedido(datospedido);
                 //antes de mandar email hacer metodo para recoger de la tabla el pedido y pintar 
                 //en el correo el id del pedio y el listado de items del pedido que lo hago con foreach 
                 //en el metodo de devolucion y en el de regristrar pedido tambien(FALTA)!!
                 if (_filasRegistradas == 1)
-                {                   
+                    {
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
                     String _mensajeHTMLEmail = "<h2>Estimado/a " + _clienteSesion.Nombre + " " + _clienteSesion.Apellidos + "</h2> <br>" +
                             "<div align='center'>" +
@@ -171,7 +166,7 @@ namespace Opticasion.Controllers
                                 "<tr>" +
                                     "<td>" +
                                         "<img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.pngtree.com%2Ffreebackground%2Ftaobao-sunglasses-advertising-banner_1114115.html&psig=AOvVaw1MrXVjZIWhVlx1cBHWrV-z&ust=1605127004893000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCU7pnq-OwCFQAAAAAdAAAAABAE'>" +
-                                    "</td>" +
+            
                                     "<td>" +
                                         "<h2>ID PEDIDO: " + _pedido.IdPedido + "</h2><br>" +
                                     "</td><hr>" +
@@ -190,44 +185,45 @@ namespace Opticasion.Controllers
                                         "<h4>Gastos de envio: " + _pedido.GastosEnvio + "€</h4><br>" +
                                     "</td>" +
 
-                                    "<td>" +
-                                        "<h3>ARTICULO COMPRADO</h3>" +
-                                        "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
-                                        "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
-                                        "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
-                                        "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
-                                    "</td>" +
+                                        "<td>" +
+                                            "<h3>ARTICULO COMPRADO</h3>" +
+                                            "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
+                                            "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
+                                            "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
+                                            "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
+                                        "</td>" +
 
-                                    "<td>" +
-                                        "<h4>Subtotal: " + _pedido.SubTotalPedido + "€</h4><br>" +
-                                    "</td>" +
-                                    "<td>" +
-                                        "<h4>Total de la compra: " + _pedido.TotalPedido + "€</h4><br>" +
-                                    "</td>" +
-                                    "<td>" +
-                                        "<label>Puede ver su pedido desde este enlace" +
-                                            "<a href='https://localhost:44367/Cliente/VerPedidos/" + _clienteSesion.CredencialesAcceso.Email + "' > Mis pedidos </a> " +
-                                        "</label>" +
-                                    "</td>" +
-                                "</tr><br>" +
-                                "<br><hr><label>Muchas gracias por confiar en nosotros, atentamente Opticasion</label>" +
-                            "</div>";
-                    
+                                        "<td>" +
+                                            "<h4>Subtotal: " + _pedido.SubTotalPedido + "€</h4><br>" +
+                                        "</td>" +
+                                        "<td>" +
+                                            "<h4>Total de la compra: " + _pedido.TotalPedido + "€</h4><br>" +
+                                        "</td>" +
+                                        "<td>" +
+                                            "<label>Puede ver su pedido desde este enlace" +
+                                                "<a href='https://localhost:44367/Cliente/VerPedidos/" + _clienteSesion.CredencialesAcceso.Email + "' > Mis pedidos </a> " +
+                                            "</label>" +
+                                        "</td>" +
+                                    "</tr><br>" +
+                                    "<br><hr><label>Muchas gracias por confiar en nosotros, atentamente Opticasion</label>" +
+                                "</div>";
 
-                    this._clienteEmail.EnviarEmail(_clienteSesion.CredencialesAcceso.Email,
-                                                   "Resumen de su compra en Opticasion.com",
-                                                   _mensajeHTMLEmail
-                        );
-                    HttpContext.Session.Remove("pedido");
-                    return RedirectToAction("CompraOK", "Pedido");
-                }
+
+                        this._clienteEmail.EnviarEmail(_clienteSesion.CredencialesAcceso.Email,
+                                                       "Resumen de su compra en Opticasion.com",
+                                                       _mensajeHTMLEmail
+                            );
+                        HttpContext.Session.Remove("pedido");
+                        return RedirectToAction("CompraOK", "Pedido");
+                    }
                 else
-                {
-                    ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
-                    return View(datospedido);
-                }
+                    {
+                        ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
+                        return View(datospedido);
+                    }
             }
         }
+
 
         public IActionResult CompraOK()
         {
