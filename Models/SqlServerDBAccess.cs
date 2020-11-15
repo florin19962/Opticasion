@@ -519,8 +519,6 @@ namespace Opticasion.Models
             //AQUI METODO PARA METER PEDIDO EN TABLA DE PEDIDOS
             try
             {
-
-                
                 //----- inserto los datos del pedido en tabla Pedido-----------------------------------
                 SqlConnection __miconexion = new SqlConnection();
                 __miconexion.ConnectionString = this._conexionDB;
@@ -554,7 +552,7 @@ namespace Opticasion.Models
                         for (int i = 0; i < newpedido.ElementosCarro.Count; i++)
                         {
                             _cmd.Parameters.Clear();
-                            _cmd.Parameters.AddWithValue("@IdPedidoArt", _datosPedidoInsert);//Paso el id autoincremental de la tabla pedidos y lo meto en esta
+                            _cmd.Parameters.AddWithValue("@IdPedidoArt", _datosPedidoInsert);//Paso el id autoincremental de la tabla pedidos y lo meto aqui para hacer relacion
                             _cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[i].ItemGafa.NombreModelo);
                             _cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[i].ItemGafa.GafasId);
                             _cmd.ExecuteNonQuery();

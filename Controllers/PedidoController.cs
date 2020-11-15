@@ -151,12 +151,9 @@ namespace Opticasion.Controllers
             else
             {//hacer el INSERT en la bd...
                 _pedido.CuentaCliente = datospedido.CuentaCliente;
-                //_pedido.IdPedido = _pedido.IdPedido + 1;
+
                 datospedido = _pedido;
                 int _filaRegistradaIdPedido = this._accessDB.RegistrarPedido(datospedido);
-                //antes de mandar email hacer metodo para recoger de la tabla el pedido y pintar 
-                //en el correo el id del pedio y el listado de items del pedido que lo hago con foreach 
-                //en el metodo de devolucion y en el de regristrar pedido tambien(FALTA)!!
                 if (_filaRegistradaIdPedido >= 1)
                     {
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
@@ -168,7 +165,7 @@ namespace Opticasion.Controllers
                                         "<img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.pngtree.com%2Ffreebackground%2Ftaobao-sunglasses-advertising-banner_1114115.html&psig=AOvVaw1MrXVjZIWhVlx1cBHWrV-z&ust=1605127004893000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCU7pnq-OwCFQAAAAAdAAAAABAE'>" +
 
                                     "<td>" +
-                                        "<h2>ID PEDIDO: " + _filaRegistradaIdPedido.ToString() + "</h2><br>" +
+                                        "<h2>ID PEDIDO: #" + _filaRegistradaIdPedido.ToString() +"#</h2><br>" +
                                     "</td><hr>" +
                                     "<td>" +
                                         "<label>Fecha de la compra: " + _pedido.FechaPedido + "</label><br>" +
@@ -185,17 +182,13 @@ namespace Opticasion.Controllers
                                         "<h4>Gastos de envio: " + _pedido.GastosEnvio + "€</h4><br>" +
                                     "</td>" +
 
-                                        "<td>" +
-                                            "<h3>ARTICULO COMPRADO</h3>" +
-
-                                            //for (int i = 0; i < _pedido.ElementosCarro.Count; i++) { } +
-                       
-
-                                            "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
-                                            "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
-                                            "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
-                                            "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
-                                        "</td>" +
+                                        //"<td>" + //No admite hacer un for (int i = 0; i < newpedido.ElementosCarro.Count; i++) aqui. No se como solicionarlo, de momento el cliente puede ver su pedido desde el Panel de cliente
+                                        //    "<h3>ARTICULO COMPRADO</h3>" +                      
+                                        //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
+                                        //    "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
+                                        //    "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
+                                        //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
+                                        //"</td>" +
 
                                         "<td>" +
                                             "<h4>Subtotal: " + _pedido.SubTotalPedido + "€</h4><br>" +

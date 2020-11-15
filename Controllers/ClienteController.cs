@@ -161,6 +161,9 @@ namespace Opticasion.Controllers
         public IActionResult DatosPerfil()
         {
             Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+            //Pedido _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+            ViewData["listaProvincias"] = this._accessDB.DevolverProvincias();
+            ViewData["listaMunicipios"] = this._accessDB.DevolverMunicipios();
             return View(_clienteSesion);
         }
 
@@ -183,8 +186,45 @@ namespace Opticasion.Controllers
                 return View(newcliente);
             }
         }
+        /*
+        [HttpPost]
+        public IActionResult UpdateDatosAcceso(Cliente newcliente)
+        {
+            string _email = newcliente.CredencialesAcceso.Email;
+            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
+            int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
 
+            if (_filasRegistradas == 1)
+            {
+                Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
+                this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                return RedirectToAction("DatosPerfil");
+            }
+            else
+            {
+                ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
+                return View(newcliente);
+            }
+        }
+        [HttpPost]
+        public IActionResult UpdateDatosDireccion(Cliente newcliente)
+        {
+            string _email = newcliente.CredencialesAcceso.Email;
+            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
+            int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
 
-
+            if (_filasRegistradas == 1)
+            {
+                Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
+                this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                return RedirectToAction("DatosPerfil");
+            }
+            else
+            {
+                ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
+                return View(newcliente);
+            }
+        }
+        */
     }
 }

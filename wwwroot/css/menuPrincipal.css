@@ -120,7 +120,7 @@ body {
     background-color: #ffffff !important;
     box-shadow: 0px 3px 6px black;
 }
-ul li a> div {
+ul li a > div {
     will-change: animation, position, filter;
     background: #fff;
     position: absolute;
@@ -132,21 +132,20 @@ ul li a> div {
     cursor: auto;
     overflow: hidden;
     box-shadow: 0px 3px 4px rgba(0,0,0,.18);
-    text-decoration:none;
-    /*animation: repliega .7s ease-out forwards;*/
+    text-decoration: none;
+    animation: .7s repliega ease-out forwards;
     z-index: 100;
 }
 
 
 ul li:hover > div {
     pointer-events: auto;
-    animation: 1s despliega forwards;
+    animation: .5s despliega forwards;
 }
 
 .nav {
     background: white;
     display: flex;
-    /* width:100%; */
     color: #fff;
     list-style: none;
     z-index: 5;
@@ -155,7 +154,6 @@ ul li:hover > div {
     .nav > li {
         flex-grow: 2;
         position: static;
-        /*padding: 1.5rem 20px;*/
         text-align: right;
     }
 
@@ -165,7 +163,6 @@ ul li:hover > div {
     font-size: 13px;
     font-weight: 600;
     color: #616161;
-    /* margin: 0 25px; */
     cursor: default;
 }
 
@@ -177,12 +174,9 @@ ul li:hover > div {
     float: left;
     width: 249px;
     padding: 15px 20px 15px 20px;
-    /*background-color: #ff67008c;*/
     transition: 0.8s;
 }
     .producto:hover {
-        /*background-color: #2b4a65;*/
-        /*box-shadow: 4px 3px 12px 3px black;*/
         transition: 0.8s;
     }
     .producto a {
@@ -207,7 +201,6 @@ ul li:hover > div {
         position: relative;
         left: 5%;
         padding: 5px 15px 5px 15px;
-        /*border: 1px solid #cecece;*/
         border-radius: 7%;
         background-color: #be5f31;
     }

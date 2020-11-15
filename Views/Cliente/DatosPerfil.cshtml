@@ -23,6 +23,7 @@
 }
 <section class="container-fluid">
     <div class="row">
+        @* ------------------------------------------------------------------------------------------------------SECCION DE DATOS PERSONALES-------------------------------------------------------------------------------------------- *@
         <div class="col-lg-12">
             <div class="caja-datosPanel">
                 <div class="caja-header">
@@ -62,10 +63,30 @@
                                     <input value="@_cliente.Telefono" id="telefono" asp-for="@Model.Telefono" type="text" class="form-control" placeholder="tu telefono" />
                                 </div>
                             </div>
+
+                            <div class="caja-inferior-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @* ------------------------------------------------------------------------------------------------------SECCION DE DATOS DE ACCESO--------------------------------------------------------------------------------------------- *@
+        <div class="col-lg-12">
+            <div class="caja-datosPanel">
+                <div class="caja-header">
+                    <h3 class="">Datos de Acceso</h3>
+                </div>
+                <hr />
+                <form asp-action="UpdateDatosAcceso" asp-controller="Cliente" method="post">
+                    <div class="container caja-body">
+                        <div class="row mb-2">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="email">Correo de acceso</label>
-                                    <input value="@_cliente.CredencialesAcceso.Email"  required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" placeholder="Teclee la nueva cuenta de correo" />
+                                    <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" placeholder="Teclee la nueva cuenta de correo" />
                                 </div>
                             </div>
                             @*<div class="col-lg-6">
@@ -74,21 +95,79 @@
                                     <input value="@_cliente.CredencialesAcceso.HashPassword" disabled type="password" id="password" asp-for="@Model.CredencialesAcceso.HashPassword" class="form-control" placeholder="Contraseña actual" />
                                 </div>
                             </div>*@
-                                                @*<div class="col-lg-6">
+                            @*<div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="password">Nueva Contraseña </label>
                                     <input type="password" id="password" class="form-control" placeholder="Nueva Contraseña" />
                                 </div>
                             </div>*@
                             <div class="caja-inferior-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-info">Guardar</button>
                             </div>
                         </div>
                     </div>
-
-                    
                 </form>
             </div>
         </div>
+
+        @* ------------------------------------------------------------------------------------------------------SECCION DE DATOS DIRECCIONES------------------------------------------------------------------------------------------- *@
+        <div class="col-lg-12">
+            <div class="caja-datosPanel">
+                <div class="caja-header">
+                    <h3 class="">Direccion de Envio</h3>
+                </div>
+                <hr />
+                <form asp-action="UpdateDatosDireccion" asp-controller="Cliente" method="post">
+                    <div class="container caja-body">
+                        <div class="row mb-2">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputAddress">Dirección de envio</label>
+                                    <input type="text" asp-for="@Model.DireccionPrincipal.Calle" class="form-control" id="inputAddress" placeholder="C/Nombre Calle, Número, Piso-Letra">
+                                    <div>
+                                        <span asp-validation-for="@Model.DireccionPrincipal.Calle" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputCP">Código Postal</label>
+                                    <input type="text" asp-for="@Model.DireccionPrincipal.CP" class="form-control" id="inputCP" placeholder="28080">
+                                    <div>
+                                        <span asp-validation-for="@Model.DireccionPrincipal.CP" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputProvincia">Provincia</label>
+                                    <select id="inputProvincia" asp-for="@_cliente.DireccionPrincipal.Provincia" class="form-control">
+                                        @foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
+                                        {
+                                            <option value="@unaprov.CodPro">@unaprov.NombreProvincia</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="inputMunicipio">Localidad</label>
+                                    <select id="inputMunicipio" asp-for="@_cliente.DireccionPrincipal.Localidad" class="form-control">
+                                        @foreach (Municipio unmun in (ViewData["listaMunicipios"] as List<Municipio>))
+                                        {
+                                            <option value="@unmun.CodMun">@unmun.NombreMunicipio</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="caja-inferior-footer">
+                                <button type="submit" class="btn btn-success">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 </section>
