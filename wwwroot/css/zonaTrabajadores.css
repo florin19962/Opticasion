@@ -1,0 +1,47 @@
+﻿/*CUERPO DEL PANEL DE REGISTRO DE PRODUCTOS*/
+.caja-datosZonaT {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #ff6700;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 3px 3px 3px rgb(0 0 0 / 25%);
+    top: 5%;
+}
+
+.caja-headerZonaT {
+    color: #444;
+    display: block;
+    padding: 10px;
+    position: relative;
+}
+
+.caja-bodyZonaT {
+    padding: 10px
+}
+
+.caja-inferior-footerZonaT {
+    border-top: 1px solid #ccc6c6;
+    padding: 10px;
+    width: 100%;
+    margin: 3px;
+}
+
+.img_carga {
+    visibility: hidden;
+    max-width: 400px;
+    max-height: 400px;
+    border: 1px solid darkcyan;
+    border-radius: 10px;
+}
+.btnSubirImagen {
+    width: 100%;
+    background-color: darkcyan;
+    color: white;
+}
+    .btnSubirImagen:hover {
+        color: white;
+        background-color: #006161;
+    }
+/*FIN CUERPO PANEL*/

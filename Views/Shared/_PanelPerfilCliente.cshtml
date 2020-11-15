@@ -38,10 +38,7 @@
                 <ul>
                     <li class="enl"><i class="fas fa-sign-out-alt" style="color: #b8c7ce;margin:3px 10px;"></i>@Html.ActionLink("Cerrar Sessión", "btnLogOut", "Cliente")</li>
                 </ul>
-            </div>
-                    
-                
-            
+            </div> 
         </div>
         <div class="col-5 cajon-externo">
             <div class="cajon-pan">
@@ -71,7 +68,7 @@
                         </li>
                         <li>
                             <a asp-controller="Cliente" asp-action="DatosPerfil">
-                                <i class="fas fa-clipboard-check"></i><span> Mis ventas</span>
+                                <i class="fas fa-clipboard-check"></i><span> Mis pedidos</span>
                             </a>
                         </li>
                     </ul>
@@ -81,7 +78,6 @@
         </div>
         <div class="col-7 body-panel">
             @RenderBody()
-            @*<img src="~/images/footer-panel.png" style="width: 100%;">*@
         </div>
     </div>
 </body>

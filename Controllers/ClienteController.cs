@@ -172,8 +172,8 @@ namespace Opticasion.Controllers
         {
             string _email = newcliente.CredencialesAcceso.Email;
             //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
-            int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
 
+            int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
             if (_filasRegistradas == 1)
             {
                 Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
@@ -186,6 +186,7 @@ namespace Opticasion.Controllers
                 return View(newcliente);
             }
         }
+        //SECCIONES CAMBIAR DATOS ACCESO Y DIRECCIONES
         /*
         [HttpPost]
         public IActionResult UpdateDatosAcceso(Cliente newcliente)

@@ -43,7 +43,6 @@ namespace Opticasion.Controllers
         }
 
         
-
         [HttpGet]
         public IActionResult ZonaTrabajadores()
         {
@@ -69,10 +68,6 @@ namespace Opticasion.Controllers
                 //no existe variable de sesion cliente...muestro vista Login por si se quieren colar por url a pelo
                 return RedirectToAction("Login","Cliente");
             }
-
-
-
-
         }
 
 
@@ -94,7 +89,7 @@ namespace Opticasion.Controllers
 
                 newgafas.CodigoVerificacion = numeroAleatorio;
                 newgafas.FechaPublicacion = DateTime.Now;//REVISAR QUE ESTO SE INSERTA BIEN Y A LA HORA DE BUSCAR POR FECHA FUNCIONA
-                //CODIGOOO PARA SUBIDA IMAGEN--------------------------------------------------------------------------------------------------------------------------------------
+                //CODIGO PARA SUBIDA IMAGEN---------------------------------------------------------
 
                 //asociamos la imagen con un nombre unico o ponemos una por defecto en caso de que no la pasen
                 String formatoImg = ".png";
@@ -105,16 +100,11 @@ namespace Opticasion.Controllers
                 else
                 {
                     formatoImg = "." + newgafas.FotoGafasUrl.ContentType.Split("/")[1];
-
                     newgafas.FotoGafaString = "imagenGafas-" + newgafas.GafasId + formatoImg;
-
                     //newgafas.FotoGafaString = newgafas.FotoGafaString.Replace('/', '-').Replace(':', '-');
                 }
+                
 
-
-
-
-                //FIN CODIGO IMAGEN--------------------------------------------------------------------------------------------------------------------------------------------------
                 int _filasRegistradas = this._accessDB.RegistrarProducto(newgafas);
                 if (_filasRegistradas == 1)
                 {
@@ -126,10 +116,8 @@ namespace Opticasion.Controllers
                             newgafas.FotoGafasUrl.CopyToAsync(fileStream);
                         }
                     }
-
                     ViewBag.showSuccessAlert = true;
                     return View();
-
                 }
                 else
                 {
@@ -137,6 +125,7 @@ namespace Opticasion.Controllers
                     ModelState.AddModelError("", "Ha habido un error en el registro de sus datos, intentelo de nuevo mas tarde.");
                     return View(newgafas);
                 }
+                //FIN CODIGO IMAGEN-----------------------------------------------------------------
             }
         }
     }
