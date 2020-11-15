@@ -9,7 +9,8 @@ namespace Opticasion.Models
     {
         #region "...propiedades de clase..."
 
-        public String IdPedido { get; set; }
+        public ProdPedido Articulos { get; set; }
+        //public String IdPedido { get; set; }
         //public ProdPedido ListaProd { get; set; }
         public String DNICliente { get; set; }
         public DateTime FechaPedido { get; set; }

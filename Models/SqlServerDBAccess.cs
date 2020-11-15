@@ -520,7 +520,8 @@ namespace Opticasion.Models
             try
             {
 
-                //-----------inserto los articulos en la tabla ProdPedido--------
+                
+                //----- inserto los datos del pedido en tabla Pedido-----------------------------------
                 SqlConnection __miconexion = new SqlConnection();
                 __miconexion.ConnectionString = this._conexionDB;
                 __miconexion.Open();
@@ -528,46 +529,42 @@ namespace Opticasion.Models
                 SqlCommand _cmd = new SqlCommand();
                 _cmd.Connection = __miconexion;
                 _cmd.CommandType = CommandType.Text;
-                //aqui habria que hacer un iterator para todos mis articulos de la cesta e ir metiendo de uno en uno en tabla hasta terminar
-                _cmd.CommandText = "INSERT INTO dbo.ProdPedido (IdPedido, Detalles, GafasId) VALUES (@IdPedido, @Detalles, @GafasId)";
 
-                //_cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[0].ItemGafa.NombreModelo);
-                //_cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[0].ItemGafa.GafasId);
-                _cmd.Parameters.AddWithValue("@IdPedido", newpedido.IdPedido);
-                try { 
-                    for (int i = 0; i < newpedido.ElementosCarro.Count; i++)
-                    {
-                    
-                        _cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[i].ItemGafa.NombreModelo);
-                        _cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[i].ItemGafa.GafasId);
-                        _cmd.ExecuteNonQuery();
-                    }
-                }
-                catch(Exception)
+                //BUSCAR Y RECOGER EL CAMPO DE IDPEDIDO AUTOINCREMENTAL PARA PASARLO A LA TABLA PRODPEDIDO CON SCOPE_IDENTITY()
+                _cmd.CommandText = "INSERT INTO dbo.Pedidos (IdDireccion, FechaPedido, GastosEnvio, TotalPedido, DNICliente, CuentaCliente)VALUES (@IdDireccion, @FechaPedido, @GastosEnvio, @TotalPedido, @DNICliente, @CuentaCliente) SELECT * FROM dbo.Pedidos WHERE (IdPedido) = SCOPE_IDENTITY()";            
+                _cmd.Parameters.AddWithValue("@IdDireccion", newpedido.DireccionEnvio);
+                _cmd.Parameters.AddWithValue("@FechaPedido", newpedido.FechaPedido);
+                _cmd.Parameters.AddWithValue("@GastosEnvio", newpedido.GastosEnvio);
+                _cmd.Parameters.AddWithValue("@TotalPedido", newpedido.TotalPedido);
+                _cmd.Parameters.AddWithValue("@DNICliente", newpedido.DNICliente);
+                _cmd.Parameters.AddWithValue("@CuentaCliente", newpedido.CuentaCliente);
+                
+                int _datosPedidoInsert = (int)_cmd.ExecuteScalar();
+                
+                if (_datosPedidoInsert >= 1)
                 {
-
-                }
-
-
-                int _datosArticuloInsert = _cmd.ExecuteNonQuery();
-                if (_datosArticuloInsert >= 1)
-                {
-                    //-----si todo ok ahora inserto el resto de datos del pedido en tabla Pedido-----------------------------------   
+                    //----------- si todo ok ahora inserto los articulos en la tabla ProdPedido--------            
                     _cmd = null;
                     _cmd = new SqlCommand();
                     _cmd.Connection = __miconexion;
                     _cmd.CommandType = CommandType.Text;
-
-                    _cmd.CommandText = "INSERT INTO dbo.Pedidos (IdDireccion, FechaPedido, GastosEnvio, TotalPedido, DNICliente, CuentaCliente)VALUES (@IdDireccion, @FechaPedido, @GastosEnvio, @TotalPedido, @DNICliente, @CuentaCliente)";
-                    _cmd.Parameters.AddWithValue("@IdDireccion", newpedido.DireccionEnvio);
-                    _cmd.Parameters.AddWithValue("@FechaPedido", newpedido.FechaPedido);
-                    _cmd.Parameters.AddWithValue("@GastosEnvio", newpedido.GastosEnvio);
-                    _cmd.Parameters.AddWithValue("@TotalPedido", newpedido.TotalPedido);
-                    _cmd.Parameters.AddWithValue("@DNICliente", newpedido.DNICliente);
-                    _cmd.Parameters.AddWithValue("@CuentaCliente", newpedido.CuentaCliente);
-
-                    int _datosPedidoInsert = _cmd.ExecuteNonQuery();
-                    if (_datosPedidoInsert == 1)
+                    try
+                    {
+                        _cmd.CommandText = "INSERT INTO dbo.ProdPedido (IdPedidoArt, Detalles, GafasId) VALUES (@IdPedidoArt, @Detalles, @GafasId)";
+                        for (int i = 0; i < newpedido.ElementosCarro.Count; i++)
+                        {
+                            _cmd.Parameters.Clear();
+                            _cmd.Parameters.AddWithValue("@IdPedidoArt", _datosPedidoInsert);//Paso el id autoincremental de la tabla pedidos y lo meto en esta
+                            _cmd.Parameters.AddWithValue("@Detalles", newpedido.ElementosCarro[i].ItemGafa.NombreModelo);
+                            _cmd.Parameters.AddWithValue("@GafasId", newpedido.ElementosCarro[i].ItemGafa.GafasId);
+                            _cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (SqlException ex)
+                    {
+                        return 0;
+                    }
+                    if (_datosPedidoInsert >= 1)
                     {
                         return _datosPedidoInsert;
                     }

@@ -151,13 +151,13 @@ namespace Opticasion.Controllers
             else
             {//hacer el INSERT en la bd...
                 _pedido.CuentaCliente = datospedido.CuentaCliente;
-                _pedido.IdPedido = _pedido.IdPedido + 1;
+                //_pedido.IdPedido = _pedido.IdPedido + 1;
                 datospedido = _pedido;
-                int _filasRegistradas = this._accessDB.RegistrarPedido(datospedido);
+                int _filaRegistradaIdPedido = this._accessDB.RegistrarPedido(datospedido);
                 //antes de mandar email hacer metodo para recoger de la tabla el pedido y pintar 
                 //en el correo el id del pedio y el listado de items del pedido que lo hago con foreach 
                 //en el metodo de devolucion y en el de regristrar pedido tambien(FALTA)!!
-                if (_filasRegistradas == 1)
+                if (_filaRegistradaIdPedido >= 1)
                     {
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
                     String _mensajeHTMLEmail = "<h2>Estimado/a " + _clienteSesion.Nombre + " " + _clienteSesion.Apellidos + "</h2> <br>" +
@@ -166,9 +166,9 @@ namespace Opticasion.Controllers
                                 "<tr>" +
                                     "<td>" +
                                         "<img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.pngtree.com%2Ffreebackground%2Ftaobao-sunglasses-advertising-banner_1114115.html&psig=AOvVaw1MrXVjZIWhVlx1cBHWrV-z&ust=1605127004893000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCU7pnq-OwCFQAAAAAdAAAAABAE'>" +
-            
+
                                     "<td>" +
-                                        "<h2>ID PEDIDO: " + _pedido.IdPedido + "</h2><br>" +
+                                        "<h2>ID PEDIDO: " + _filaRegistradaIdPedido.ToString() + "</h2><br>" +
                                     "</td><hr>" +
                                     "<td>" +
                                         "<label>Fecha de la compra: " + _pedido.FechaPedido + "</label><br>" +
@@ -187,6 +187,10 @@ namespace Opticasion.Controllers
 
                                         "<td>" +
                                             "<h3>ARTICULO COMPRADO</h3>" +
+
+                                            //for (int i = 0; i < _pedido.ElementosCarro.Count; i++) { } +
+                       
+
                                             "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
                                             "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
                                             "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
