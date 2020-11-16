@@ -50,6 +50,7 @@ namespace Opticasion.Controllers
             try
             {
                 Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+                ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
                 //si el tipo de usuario registrado devuelto por la sesion es un trabajador entra aqui
                 if (_clienteSesion.Tipo.Equals("Trabajador"))
                 {
@@ -74,7 +75,7 @@ namespace Opticasion.Controllers
         [HttpPost]
         public  IActionResult ZonaTrabajadores(Gafas newgafas)
         {
-            //newgafas.FotoGafasUrl = (IFormFile)TypeDescriptor.GetConverter(newgafas.FotoGafasUrl).ConvertTo(newgafas.FotoGafasUrl, typeof(byte[]));
+            ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
             if (!ModelState.IsValid)
             {
                 return View(newgafas);

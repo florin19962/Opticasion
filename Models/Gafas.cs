@@ -26,8 +26,8 @@ namespace Opticasion.Models
         public string Descripcion { get; set; }
 
 
-        //[Required(ErrorMessage = "La Foto es obligatoria")]
         public IFormFile FotoGafasUrl { get; set; }
+
 
         public string FotoGafaString { get; set; }
 
@@ -40,7 +40,6 @@ namespace Opticasion.Models
 
 
         [Required(ErrorMessage = "La Marca es obligatoria")]
-        //[RegularExpression(@"Gafas de sol", ErrorMessage = "Formato de la marca invalido: Gafas")]
         public string Marca { get; set; }
 
 
@@ -55,7 +54,7 @@ namespace Opticasion.Models
 
         public Gafas()
         {
-            //[RegularExpression(@"^[0-9]{9}$", ErrorMessage = "formato Tlfno invalido: 606707808")]
+
         }
         public Gafas(string gafasid,
                      string nombremodelo,

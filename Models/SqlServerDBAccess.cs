@@ -170,11 +170,9 @@ namespace Opticasion.Models
                             NombreProvincia = fila[1].ToString()
                         })
                         .ToList<Provincia>();
-
             }
             catch (SqlException ex)
             {
-
                 return null;
             }
         }
@@ -469,6 +467,35 @@ namespace Opticasion.Models
             {
                 throw new Exception(ex.Message);
 
+            }
+        }
+
+        public List<Categorias> DevolverCategorias()
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "SELECT * FROM dbo.Categorias";
+
+                return __micomando
+                        .ExecuteReader()
+                        .Cast<IDataRecord>()
+                        .Select((fila) => new Categorias()
+                        {
+                            IdCategoria = Convert.ToInt32(fila[0]),
+                            NombreCategoria = fila[1].ToString()
+                        })
+                        .ToList<Categorias>();
+            }
+            catch (SqlException ex)
+            {
+                return null;
             }
         }
 
