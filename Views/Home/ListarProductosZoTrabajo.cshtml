@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Listado de productos";
+}
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+}
+<link rel="stylesheet" href="~/css/zonaTrabajadores.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
+@*<div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                
+            </div>
+        </div>
+
+    </div>*@
+
+<div class="container">
+
+    <div style="margin-bottom: 2%;margin-top: 1%;">
+        <h3 style="width: 50%;float: left;">Listado de productos en almacen</h3>
+        <a class="btn btn-info"
+           asp-action="ZonaTrabajadores"
+           asp-controller="Home">
+            Añadir nuevo
+        </a><i class="far fa-plus-circle fa-2x" style="color: #3f7f92;"></i>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table>
+                <hr />
+                <thead>
+                    <tr class="header-listado">
+                        <th width="300" scope="col">ARTICULO</th>
+                        <th width="300" scope="col">MARCA</th>
+                        <th width="300" scope="col">MODELO</th>
+                        <th width="200" scope="col">PRECIO</th>
+                        <th width="100" scope="col">ACCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Gafas unarticulo in Model.Values)
+                    {
+                        <partial name="_VistaMiniGafaZoTrabajo" model="unarticulo" />
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model Opticasion.Models.Gafas;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+
+}
+@*<div class="col-3 cajon-miniprod">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <a asp-controller="Tienda"
+               asp-action="DetallesGafas"
+               asp-all-route-data="@(new Dictionary<String, String>() { { "id", @Model.GafasId } });">
+                <img src="~/ImagenesProductos/@Model.FotoGafaString" width="100%" alt="Alternate Text" />
+            </a>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-7">
+            <label class="marca">@Model.Marca</label>
+            <label class="modelo">Modelo: @Model.NombreModelo</label>
+        </div>
+
+        <div class="col-md-5">
+            <label class="precio"><strong>@Model.PrecioProd.ToString()€</strong></label>
+        </div>
+    </div>
+    <div class="row text-center">
+        <a class="btn-comprarTienda"
+            asp-controller="Pedido"
+            asp-action="AddGafaPedido"
+            asp-all-route-data="@(new Dictionary<string, string>() { { "id", Model.GafasId }, { "cantidad", "1"}  })">
+            COMPRAR
+        </a>
+    </div>
+</div>*@
+
+@* -------------------------------- *@
+<tr class="caja-itemLista">
+    <td>
+        <img src="~/ImagenesProductos/@Model.FotoGafaString" width="150px" alt="Alternate Text" />
+    </td>
+
+    <td>
+        <label>@Model.Marca</label>
+    </td>
+
+    <td>
+        <label>@Model.NombreModelo</label>
+    </td>
+
+    <td>
+        <label style="color: #17a2b8;font-weight: 500;">@Model.PrecioProd.ToString() €</label>
+    </td>
+
+    <td>
+        <a class="btnQuitarDeLista" asp-controller="Home"
+                                    asp-action="QuitarGafaLista"
+                                    asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
+                                    <i class="far fa-times-circle fa-2x"></i>
+        </a>
+        <a class="btnEditarProducto" asp-controller="Home"
+                                     asp-action="EditarProducto"
+                                     asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
+                                    <i class="fas fa-edit fa-2x"></i>
+        </a>
+    </td>
+</tr>

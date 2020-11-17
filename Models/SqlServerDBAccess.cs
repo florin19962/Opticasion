@@ -375,6 +375,8 @@ namespace Opticasion.Models
                     __filagafa.Genero = ((IDataRecord)__resultado)[8].ToString();
                     __filagafa.IdCategoria = Convert.ToInt16(((IDataRecord)__resultado)[9]);
                     __filagafa.FechaPublicacion = Convert.ToDateTime(((IDataRecord)__resultado)[10]);
+                    //__filagafa.Color = ((IDataRecord)__resultado)[11].ToString();
+                    //__filagafa.Estilo = ((IDataRecord)__resultado)[12].ToString();
                 }
                 return __filagafa;
             }
@@ -435,6 +437,18 @@ namespace Opticasion.Models
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
 
+                    case "Color":
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Color=@IdSub";
+                        __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
+                        __micomando.Parameters["@IdSub"].Value = valor;
+                        break;
+
+                    case "Estilo":
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Estilo=@IdSub";
+                        __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
+                        __micomando.Parameters["@IdSub"].Value = valor;
+                        break;
+
                     default:
                         break;
                 }
@@ -454,8 +468,10 @@ namespace Opticasion.Models
                                                                               Genero = fila[8].ToString(),
                                                                               IdCategoria = Convert.ToInt16(fila[9]),
                                                                               FechaPublicacion = Convert.ToDateTime(fila[10])
+                                                                              //Color = fila[11].ToString(),
+                                                                              //Estilo = fila[12].ToString()
                                                                           }
-                                                                          select new KeyValuePair<String, Gafas>(gafasid, gafas);
+                                                                  select new KeyValuePair<String, Gafas>(gafasid, gafas);
 
                 Dictionary<String, Gafas> _gafasADevolver = _gafas.ToDictionary(par => par.Key, par => par.Value);
                 __miconexion.Close();
@@ -511,8 +527,8 @@ namespace Opticasion.Models
                 _insertarProducto.Connection = __miconexion;
                 _insertarProducto.CommandType = CommandType.Text;
 
-                _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (GafasId,NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion) VALUES (@GafasId,@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion)";
-                _insertarProducto.Parameters.AddWithValue("@GafasId",newgafas.GafasId);
+                _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion) VALUES (@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion)";
+
                 _insertarProducto.Parameters.AddWithValue("@NombreModelo", newgafas.NombreModelo);
                 _insertarProducto.Parameters.AddWithValue("@PrecioProd", newgafas.PrecioProd);
                 _insertarProducto.Parameters.AddWithValue("@Descripcion", newgafas.Descripcion);
@@ -524,6 +540,8 @@ namespace Opticasion.Models
                 _insertarProducto.Parameters.AddWithValue("@IdCategoria", Convert.ToInt16(newgafas.IdCategoria));
                 _insertarProducto.Parameters.AddWithValue("@FechaPublicacion", Convert.ToDateTime(newgafas.FechaPublicacion));
 
+                //_insertarProducto.CommandText = "INSERT INTO dbo.Gafas (GafasId,NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion) VALUES (@GafasId,@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion)";
+                //_insertarProducto.Parameters.AddWithValue("@GafasId", newgafas.GafasId);
                 int _resultadoProductoInsert = _insertarProducto.ExecuteNonQuery();
                 if (_resultadoProductoInsert == 1)
                 {

@@ -35,7 +35,7 @@ namespace Opticasion.Controllers
             this._httpContext = httpContext;
             this._env = env;
         }
-        //GET: /Home/
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -101,7 +101,7 @@ namespace Opticasion.Controllers
                 else
                 {
                     formatoImg = "." + newgafas.FotoGafasUrl.ContentType.Split("/")[1];
-                    newgafas.FotoGafaString = "imagenGafas-" + newgafas.GafasId + formatoImg;
+                    newgafas.FotoGafaString = "imagenGafas-" + newgafas.NombreModelo + formatoImg;
                     //newgafas.FotoGafaString = newgafas.FotoGafaString.Replace('/', '-').Replace(':', '-');
                 }
                 
@@ -129,6 +129,73 @@ namespace Opticasion.Controllers
                 //FIN CODIGO IMAGEN-----------------------------------------------------------------
             }
         }
+
+
+        
+        public ActionResult ListarProductosZoTrabajo()
+        {
+            try
+            {
+                Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+                //si el tipo de usuario registrado devuelto por la sesion es un trabajador entra aqui
+                if (_clienteSesion.Tipo.Equals("Trabajador"))
+                {
+                    this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                    //Cargamos los productos que hay en BD ahora-----------------------------------
+                    if (TempData["Message"] != null)
+                    {
+                        ViewBag.Message = TempData["Message"].ToString();
+                    }
+
+                    String id;
+                    if (RouteData.Values.ContainsKey("IdCategoria"))
+                    {
+                        id = RouteData.Values["IdCategoria"].ToString();
+                    }
+                    else
+                    //cargo por defecto la categoria 1
+                    {
+                        id = "1";
+                    }
+
+                    IQueryCollection parametros = HttpContext.Request.Query;
+                    if (parametros.Keys.Count != 0)
+                    {
+                        String categoria = parametros["categoria"].ToString().Split(".")[0].ToString();
+                        id = parametros["categoria"].ToString().Split(".")[1].ToString();
+                    }
+
+                    try
+                    {
+                        ViewData["cliente"] = _clienteSesion;
+                        return View(this._accessDB.DevolverGafas("IdCategoria", id));
+                    }
+                    catch (Exception)
+                    {
+                        ViewData["cliente"] = null;
+                        return View(this._accessDB.DevolverGafas("IdCategoria", id));
+                    }
+                    return View();
+                }
+                //si es otro tipo de usuario vuelve a home y mando mensaje
+                else
+                {
+                    //aqui habria que mandar un mensaje por ViewBag al cliente de que no tiene acceso aquí
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception)
+            {
+                //no existe variable de sesion cliente...muestro vista Login por si se quieren colar por url a pelo
+                return RedirectToAction("Login", "Cliente");
+            }
+
+
+            //----------------------------------------------------------------
+            
+        }
+
+        
     }
 }
 

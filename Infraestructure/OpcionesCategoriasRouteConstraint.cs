@@ -20,7 +20,9 @@ namespace Opticasion.Infraestructure
                                                                     "Genero",
                                                                     "NombreModelo",
                                                                     "IdCategoria",
-                                                                    "FechaPublicacion"
+                                                                    "FechaPublicacion",
+                                                                    "Color",
+                                                                    "Estilo"
                                                                     };
             foreach (String unvalor in _valoresOpcionBuscar)
             {

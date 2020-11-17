@@ -10,7 +10,7 @@ namespace Opticasion.Models
 {
     public class Gafas
     {
-        [Required(ErrorMessage = "El Id es obligatorio")]
+        //[Required(ErrorMessage = "El Id es obligatorio")]
         public string GafasId { get; set; }
 
 

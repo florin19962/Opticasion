@@ -45,3 +45,30 @@
         background-color: #006161;
     }
 /*FIN CUERPO PANEL*/
+/*APARTADO LISTADO DE PRODUCTOS*/
+.header-listado {
+    background-color: #ff7922e0;
+    height: 50px;
+}
+
+    .header-listado ul li {
+        float: left;
+        padding: 10px 60px 10px 60px;
+    }
+
+.caja-itemLista {
+    border-bottom: 1px solid #17a2b8;
+    transition: .5s;
+}
+
+    .caja-itemLista:hover {
+        background-color: antiquewhite;
+    }
+.btnQuitarDeLista {
+    color: #17a2b8;
+}
+.btnEditarProducto {
+    color: #17a2b8;
+}
+
+/*FIN LISTADO PRODUCTOS*/
