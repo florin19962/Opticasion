@@ -58,9 +58,9 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     @* HACER DESPLEGABLE CON CATEGORIAS *@
-                                    <label for="idcategoria">Categoria *</label>
+                                    <label for="idcategoria">Categoría *</label>
                                     <select id="idcategoria" asp-for="@Model.IdCategoria" class="form-control" required>
-                                        <option value="0" selected>Elija una categoria...</option>
+                                        <option value="0" selected>Elija una categoría...</option>
                                         @foreach (Categorias unacatg in (ViewData["listaCategorias"] as List<Categorias>))
                                         {
                                             <option value="@unacatg.IdCategoria">@unacatg.NombreCategoria.ToString()</option>

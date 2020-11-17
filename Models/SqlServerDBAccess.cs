@@ -515,6 +515,48 @@ namespace Opticasion.Models
             }
         }
 
+        public int UpdateDatosProductoQuery(Gafas newgafas)
+        {
+            try
+            {
+                SqlConnection _miconexion = new SqlConnection();
+                _miconexion.ConnectionString = this._conexionDB;
+                _miconexion.Open();
+
+                SqlCommand _updateProducto = new SqlCommand();
+                _updateProducto.Connection = _miconexion;
+                _updateProducto.CommandType = CommandType.Text;
+                _updateProducto.CommandText = "Update dbo.Gafas set PrecioProd = @PrecioProd, Descripcion = @Descripcion, FotoGafaString = @FotoGafaString, VendedorId = @VendedorId, CodigoVerificacion = @CodigoVerificacion, Marca = @Marca, Genero = @Genero, IdCategoria = @IdCategoria, FechaPublicacion = @FechaPublicacion WHERE NombreModelo = @NombreModelo";
+
+                _updateProducto.Parameters.AddWithValue("@NombreModelo", newgafas.NombreModelo);
+                _updateProducto.Parameters.AddWithValue("@PrecioProd", Convert.ToDecimal(newgafas.PrecioProd));
+                _updateProducto.Parameters.AddWithValue("@Descripcion", newgafas.Descripcion);
+                _updateProducto.Parameters.AddWithValue("@FotoGafaString", newgafas.FotoGafaString);
+                _updateProducto.Parameters.AddWithValue("@VendedorId", newgafas.VendedorId);
+                _updateProducto.Parameters.AddWithValue("@CodigoVerificacion", newgafas.CodigoVerificacion);
+                _updateProducto.Parameters.AddWithValue("@Marca", newgafas.Marca);
+                _updateProducto.Parameters.AddWithValue("@Genero", newgafas.Genero);
+                _updateProducto.Parameters.AddWithValue("@IdCategoria", Convert.ToInt16(newgafas.IdCategoria));
+                _updateProducto.Parameters.AddWithValue("@FechaPublicacion", Convert.ToDateTime(newgafas.FechaPublicacion));
+
+                int _resultado = _updateProducto.ExecuteNonQuery();
+                return _resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+
+
+        //HACER METODO AQUI PARA BUSCAR EN TABLA GAFAS POR EL ID Y BORRAR
+        public int BorrarGafas(string gafasid)
+        {
+            return 1;
+        }
+
         public int RegistrarProducto(Gafas newgafas)
         {
             try
@@ -526,11 +568,10 @@ namespace Opticasion.Models
                 SqlCommand _insertarProducto = new SqlCommand();
                 _insertarProducto.Connection = __miconexion;
                 _insertarProducto.CommandType = CommandType.Text;
-
                 _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion) VALUES (@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion)";
 
                 _insertarProducto.Parameters.AddWithValue("@NombreModelo", newgafas.NombreModelo);
-                _insertarProducto.Parameters.AddWithValue("@PrecioProd", newgafas.PrecioProd);
+                _insertarProducto.Parameters.AddWithValue("@PrecioProd", Convert.ToDecimal(newgafas.PrecioProd));
                 _insertarProducto.Parameters.AddWithValue("@Descripcion", newgafas.Descripcion);
                 _insertarProducto.Parameters.AddWithValue("@FotoGafaString", newgafas.FotoGafaString);
                 _insertarProducto.Parameters.AddWithValue("@VendedorId", newgafas.VendedorId);

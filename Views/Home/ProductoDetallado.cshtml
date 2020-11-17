@@ -1,0 +1,162 @@
+﻿@model Opticasion.Models.Gafas
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+
+}
+@{
+    ViewData["Title"] = "Detalles de las gafas";
+}
+<link rel="stylesheet" href="~/css/zonaTrabajadores.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
+<div class="container">
+    <div class="caja-datosPanel">
+        @if (ViewBag.showSuccessAlert == true)
+        {
+            <div class="alert alert-success" role="alert">
+                <label>Los datos se guardaron correctamente</label>
+            </div>
+        }
+        @if (ViewBag.showSuccessAlert == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                <label>Se produjo un error al guardar el producto.</label>
+            </div>
+        }
+        <div class="caja-header">
+            <h3 class="">Datos del producto a modificar</h3>
+        </div>
+        <hr />
+        <form asp-action="UpdateDatosProducto" asp-controller="Home" method="post" enctype="multipart/form-data">
+            <div class="container caja-body">
+                <div class="row mb-2">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="fotogafasurl">Foto del producto *</label>
+                            <input asp-for="@Model.FotoGafasUrl" size="25" class="form-control custom-file-input" id="inputImgGafa" style="visibility:hidden">
+                            <button type="button" class="btn btnSubirImagen" id="btnFileChangeGafa" onclick="lanzaFile()">Subir imagen</button>
+                            <div>
+                                <span asp-validation-for="@Model.FotoGafasUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            @*<img   src="#" alt="your image" />*@
+                            <img src="~/ImagenesProductos/@Model.FotoGafaString" id="imgDefecto" class="img_cargaModificar" alt="Imagen del producto" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="marca">Marca</label>
+                            <input value="@Model.Marca" id="marca" asp-for="@Model.Marca" type="text" class="form-control" placeholder="Titulo con la marca del producto especificando que es.." />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea value="@Model.Descripcion" id="descripcion" asp-for="@Model.Descripcion" type="text" class="form-control" placeholder="Descripción del producto"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="vendedorid">Nombre del vendedor</label>
+                            <input value="@Model.VendedorId" id="vendedorid" asp-for="@Model.VendedorId" type="text" class="form-control" placeholder="Nombre vendedor" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="modelo">Modelo</label>
+                            @* VER COMO DESHABILITAR EL PODER MODIFICAR EL CAMPO MODELO PARA PODER HACER LA BUSQUEDA CON EL EN TABLA *@
+                            <input value="@Model.NombreModelo" id="modelo" asp-for="@Model.NombreModelo" type="text" class="form-control" placeholder="Nombre del modelo" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="genero">Genero</label>
+                            <select id="genero" asp-for="@Model.Genero" class="form-control" required>
+                                <option value="Sol Hombre">Hombre S</option>
+                                <option value="Sol Mujer">Mujer S</option>
+                                <option value="Sol Niño">Niños S</option>
+
+                                <option value="Montura Hombre">Hombre M</option>
+                                <option value="Montura Mujer">Mujer M</option>
+                                <option value="Montura Niño">Niños M</option>
+                                <option value="Articulo">Articulo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="modelo">Categoría</label>
+                            <select id="idcategoria" asp-for="@Model.IdCategoria" class="form-control" required>
+                                <option value="0" selected>Elija una categoria...</option>
+                                @foreach (Categorias unacatg in (ViewData["listaCategorias"] as List<Categorias>))
+                                {
+                                    <option value="@unacatg.IdCategoria">@unacatg.NombreCategoria.ToString()</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="precio">Precio</label>
+                            <input value="@Model.PrecioProd" id="precio" asp-for="@Model.PrecioProd" type="text" class="form-control" placeholder="Precio del producto" />
+                        </div>
+                    </div>
+                    <div class="caja-inferior-footer">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button asp-action="ListarProductosZoTrabajo" asp-controller="Home" class="btn btn-secondary">Volver a listado</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* SECCION DE SCRIPT PARA CARGAR IMAGEN *@
+<script>
+    function readURLGafa(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgDefecto').attr('src', e.target.result);
+                document.getElementById('imgDefecto').style.visibility = "visible";
+                var imagenpath = document.getElementById('inputImgGafa').value;
+                console.log(document.getElementById('inputImgGafa').value);
+                var imagenName = imagenpath.split('fakepath');
+                document.getElementById('btnFileChangeGafa').innerHTML = "Imagen: " + imagenName[imagenName.length - 1];
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function lanzaFile() {
+        document.getElementById('inputImgGafa').click();
+    }
+
+    $("#inputImgGafa").change(function () {
+        readURLGafa(this);
+    });
+</script>
+
+@* SECCION SCRIPT PARA PONER BORDES CAJAS EN ROJO SI ESTAN MAL *@
+<script>
+    $(document).ready(function () {
+        $(".input-validation-error").css("border-color", "red");
+    });
+
+    Array.from(document.getElementsByClassName("input-validation-error")).forEach((el) => el.style.borderColor = "red");
+</script>
+

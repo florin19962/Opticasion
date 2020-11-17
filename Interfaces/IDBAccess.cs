@@ -20,7 +20,8 @@ namespace Opticasion.Interfaces
         int UpdateDatosPersonalesQuery(Cliente newcliente);
         #endregion
 
-        #region "....metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS....        
+        #region "....metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS....   
+        int UpdateDatosProductoQuery(Gafas newgafas);
         Dictionary<String, Gafas> DevolverGafas(String criterio, String valor);
         List<Categorias> DevolverCategorias();
         Gafas BuscarGafas(string gafasid);

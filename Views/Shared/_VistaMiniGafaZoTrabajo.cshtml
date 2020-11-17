@@ -48,6 +48,10 @@
 @* -------------------------------- *@
 <tr class="caja-itemLista">
     <td>
+        <label>@Model.GafasId</label>
+    </td>
+
+    <td>
         <img src="~/ImagenesProductos/@Model.FotoGafaString" width="150px" alt="Alternate Text" />
     </td>
 
@@ -64,15 +68,15 @@
     </td>
 
     <td>
-        <a class="btnQuitarDeLista" asp-controller="Home"
-                                    asp-action="QuitarGafaLista"
-                                    asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
-                                    <i class="far fa-times-circle fa-2x"></i>
+        <a class="btnQuitarDeLista" asp-controller="Home" asp-action="QuitarGafaLista"
+           asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
+            <i class="far fa-times-circle fa-2x"></i>
         </a>
-        <a class="btnEditarProducto" asp-controller="Home"
-                                     asp-action="EditarProducto"
-                                     asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
-                                    <i class="fas fa-edit fa-2x"></i>
+        <a class="btnEditarProducto" asp-controller="Home" asp-action="EditarProducto"
+           asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
+            <i class="fas fa-edit fa-2x"></i>
         </a>
+
+
     </td>
 </tr>

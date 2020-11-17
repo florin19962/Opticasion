@@ -45,6 +45,7 @@
         background-color: #006161;
     }
 /*FIN CUERPO PANEL*/
+
 /*APARTADO LISTADO DE PRODUCTOS*/
 .header-listado {
     background-color: #ff7922e0;
@@ -66,9 +67,20 @@
     }
 .btnQuitarDeLista {
     color: #17a2b8;
+    margin-right: 10%;
 }
 .btnEditarProducto {
     color: #17a2b8;
 }
 
 /*FIN LISTADO PRODUCTOS*/
+
+/*APARTADO DETALLES PRODUCTO MODIFICAR*/
+.img_cargaModificar {
+    /*visibility: hidden;*/
+    max-width: 400px;
+    max-height: 400px;
+    border: 1px solid darkcyan;
+    border-radius: 10px;
+}
+/*FIN APARTADO MODIFICAR*/

@@ -42,6 +42,7 @@ namespace Opticasion.Controllers
             return View();
         }
 
+        #region "------------------------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES-----------------------------------------------------------"
         
         [HttpGet]
         public IActionResult ZonaTrabajadores()
@@ -67,13 +68,13 @@ namespace Opticasion.Controllers
             catch (Exception)
             {
                 //no existe variable de sesion cliente...muestro vista Login por si se quieren colar por url a pelo
-                return RedirectToAction("Login","Cliente");
+                return RedirectToAction("Login", "Cliente");
             }
         }
 
 
         [HttpPost]
-        public  IActionResult ZonaTrabajadores(Gafas newgafas)
+        public IActionResult ZonaTrabajadores(Gafas newgafas)
         {
             ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
             if (!ModelState.IsValid)
@@ -102,9 +103,8 @@ namespace Opticasion.Controllers
                 {
                     formatoImg = "." + newgafas.FotoGafasUrl.ContentType.Split("/")[1];
                     newgafas.FotoGafaString = "imagenGafas-" + newgafas.NombreModelo + formatoImg;
-                    //newgafas.FotoGafaString = newgafas.FotoGafaString.Replace('/', '-').Replace(':', '-');
                 }
-                
+
 
                 int _filasRegistradas = this._accessDB.RegistrarProducto(newgafas);
                 if (_filasRegistradas == 1)
@@ -131,7 +131,6 @@ namespace Opticasion.Controllers
         }
 
 
-        
         public ActionResult ListarProductosZoTrabajo()
         {
             try
@@ -192,13 +191,78 @@ namespace Opticasion.Controllers
 
 
             //----------------------------------------------------------------
-            
+
         }
 
-        
+
+        public IActionResult EditarProducto(string id)
+        {
+            ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
+            //busco el producto por el id y lo paso a la vista detallada del producto donde puede editarlo
+            return View("ProductoDetallado", this._accessDB.BuscarGafas(id));
+        }
+
+
+        [HttpPost]
+        public IActionResult UpdateDatosProducto(Gafas newgafas)
+        {
+            ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
+            if (!ModelState.IsValid)
+            {
+                return View(newgafas);
+            }
+            else
+            {
+                Random r = new Random();
+                int numeroAleatorio;
+                numeroAleatorio = r.Next(10000000, 99999999);
+                //METER TAMBIEN COLOR DE GAFAS Y FORMA PARA TENER MAS FILTROS EN LA TIENDA
+
+                newgafas.CodigoVerificacion = numeroAleatorio;
+                newgafas.FechaPublicacion = DateTime.Now;
+                String formatoImg = ".png";
+                if (newgafas.FotoGafasUrl == null)
+                {
+                    newgafas.FotoGafaString = "GafaIconoDefecto.png";
+                }
+                else
+                {
+                    formatoImg = "." + newgafas.FotoGafasUrl.ContentType.Split("/")[1];
+                    newgafas.FotoGafaString = "imagenGafas-" + newgafas.NombreModelo + formatoImg;
+                }
+
+                int _filasRegistradas = this._accessDB.UpdateDatosProductoQuery(newgafas);
+                if (_filasRegistradas == 1)
+                {
+                    //guardamos la imagen si se inserta bien y si se a seleccionado
+                    if (newgafas.FotoGafasUrl != null)
+                    {
+                        using (var fileStream = new FileStream(this._env.WebRootPath + "/ImagenesProductos/" + newgafas.FotoGafaString, FileMode.Create))
+                        {
+                            newgafas.FotoGafasUrl.CopyToAsync(fileStream);
+                        }
+                    }
+                    ViewBag.showSuccessAlert = true;
+                    return View("ProductoDetallado",newgafas);
+                }
+                else
+                {
+                    ViewBag.showSuccessAlert = false;
+                    ModelState.AddModelError("", "Ha habido un error en el registro de sus datos, intentelo de nuevo mas tarde.");
+                    return View(newgafas);
+                }
+            }
+        }
+
+
+        public IActionResult QuitarGafaLista(string id)
+        {
+            //aqui debo buscar el articulo a borrar desde el id y hacer un if si lo encuentra lo borra de la tabla gafas y retorna vista del listado
+            return View("ListarProductosZoTrabajo", this._accessDB.BuscarGafas(id));
+        }
+        #endregion
     }
 }
-
 
 
 
