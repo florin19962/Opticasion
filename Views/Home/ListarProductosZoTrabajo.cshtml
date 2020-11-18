@@ -18,17 +18,20 @@
 }
 <link rel="stylesheet" href="~/css/zonaTrabajadores.css" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
-@*<div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                
-            </div>
-        </div>
-
-    </div>*@
 
 <div class="container">
-
+    @if (ViewBag.showSuccessAlert == true)
+    {
+        <div class="alert alert-success" role="alert">
+            <label>El producto se elimino correctamente</label>
+        </div>
+    }
+    @if (ViewBag.showSuccessAlert == false)
+    {
+        <div class="alert alert-danger" role="alert">
+            <label>Se produjo un error al borrar el producto.</label>
+        </div>
+    }
     <div style="margin-bottom: 2%;margin-top: 1%;">
         <h3 style="width: 50%;float: left;">Listado de productos en almacen</h3>
         <a class="btn btn-info"

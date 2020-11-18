@@ -131,7 +131,7 @@ namespace Opticasion.Controllers
         }
 
 
-        public ActionResult ListarProductosZoTrabajo()
+        public IActionResult ListarProductosZoTrabajo()
         {
             try
             {
@@ -152,7 +152,7 @@ namespace Opticasion.Controllers
                         id = RouteData.Values["IdCategoria"].ToString();
                     }
                     else
-                    //cargo por defecto la categoria 1
+                    //cargo por defecto la categoria 1 VER COMO CARGAR TODAS LAS CATEGORIAS
                     {
                         id = "1";
                     }
@@ -174,7 +174,7 @@ namespace Opticasion.Controllers
                         ViewData["cliente"] = null;
                         return View(this._accessDB.DevolverGafas("IdCategoria", id));
                     }
-                    return View();
+                    //return View();
                 }
                 //si es otro tipo de usuario vuelve a home y mando mensaje
                 else
@@ -188,10 +188,6 @@ namespace Opticasion.Controllers
                 //no existe variable de sesion cliente...muestro vista Login por si se quieren colar por url a pelo
                 return RedirectToAction("Login", "Cliente");
             }
-
-
-            //----------------------------------------------------------------
-
         }
 
 
@@ -206,6 +202,9 @@ namespace Opticasion.Controllers
         [HttpPost]
         public IActionResult UpdateDatosProducto(Gafas newgafas)
         {
+            string IdGafas = newgafas.GafasId.ToString();//recojo el id del producto y lo guardo
+            Gafas gafaSinModificar = this._accessDB.BuscarGafas(IdGafas);//busco producto por id y devuelvo el articulo para mas tarde            
+
             ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
             if (!ModelState.IsValid)
             {
@@ -223,7 +222,8 @@ namespace Opticasion.Controllers
                 String formatoImg = ".png";
                 if (newgafas.FotoGafasUrl == null)
                 {
-                    newgafas.FotoGafaString = "GafaIconoDefecto.png";
+                    newgafas.FotoGafaString = gafaSinModificar.FotoGafaString;//si al guardar no ha seleccionado ninguna imagen y ya habia una de antes, deja la misma para no pasar valor null
+                    //newgafas.FotoGafaString = "GafaIconoDefecto.png";
                 }
                 else
                 {
@@ -248,7 +248,7 @@ namespace Opticasion.Controllers
                 else
                 {
                     ViewBag.showSuccessAlert = false;
-                    ModelState.AddModelError("", "Ha habido un error en el registro de sus datos, intentelo de nuevo mas tarde.");
+                    ModelState.AddModelError("", "Se produjo un error en el registro de sus datos, intentelo de nuevo mas tarde.");
                     return View(newgafas);
                 }
             }
@@ -257,8 +257,19 @@ namespace Opticasion.Controllers
 
         public IActionResult QuitarGafaLista(string id)
         {
-            //aqui debo buscar el articulo a borrar desde el id y hacer un if si lo encuentra lo borra de la tabla gafas y retorna vista del listado
-            return View("ListarProductosZoTrabajo", this._accessDB.BuscarGafas(id));
+            //aqui debo buscar el articulo a borrar con el id y hacer un if si lo encuentra lo borra de la tabla gafas y retorna vista del listado
+            int resultadoDelete = this._accessDB.BorrarGafas(id);
+            if(resultadoDelete == 1)
+            {
+                ViewBag.showSuccessAlert = true;
+                return RedirectToAction("ListarProductosZoTrabajo", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Se produjo un error al borrar producto, intentelo de nuevo mas tarde.");
+                ViewBag.showSuccessAlert = false;
+                return RedirectToAction("ListarProductosZoTrabajo", "Home");
+            }
         }
         #endregion
     }

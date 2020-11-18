@@ -549,12 +549,36 @@ namespace Opticasion.Models
 
         }
 
-
-
-        //HACER METODO AQUI PARA BUSCAR EN TABLA GAFAS POR EL ID Y BORRAR
         public int BorrarGafas(string gafasid)
         {
-            return 1;
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "DELETE FROM dbo.Gafas WHERE GafasId=@gafasid";
+                __micomando.Parameters.Add("@gafasid", SqlDbType.NChar);
+                __micomando.Parameters["@gafasid"].Value = gafasid;
+
+                int _resultadoDelete = __micomando.ExecuteNonQuery();
+                if (_resultadoDelete == 1)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
         }
 
         public int RegistrarProducto(Gafas newgafas)

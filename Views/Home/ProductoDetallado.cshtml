@@ -77,10 +77,16 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="modelo">Modelo</label>
-                            @* VER COMO DESHABILITAR EL PODER MODIFICAR EL CAMPO MODELO PARA PODER HACER LA BUSQUEDA CON EL EN TABLA *@
-                            <input value="@Model.NombreModelo" id="modelo" asp-for="@Model.NombreModelo" type="text" class="form-control" placeholder="Nombre del modelo" />
+                            <input value="@Model.NombreModelo" id="modelo" asp-for="@Model.NombreModelo" type="text" class="form-control" placeholder="Nombre del modelo" readonly />
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="gafasid">Id del artículo</label>
+                            <input value="@Model.GafasId" id="gafasid" asp-for="@Model.GafasId" type="text" class="form-control" placeholder="Id del artículo" readonly/>
+                        </div>
+                    </div>
+
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="genero">Genero</label>

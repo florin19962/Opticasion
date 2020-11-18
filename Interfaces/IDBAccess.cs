@@ -22,6 +22,7 @@ namespace Opticasion.Interfaces
 
         #region "....metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS....   
         int UpdateDatosProductoQuery(Gafas newgafas);
+        int BorrarGafas(string gafasid);
         Dictionary<String, Gafas> DevolverGafas(String criterio, String valor);
         List<Categorias> DevolverCategorias();
         Gafas BuscarGafas(string gafasid);
