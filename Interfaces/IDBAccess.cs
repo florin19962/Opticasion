@@ -24,6 +24,7 @@ namespace Opticasion.Interfaces
         int UpdateDatosProductoQuery(Gafas newgafas);
         int BorrarGafas(string gafasid);
         Dictionary<String, Gafas> DevolverGafas(String criterio, String valor);
+        Dictionary<String, Gafas> DevolverTodosLosArticulos();
         List<Categorias> DevolverCategorias();
         Gafas BuscarGafas(string gafasid);
         int RegistrarPedido(Pedido newpedido);

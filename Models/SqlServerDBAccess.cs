@@ -453,8 +453,6 @@ namespace Opticasion.Models
                         break;
                 }
 
-
-
                 IEnumerable<KeyValuePair<String, Gafas>> _gafas = from fila in __micomando.ExecuteReader().Cast<IDataRecord>()
                                                                           let gafasid = fila[0].ToString()
                                                                           let gafas = new Gafas()
@@ -477,12 +475,52 @@ namespace Opticasion.Models
                 __miconexion.Close();
 
                 return _gafasADevolver;
-
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
 
+        public Dictionary<string, Gafas> DevolverTodosLosArticulos()
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = _conexionDB;
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "SELECT * FROM dbo.Gafas";
+
+                IEnumerable<KeyValuePair<String, Gafas>> _gafas = from fila in __micomando.ExecuteReader().Cast<IDataRecord>()
+                                                                  let gafasid = fila[0].ToString()
+                                                                  let gafas = new Gafas()
+                                                                  {
+                                                                      GafasId = fila[0].ToString(),
+                                                                      NombreModelo = fila[1].ToString(),
+                                                                      PrecioProd = Convert.ToDecimal(fila[2]),
+                                                                      Descripcion = fila[3].ToString(),
+                                                                      FotoGafaString = fila[4].ToString(),
+                                                                      Marca = fila[7].ToString(),
+                                                                      Genero = fila[8].ToString(),
+                                                                      IdCategoria = Convert.ToInt16(fila[9]),
+                                                                      FechaPublicacion = Convert.ToDateTime(fila[10])
+                                                                      //Color = fila[11].ToString(),
+                                                                      //Estilo = fila[12].ToString()
+                                                                  }
+                                                                  select new KeyValuePair<String, Gafas>(gafasid, gafas);
+
+                Dictionary<String, Gafas> _gafasADevolver = _gafas.ToDictionary(par => par.Key, par => par.Value);
+                __miconexion.Close();
+
+                return _gafasADevolver;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 

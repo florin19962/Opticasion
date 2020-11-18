@@ -15,6 +15,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.SqlServer.Server;
+using System.Threading;
 
 namespace Opticasion.Controllers
 {
@@ -105,7 +106,6 @@ namespace Opticasion.Controllers
                     newgafas.FotoGafaString = "imagenGafas-" + newgafas.NombreModelo + formatoImg;
                 }
 
-
                 int _filasRegistradas = this._accessDB.RegistrarProducto(newgafas);
                 if (_filasRegistradas == 1)
                 {
@@ -115,6 +115,7 @@ namespace Opticasion.Controllers
                         using (var fileStream = new FileStream(this._env.WebRootPath + "/ImagenesProductos/" + newgafas.FotoGafaString, FileMode.Create))
                         {
                             newgafas.FotoGafasUrl.CopyToAsync(fileStream);
+                            Thread.Sleep(2000); //creamos hila de espera para dejarlo cargar la imagen bien
                         }
                     }
                     ViewBag.showSuccessAlert = true;
@@ -141,40 +142,17 @@ namespace Opticasion.Controllers
                 {
                     this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
                     //Cargamos los productos que hay en BD ahora-----------------------------------
-                    if (TempData["Message"] != null)
-                    {
-                        ViewBag.Message = TempData["Message"].ToString();
-                    }
-
-                    String id;
-                    if (RouteData.Values.ContainsKey("IdCategoria"))
-                    {
-                        id = RouteData.Values["IdCategoria"].ToString();
-                    }
-                    else
-                    //cargo por defecto la categoria 1 VER COMO CARGAR TODAS LAS CATEGORIAS
-                    {
-                        id = "1";
-                    }
-
-                    IQueryCollection parametros = HttpContext.Request.Query;
-                    if (parametros.Keys.Count != 0)
-                    {
-                        String categoria = parametros["categoria"].ToString().Split(".")[0].ToString();
-                        id = parametros["categoria"].ToString().Split(".")[1].ToString();
-                    }
-
                     try
                     {
                         ViewData["cliente"] = _clienteSesion;
-                        return View(this._accessDB.DevolverGafas("IdCategoria", id));
+                        return View(this._accessDB.DevolverTodosLosArticulos());
                     }
                     catch (Exception)
                     {
                         ViewData["cliente"] = null;
-                        return View(this._accessDB.DevolverGafas("IdCategoria", id));
+                        return View(this._accessDB.DevolverTodosLosArticulos());
                     }
-                    //return View();
+                    
                 }
                 //si es otro tipo de usuario vuelve a home y mando mensaje
                 else
@@ -239,10 +217,13 @@ namespace Opticasion.Controllers
                     {
                         using (var fileStream = new FileStream(this._env.WebRootPath + "/ImagenesProductos/" + newgafas.FotoGafaString, FileMode.Create))
                         {
+                            //BUSCAR ALTERNATIVA PARA COPYTOASYNC DA PROBLEMAS.
                             newgafas.FotoGafasUrl.CopyToAsync(fileStream);
+                            Thread.Sleep(2000); //creamos hila de espera para dejarlo cargar la imagen bien
                         }
                     }
                     ViewBag.showSuccessAlert = true;
+                     
                     return View("ProductoDetallado",newgafas);
                 }
                 else
