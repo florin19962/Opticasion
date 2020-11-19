@@ -178,32 +178,36 @@ namespace Opticasion.Controllers
                                         "<label>Cuenta IBAN utilizada: " + _pedido.CuentaCliente + "</label><br>" +
                                     "</td>" +
                                     "<td>" +
+                                        "<h3>DIRECCIÓN DE ENVIO</h3>" +
+                                        "<label>Direccion de facturacion " + _clienteSesion.DireccionPrincipal.Calle + ", " + _pedido.DireccionEnvio + ", " + _clienteSesion.DireccionPrincipal.Provincia + _clienteSesion.DireccionPrincipal.CP + "</label><br>" +
+                                    "</td>" +
+                                    "<td>" +
                                         "<h3>DATOS DEL PEDIDO</h3><hr>" +
                                         "<h4>Gastos de envio: " + _pedido.GastosEnvio + "€</h4><br>" +
                                     "</td>" +
 
-                                        //"<td>" + //No admite hacer un for (int i = 0; i < newpedido.ElementosCarro.Count; i++) aqui. No se como solicionarlo, de momento el cliente puede ver su pedido desde el Panel de cliente
-                                        //    "<h3>ARTICULO COMPRADO</h3>" +                      
-                                        //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
-                                        //    "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
-                                        //    "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
-                                        //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
-                                        //"</td>" +
+                                    //"<td>" + //No admite hacer un for (int i = 0; i < newpedido.ElementosCarro.Count; i++) aqui. No se como solicionarlo, de momento el cliente puede ver su pedido desde el Panel de cliente
+                                    //    "<h3>ARTICULO COMPRADO</h3>" +                      
+                                    //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.Marca + "</label><br>" +
+                                    //    "<label>Modelo: " + _pedido.ElementosCarro[0].ItemGafa.NombreModelo + "</label><br>" +
+                                    //    "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
+                                    //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
+                                    //"</td>" +
 
-                                        "<td>" +
-                                            "<h4>Subtotal: " + _pedido.SubTotalPedido + "€</h4><br>" +
-                                        "</td>" +
-                                        "<td>" +
-                                            "<h4>Total de la compra: " + _pedido.TotalPedido + "€</h4><br>" +
-                                        "</td>" +
-                                        "<td>" +
-                                            "<label>Puede ver su pedido desde este enlace" +
-                                                "<a href='https://localhost:44367/Cliente/VerPedidos/" + _clienteSesion.CredencialesAcceso.Email + "' > Mis pedidos </a> " +
-                                            "</label>" +
-                                        "</td>" +
-                                    "</tr><br>" +
-                                    "<br><hr><label>Muchas gracias por confiar en nosotros, atentamente Opticasion</label>" +
-                                "</div>";
+                                    "<td>" +
+                                        "<h4>Subtotal: " + _pedido.SubTotalPedido + "€</h4><br>" +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<h4>Total de la compra: " + _pedido.TotalPedido + "€</h4><br>" +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<label>Puede ver su pedido desde este enlace" +
+                                            "<a href='https://localhost:44367/Cliente/VerPedidos/" + _clienteSesion.CredencialesAcceso.Email + "' > Mis pedidos </a> " +
+                                        "</label>" +
+                                    "</td>" +
+                                "</tr><br>" +
+                                "<br><hr><label>Muchas gracias por confiar en nosotros, atentamente Opticasion</label>" +
+                            "</div>";
 
 
                         this._clienteEmail.EnviarEmail(_clienteSesion.CredencialesAcceso.Email,

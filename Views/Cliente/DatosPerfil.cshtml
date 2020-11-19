@@ -21,8 +21,21 @@
     }
 
 }
+
 <section class="container-fluid">
     <div class="row">
+        @if (ViewBag.showSuccessAlert == true)
+        {
+            <div class="alert alert-success" role="alert">
+                <label>Los datos se guardaron correctamente</label>
+            </div>
+        }
+        @if (ViewBag.showSuccessAlert == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                <label>Se produjo un error al guardar los datos.</label>
+            </div>
+        }
         @* ------------------------------------------------------------------------------------------------------SECCION DE DATOS PERSONALES-------------------------------------------------------------------------------------------- *@
         <div class="col-lg-12">
             <div class="caja-datosPanel">
@@ -63,7 +76,7 @@
                                     <input value="@_cliente.Telefono" id="telefono" asp-for="@Model.Telefono" type="text" class="form-control" placeholder="tu telefono" />
                                 </div>
                             </div>
-
+                            <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" style="display:none;" />
                             <div class="caja-inferior-footer">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
@@ -72,7 +85,7 @@
                 </form>
             </div>
         </div>
-    
+
         @* ------------------------------------------------------------------------------------------------------SECCION DE DATOS DE ACCESO--------------------------------------------------------------------------------------------- *@
         <div class="col-lg-12">
             <div class="caja-datosPanel">
@@ -141,25 +154,56 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="inputProvincia">Provincia</label>
-                                    <select id="inputProvincia" asp-for="@_cliente.DireccionPrincipal.Provincia" class="form-control">
+                                    <select id="inputProvincia" asp-for="@Model.DireccionPrincipal.Provincia" class="form-control" required>
+                                        <option value="0">Elija una provincia...</option>
                                         @foreach (Provincia unaprov in (ViewData["listaProvincias"] as List<Provincia>))
                                         {
                                             <option value="@unaprov.CodPro">@unaprov.NombreProvincia</option>
                                         }
                                     </select>
+                                    <div>
+                                        <span asp-validation-for="@Model.DireccionPrincipal.Provincia" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="inputMunicipio">Localidad</label>
-                                    <select id="inputMunicipio" asp-for="@_cliente.DireccionPrincipal.Localidad" class="form-control">
+                                    <select id="inputMunicipio" asp-for="@Model.DireccionPrincipal.Localidad" class="form-control" required>
+                                        <option value="0">Elija una localidad...</option>
                                         @foreach (Municipio unmun in (ViewData["listaMunicipios"] as List<Municipio>))
                                         {
                                             <option value="@unmun.CodMun">@unmun.NombreMunicipio</option>
                                         }
                                     </select>
+                                    <div>
+                                        <span asp-validation-for="@Model.DireccionPrincipal.Localidad" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" style="display:none;" />
                                 </div>
                             </div>
+                            @*
+                             <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="modelo">Categoría</label>
+                                    <select id="idcategoria" asp-for="@Model.IdCategoria" class="form-control" required>
+                                        <option value="0" selected>Elija una categoria...</option>
+                                        @foreach (Categorias unacatg in (ViewData["listaCategorias"] as List<Categorias>))
+                                        {
+                                            <option value="@unacatg.IdCategoria">@unacatg.NombreCategoria.ToString()</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            *@
+
+
+
                             <div class="caja-inferior-footer">
                                 <button type="submit" class="btn btn-success">Guardar</button>
                             </div>

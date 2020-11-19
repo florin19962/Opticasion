@@ -18,6 +18,8 @@ namespace Opticasion.Interfaces
         List<Municipio> DevolverMunicipios(int codpro);
         Boolean ComprobarCredsCliente(String emailCliente, String passw);
         int UpdateDatosPersonalesQuery(Cliente newcliente);
+        int UpdateDatosAccesoQuery(Cliente newcliente);
+        int UpdateDatosDireccionQuery(Cliente newcliente);
         #endregion
 
         #region "....metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS....   

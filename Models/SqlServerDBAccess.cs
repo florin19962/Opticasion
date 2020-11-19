@@ -314,7 +314,7 @@ namespace Opticasion.Models
 
         public int UpdateDatosPersonalesQuery(Cliente newcliente)
         {
-            //....codigo para hacer un INSERT contra la tabla Clientes de la BD
+            //....codigo para hacer un Update contra la tabla Clientes
 
             try
             {
@@ -332,6 +332,68 @@ namespace Opticasion.Models
                 _updateCliente.Parameters.AddWithValue("@Telefono", newcliente.Telefono);
                 _updateCliente.Parameters.AddWithValue("@DNI", newcliente.DNI);
                 _updateCliente.Parameters.AddWithValue("@NickName", newcliente.NickName);
+
+                int _resultado = _updateCliente.ExecuteNonQuery();
+
+                return _resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int UpdateDatosAccesoQuery(Cliente newcliente)
+        {
+            //....codigo para hacer un Update contra la tabla Clientes
+
+            try
+            {
+                SqlConnection _miconexion = new SqlConnection();
+                _miconexion.ConnectionString = this._conexionDB;
+                _miconexion.Open();
+
+                SqlCommand _updateCliente = new SqlCommand();
+                _updateCliente.Connection = _miconexion;
+                _updateCliente.CommandType = CommandType.Text;
+                _updateCliente.CommandText = "Update dbo.Clientes set Nombre = @Nombre, Apellidos = @Apellidos, Telefono = @Telefono, DNI = @DNI, NickName = @NickName WHERE Email = @Email";
+                _updateCliente.Parameters.AddWithValue("@Email", newcliente.CredencialesAcceso.Email);
+                _updateCliente.Parameters.AddWithValue("@Nombre", newcliente.Nombre);
+                _updateCliente.Parameters.AddWithValue("@Apellidos", newcliente.Apellidos);
+                _updateCliente.Parameters.AddWithValue("@Telefono", newcliente.Telefono);
+                _updateCliente.Parameters.AddWithValue("@DNI", newcliente.DNI);
+                _updateCliente.Parameters.AddWithValue("@NickName", newcliente.NickName);
+
+                int _resultado = _updateCliente.ExecuteNonQuery();
+                return _resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+        public int UpdateDatosDireccionQuery(Cliente newcliente)
+        {
+            //....codigo para hacer un Update contra la tabla Clientes
+
+            try
+            {
+                SqlConnection _miconexion = new SqlConnection();
+                _miconexion.ConnectionString = this._conexionDB;
+                _miconexion.Open();
+
+                SqlCommand _updateCliente = new SqlCommand();
+                _updateCliente.Connection = _miconexion;
+                _updateCliente.CommandType = CommandType.Text;
+                _updateCliente.CommandText = "Update dbo.Direcciones set CodPro = @CodPro, CodMun = @CodMun, Calle = @Calle, CP = @CP WHERE IdDireccion = @IdDireccion";
+                _updateCliente.Parameters.AddWithValue("@IdDireccion", newcliente.DireccionPrincipal.IdDireccion);
+                _updateCliente.Parameters.AddWithValue("@CodPro", Convert.ToInt32(newcliente.DireccionPrincipal.Provincia));
+                _updateCliente.Parameters.AddWithValue("@CodMun", Convert.ToInt32(newcliente.DireccionPrincipal.Localidad));
+                _updateCliente.Parameters.AddWithValue("@Calle", newcliente.DireccionPrincipal.Calle);
+                _updateCliente.Parameters.AddWithValue("@CP", Convert.ToInt32(newcliente.DireccionPrincipal.CP));
 
                 int _resultado = _updateCliente.ExecuteNonQuery();
                 return _resultado;

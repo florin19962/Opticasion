@@ -178,22 +178,23 @@ namespace Opticasion.Controllers
             {
                 Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
                 this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
-                return RedirectToAction("DatosPerfil");
+                ViewBag.showSuccessAlert = true;
+                return RedirectToAction("DatosPerfil", newcliente);
             }
             else
             {
+                ViewBag.showSuccessAlert = false;
                 ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
                 return View(newcliente);
             }
         }
-        //SECCIONES CAMBIAR DATOS ACCESO Y DIRECCIONES
-        /*
+        
         [HttpPost]
         public IActionResult UpdateDatosAcceso(Cliente newcliente)
         {
             string _email = newcliente.CredencialesAcceso.Email;
-            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
-            int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
+            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS DE ACCESO! Y MANDAR CORREO A CLIENTE PARA CONFIRMAR EL CAMBIO
+            int _filasRegistradas = this._accessDB.UpdateDatosAccesoQuery(newcliente);
 
             if (_filasRegistradas == 1)
             {
@@ -207,25 +208,51 @@ namespace Opticasion.Controllers
                 return View(newcliente);
             }
         }
+
         [HttpPost]
         public IActionResult UpdateDatosDireccion(Cliente newcliente)
         {
-            string _email = newcliente.CredencialesAcceso.Email;
-            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
-            int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
+            //REVISAR PORQUE NO RECOGE DEL FORMULARIO CAMPOS DE PROVINCIA Y LOCALIDAD DEL SELECT----------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            try{
+                string _email = newcliente.CredencialesAcceso.Email;
+                ViewData["listaProvincias"] = this._accessDB.DevolverProvincias();
+                ViewData["listaMunicipios"] = this._accessDB.DevolverMunicipios();
 
-            if (_filasRegistradas == 1)
-            {
-                Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
-                this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
-                return RedirectToAction("DatosPerfil");
+                if (ModelState.GetValidationState("Calle") == ModelValidationState.Invalid ||
+                    ModelState.GetValidationState("CP") == ModelValidationState.Invalid ||
+                    ModelState.GetValidationState("CodPro") == ModelValidationState.Invalid ||
+                    ModelState.GetValidationState("CodMun") == ModelValidationState.Invalid ||
+                    ModelState.GetValidationState("Email") == ModelValidationState.Invalid)
+                {
+                    return View("DatosPerfil", newcliente);
+                }
+                else
+                {
+                    Cliente clientesinmodificar = this._accessDB.DevolverCliente(_email);//buscamos datos del cliente a modificar
+                    string idDireccion = clientesinmodificar.DireccionPrincipal.IdDireccion;//recojo su idDireccion y la guardo en la querry para buscar por el ese valor con where y modificar la fila
+                    newcliente.DireccionPrincipal.IdDireccion = idDireccion; //meto el idDireccion en el resto de la query
+                    int _filasRegistradas = this._accessDB.UpdateDatosDireccionQuery(newcliente);
+
+                    if (_filasRegistradas == 1)
+                    {
+                        Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
+                        this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                        ViewBag.showSuccessAlert = true;
+                        return RedirectToAction("DatosPerfil");
+                    }
+                    else
+                    {
+                        ViewBag.showSuccessAlert = false;
+                        ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
+                        return View(newcliente);
+                    }
+                }
             }
-            else
+            catch(Exception)
             {
-                ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
-                return View(newcliente);
+                return RedirectToAction("DatosPerfil", "Cliente");
             }
-        }
-        */
+
+        }       
     }
 }
