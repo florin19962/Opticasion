@@ -49,31 +49,46 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
-                                    <input value="@_cliente.Nombre" id="nombre" asp-for="@Model.Nombre" type="text" class="form-control" placeholder="Tu nombre" />
+                                    <input value="@_cliente.Nombre" id="nombre" asp-for="@Model.Nombre" type="text" class="form-control" placeholder="Tu nombre" required/>
+                                    <div>
+                                        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="nickname">Nick</label>
-                                    <input value="@_cliente.NickName" id="nickname" asp-for="@Model.NickName" type="text" class="form-control" placeholder="Tu nick" />
+                                    <input value="@_cliente.NickName" id="nickname" asp-for="@Model.NickName" type="text" class="form-control" placeholder="Tu nick" required/>
+                                    <div>
+                                        <span asp-validation-for="@Model.NickName" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="dni">DNI</label>
-                                    <input value="@_cliente.DNI" id="dni" asp-for="@Model.DNI" type="text" class="form-control" placeholder="DNI" />
+                                    <input value="@_cliente.DNI" id="dni" asp-for="@Model.DNI" type="text" class="form-control" placeholder="DNI" readonly/>
+                                    <div>
+                                        <span asp-validation-for="@Model.DNI" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="apellidos">Apellidos</label>
-                                    <input value="@_cliente.Apellidos" id="apellidos" asp-for="@Model.Apellidos" type="text" class="form-control" placeholder="Tus apellidos" />
+                                    <input value="@_cliente.Apellidos" id="apellidos" asp-for="@Model.Apellidos" type="text" class="form-control" placeholder="Tus apellidos" required/>
+                                    <div>
+                                        <span asp-validation-for="@Model.Apellidos" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="telefono">Telefono</label>
-                                    <input value="@_cliente.Telefono" id="telefono" asp-for="@Model.Telefono" type="text" class="form-control" placeholder="tu telefono" />
+                                    <input value="@_cliente.Telefono" id="telefono" asp-for="@Model.Telefono" type="text" class="form-control" placeholder="tu telefono" required/>
+                                    <div>
+                                        <span asp-validation-for="@Model.Telefono" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
                             <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" style="display:none;" />
@@ -99,21 +114,28 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="email">Correo de acceso</label>
-                                    <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" placeholder="Teclee la nueva cuenta de correo" />
+                                    <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" placeholder="Teclee la nueva cuenta de correo" readonly/>
+                                    <div>
+                                        <span asp-validation-for="@Model.CredencialesAcceso.Email" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
-                            @*<div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="password">Contraseña actual</label>
-                                    <input value="@_cliente.CredencialesAcceso.HashPassword" disabled type="password" id="password" asp-for="@Model.CredencialesAcceso.HashPassword" class="form-control" placeholder="Contraseña actual" />
+                                    <label for="Password">Contraseña actual</label>
+                                    <input value="@Model.CredencialesAcceso.Password" type="password" id="Password" asp-for="@Model.CredencialesAcceso.Password" class="form-control" placeholder="Contraseña actual" required/>
+                                    <div>
+                                        <span asp-validation-for="@Model.CredencialesAcceso.Password" class="text-danger"></span>
+                                    </div>
                                 </div>
-                            </div>*@
-                            @*<div class="col-lg-6">
+                            </div>
+                           <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="password">Nueva Contraseña </label>
-                                    <input type="password" id="password" class="form-control" placeholder="Nueva Contraseña" />
+                                    <label for="RepPassword">Nueva Contraseña </label>
+                                    <input value="@Model.CredencialesAcceso.RepPassword" type="password" id="RepPassword"  asp-for="@Model.CredencialesAcceso.RepPassword" class="form-control" placeholder="Nueva Contraseña" minlength="8" required/>
+                                    
                                 </div>
-                            </div>*@
+                            </div>
                             <div class="caja-inferior-footer">
                                 <button type="submit" class="btn btn-info">Guardar</button>
                             </div>

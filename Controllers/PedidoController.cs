@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -157,13 +159,16 @@ namespace Opticasion.Controllers
                 if (_filaRegistradaIdPedido >= 1)
                     {
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
+                    //Version 2 //var linkedResource = new LinkedResource(@"C:~\logoRecortado2.png", MediaTypeNames.Image.Jpeg);  //Probar con linkedResource pero no pilla la ruta
                     String _mensajeHTMLEmail = "<h2>Estimado/a " + _clienteSesion.Nombre + " " + _clienteSesion.Apellidos + "</h2> <br>" +
                             "<div align='center'>" +
                             "<h3>Le agradecemos por haber hecho su compra, aquí le dejamos los detalles: </h3>" +
                                 "<tr>" +
                                     "<td>" +
-                                        "<img src='https://www.google.com/url?sa=i&url=https%3A%2F%2Fes.pngtree.com%2Ffreebackground%2Ftaobao-sunglasses-advertising-banner_1114115.html&psig=AOvVaw1MrXVjZIWhVlx1cBHWrV-z&ust=1605127004893000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCU7pnq-OwCFQAAAAAdAAAAABAE'>" +
+                                    //Version 1   //"<img src='http://www.midominio.com/~/wwwroot/img/logoOpticasion.png' style='width:40px; height:25px;'/><br/>" + //Si tubiera un dominio podria cargar una imagen en el correo con el logo de la empresa
 
+                                    //Version 2   //"<img src=\"cid:{linkedResource.ContentId}\" style='width:40px; height:25px;'/><br/>" + //Probar con linkedResource pero no pilla la ruta
+                                    "</td>" +
                                     "<td>" +
                                         "<h2>ID PEDIDO: #" + _filaRegistradaIdPedido.ToString() +"#</h2><br>" +
                                     "</td><hr>" +
@@ -177,10 +182,10 @@ namespace Opticasion.Controllers
                                     "<td>" +
                                         "<label>Cuenta IBAN utilizada: " + _pedido.CuentaCliente + "</label><br>" +
                                     "</td>" +
-                                    "<td>" +
-                                        "<h3>DIRECCIÓN DE ENVIO</h3>" +
-                                        "<label>Direccion de facturacion " + _clienteSesion.DireccionPrincipal.Calle + ", " + _pedido.DireccionEnvio + ", " + _clienteSesion.DireccionPrincipal.Provincia + _clienteSesion.DireccionPrincipal.CP + "</label><br>" +
-                                    "</td>" +
+                                    //"<td>" + //Revisar como cargar nombre en vez de los codigos de provincias y localidades
+                                    //    "<h3>DIRECCIÓN DE ENVIO</h3>" +
+                                    //    "<label>Direccion de facturacion " + _clienteSesion.DireccionPrincipal.Calle + ", " + _clienteSesion.DireccionPrincipal.Localidad + ", " + _clienteSesion.DireccionPrincipal.Provincia + _clienteSesion.DireccionPrincipal.CP + "</label><br>" +
+                                    //"</td>" +
                                     "<td>" +
                                         "<h3>DATOS DEL PEDIDO</h3><hr>" +
                                         "<h4>Gastos de envio: " + _pedido.GastosEnvio + "€</h4><br>" +
@@ -193,7 +198,6 @@ namespace Opticasion.Controllers
                                     //    "<label>Precio del producto: " + _pedido.ElementosCarro[0].ItemGafa.PrecioProd + "€</label><br>" +
                                     //    "<label>" + _pedido.ElementosCarro[0].ItemGafa.FotoGafasUrl + "</label><br>" +
                                     //"</td>" +
-
                                     "<td>" +
                                         "<h4>Subtotal: " + _pedido.SubTotalPedido + "€</h4><br>" +
                                     "</td>" +
@@ -209,11 +213,8 @@ namespace Opticasion.Controllers
                                 "<br><hr><label>Muchas gracias por confiar en nosotros, atentamente Opticasion</label>" +
                             "</div>";
 
-
-                        this._clienteEmail.EnviarEmail(_clienteSesion.CredencialesAcceso.Email,
-                                                       "Resumen de su compra en Opticasion.com",
-                                                       _mensajeHTMLEmail
-                            );
+                        this._clienteEmail.EnviarEmail(_clienteSesion.CredencialesAcceso.Email, "Resumen de su compra en Opticasion.com" ,_mensajeHTMLEmail);
+                        // HACER METODO PARA PONER CAMPO DEL PRODUCTO COMPRADO COMO COMPRADO
                         HttpContext.Session.Remove("pedido");
                         return RedirectToAction("CompraOK", "Pedido");
                     }

@@ -72,8 +72,12 @@ namespace Opticasion.Models
             [MinLength(8,ErrorMessage = "Contraseña invalida")]
             public String Password { get; set; }
 
+            public String RepPassword { get; set; }
+
 
             public String HashPassword { get; set; }
+
+            
         }
     }
 }

@@ -192,27 +192,67 @@ namespace Opticasion.Controllers
         [HttpPost]
         public IActionResult UpdateDatosAcceso(Cliente newcliente)
         {
-            string _email = newcliente.CredencialesAcceso.Email;
-            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS DE ACCESO! Y MANDAR CORREO A CLIENTE PARA CONFIRMAR EL CAMBIO
-            int _filasRegistradas = this._accessDB.UpdateDatosAccesoQuery(newcliente);
-
-            if (_filasRegistradas == 1)
+            if (ModelState.GetValidationState("Email") == ModelValidationState.Invalid ||
+                ModelState.GetValidationState("Password") == ModelValidationState.Invalid ||
+                ModelState.GetValidationState("RepPassword") == ModelValidationState.Invalid)
             {
-                Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
-                this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
-                return RedirectToAction("DatosPerfil");
+                return View("DatosPerfil", newcliente);
             }
-            else
-            {
-                ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
-                return View(newcliente);
+            else { 
+                if (this._accessDB.ComprobarCredsCliente(newcliente.CredencialesAcceso.Email, newcliente.CredencialesAcceso.Password))
+                {
+                    int _filasRegistradas = this._accessDB.UpdateDatosAccesoQuery(newcliente);
+                    if (_filasRegistradas == 1)
+                    {
+                        Cliente _clienteSesion = this._accessDB.DevolverCliente(newcliente.CredencialesAcceso.Email);
+                        this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                        //despues de guardar los nuevos datos de acceso informamos al cliente del cambios de sus datos de acceso
+                        String _mensajeHTMLEmail = "<h2>Estimado/a " + _clienteSesion.Nombre + " " + _clienteSesion.Apellidos + "</h2> <br>" +
+                            "<div align='center'>" +
+                                "<tr>" +
+                                    "<td>" +
+                                        "<h2>CAMBIO DE CONTRASEÑA</h2><br>" +
+                                    "</td><hr>" +
+                                    "<td>" +
+                                        "<h3>Informamos que sus datos de acceso de Opticasion han sido modificados</h3>" +
+                                    "</td><hr>" +
+                                    "<td>" +
+                                        "<label>Si no ha sido usted el que ha modificado los datos por favor pongase en contacto de inmediato a traves de este número</label><br>" +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<h4>Teléfono Atención al cliente: 911 24 03 15</h4><hr>" +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<label>Si el que ha modifica los datos a sido usted, puede borrar este correo y seguir usando su cuenta</label>" +
+                                    "</td>" +
+                                "</tr><br>" +
+                                "<br><hr><label>Muchas gracias por confiar en nosotros, atentamente Opticasion</label>" +
+                                "<label>Por favor no conteste a este correo, el correo es autogenerado por nuestros servicios automáticamente. Muchas gracias</label >" +
+                            "</div>";
+                        this._clienteEmail.EnviarEmail(_clienteSesion.CredencialesAcceso.Email,"Aviso de cambio de credenciales", _mensajeHTMLEmail);
+                        ViewBag.showSuccessAlert = true;
+                        return RedirectToAction("DatosPerfil");
+                    }
+                    else
+                    {
+                        ViewBag.showSuccessAlert = false;
+                        ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
+                        return View(newcliente);
+                    }
+                }
+                else
+                {
+                    //fallo en login, email o password incorrectos
+                    ViewBag.showSuccessAlert = false;
+                    ModelState.AddModelError("", "Email o Contraseña invalidos....");
+                    return RedirectToAction("DatosPerfil", newcliente);
+                }
             }
         }
 
         [HttpPost]
         public IActionResult UpdateDatosDireccion(Cliente newcliente)
         {
-            //REVISAR PORQUE NO RECOGE DEL FORMULARIO CAMPOS DE PROVINCIA Y LOCALIDAD DEL SELECT----------------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             try{
                 string _email = newcliente.CredencialesAcceso.Email;
                 ViewData["listaProvincias"] = this._accessDB.DevolverProvincias();
@@ -229,7 +269,7 @@ namespace Opticasion.Controllers
                 else
                 {
                     Cliente clientesinmodificar = this._accessDB.DevolverCliente(_email);//buscamos datos del cliente a modificar
-                    string idDireccion = clientesinmodificar.DireccionPrincipal.IdDireccion;//recojo su idDireccion y la guardo en la querry para buscar por el ese valor con where y modificar la fila
+                    string idDireccion = clientesinmodificar.DireccionPrincipal.IdDireccion;//recojo su idDireccion y la guardo en la querry para buscar por ese valor con where y modificar la fila
                     newcliente.DireccionPrincipal.IdDireccion = idDireccion; //meto el idDireccion en el resto de la query
                     int _filasRegistradas = this._accessDB.UpdateDatosDireccionQuery(newcliente);
 
