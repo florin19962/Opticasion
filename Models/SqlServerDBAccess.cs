@@ -493,13 +493,13 @@ namespace Opticasion.Models
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
 
-                    case "Color":
+                    case "Color": //añadir a tabla
                         __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Color=@IdSub";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
 
-                    case "Estilo":
+                    case "Estilo": //añadir a tabla
                         __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Estilo=@IdSub";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
@@ -786,48 +786,63 @@ namespace Opticasion.Models
             }
         }
 
-        //public Pedido DevolverPedido(string idproductos)
-        //{
-        //    try
-        //    {
-        //        SqlConnection __miconexion = new SqlConnection();
-        //        __miconexion.ConnectionString = this._conexionDB;
-        //        __miconexion.Open();
+        public List<Pedido> DevolverPedido(string dni)
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
 
-        //        SqlCommand __micomando = new SqlCommand();
-        //        __micomando.Connection = __miconexion;
-        //        __micomando.CommandType = CommandType.Text;
-        //        __micomando.CommandText = "SELECT * FROM dbo.Pedidos p, dbo.ProdPedido pr WHERE p.IdProductos=pr.IdProductos";
-        //        __micomando.Parameters.AddWithValue("@IdProductos", idproductos);
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "SELECT * FROM dbo.Pedidos p, dbo.ProdPedido a, dbo.Gafas g WHERE p.IdPedido = a.IdPedidoArt AND a.GafasId = g.GafasId AND p.DNICliente = @DNICliente";
+                //__micomando.CommandText = "SELECT * FROM dbo.Pedidos p, dbo.ProdPedido a WHERE p.IdPedido = a.IdPedidoArt AND p.DNICliente = @DNICliente";
+                __micomando.Parameters.AddWithValue("@DNICliente", dni);
 
-        //        return __micomando
-        //                .ExecuteReader()
-        //                .Cast<IDataRecord>()
-        //                .Select((fila) => new Pedido()
-        //                {
-        //                    IdPedido = fila["IdPedido"].ToString(),
-        //                    //ListaProd = new ProdPedido()
-        //                    //{
-        //                    //    IdProductos = fila["IdProductos"].ToString(),
-        //                    //    Detalles = fila["Detalles"].ToString(),
-        //                    //    GafasId = fila["GafasId"].ToString()
-        //                    //},
-        //                    DireccionEnvio = fila["IdDireccion"].ToString(),
-        //                    FechaPedido = (DateTime)fila["FechaPedido"],
-        //                    TotalPedido = (decimal)fila["TotalPedido"],
-        //                    DNICliente = fila["DNICliente"].ToString(),
-        //                    GastosEnvio = (decimal)fila["GastosEnvio"],
-        //                    CuentaCliente = fila["CuentaCliente"].ToString()
-        //                })
-        //                .Single<Pedido>();
-
-        //    }
-        //    catch (SqlException ex)
-        //    {
-
-        //        return null;
-        //    }
-        //}
+                return __micomando
+                        .ExecuteReader()
+                        .Cast<IDataRecord>()
+                        .Select((fila) => new Pedido()
+                        {
+                            IdPedido = (int)fila["IdPedido"],
+                            DireccionEnvio = fila["IdDireccion"].ToString(),
+                            FechaPedido = (string)fila["FechaPedido"],
+                            TotalPedido = (decimal)fila["TotalPedido"],
+                            DNICliente = fila["DNICliente"].ToString(),
+                            GastosEnvio = (decimal)fila["GastosEnvio"],
+                            CuentaCliente = fila["CuentaCliente"].ToString(),
+                            Articulos = new ProdPedido()
+                            {
+                                IdPedidoArt = (int)fila["IdPedidoArt"],
+                                IdArt = (int)fila["IdArt"],
+                                Detalles = fila["Detalles"].ToString(),
+                                //GafasId = fila["GafasId"].ToString()
+                                GafasId = new Gafas()
+                                {
+                                    GafasId = (string)fila["GafasId"],
+                                    NombreModelo = (string)fila["NombreModelo"],
+                                    PrecioProd = (decimal)fila["PrecioProd"],
+                                    Descripcion = (string)fila["Descripcion"],
+                                    FotoGafaString = (string)fila["FotoGafaString"],
+                                    VendedorId = (string)fila["VendedorId"],
+                                    Marca = (string)fila["Marca"],
+                                    Genero = (string)fila["Genero"],
+                                    IdCategoria = (int)fila["IdCategoria"],
+                                    FechaPublicacion = (DateTime)fila["FechaPublicacion"]
+                                    //Color = fila[""],
+                                    //Estilo = fila[""]
+                                }
+                            }
+                        })
+                        .ToList<Pedido>();
+            }
+            catch (SqlException ex)
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }

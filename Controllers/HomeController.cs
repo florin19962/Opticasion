@@ -43,7 +43,7 @@ namespace Opticasion.Controllers
             return View();
         }
 
-        #region "------------------------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES-----------------------------------------------------------"
+        #region "-----------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES------------------------------------------------"
         
         [HttpGet]
         public IActionResult ZonaTrabajadores()

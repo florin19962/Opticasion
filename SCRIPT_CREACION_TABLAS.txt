@@ -1,0 +1,78 @@
+CREATE TABLE [dbo].[Clientes] (
+    [DNI]          NCHAR (10)     NOT NULL,
+    [Nombre]       NVARCHAR (50)  NOT NULL,
+    [Apellidos]    NVARCHAR (100) NOT NULL,
+    [Email]        NVARCHAR (50)  NOT NULL,
+    [HashPassword] NVARCHAR (MAX) NOT NULL,
+    [Telefono]     NCHAR (11)     NOT NULL,
+    [CuentaActiva] BIT            NOT NULL,
+    [NickName]     NVARCHAR (50)  NOT NULL,
+    [Tipo]         NCHAR (10)     NOT NULL,
+    [IdDireccion]  NVARCHAR (50)  NULL,
+    PRIMARY KEY CLUSTERED ([DNI] ASC)
+);
+
+CREATE TABLE [dbo].[Direcciones] (
+    [IdDireccion] NVARCHAR (50)  NOT NULL,
+    [CodPro]      INT            NOT NULL,
+    [CodMun]      INT            NOT NULL,
+    [Calle]       NVARCHAR (MAX) NOT NULL,
+    [CP]          INT            NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdDireccion] ASC)
+);
+
+CREATE TABLE [dbo].[Categorias] (
+    [IdCategoria]     INT           NOT NULL,
+    [NombreCategoria] NVARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdCategoria] ASC)
+);
+
+CREATE TABLE [dbo].[Gafas] (
+    [GafasId]            INT            IDENTITY (1, 1) NOT NULL,
+    [NombreModelo]       NVARCHAR (50)  NULL,
+    [PrecioProd]         DECIMAL (5, 2) NULL,
+    [Descripcion]        NVARCHAR (MAX) NULL,
+    [FotoGafaString]     NVARCHAR (MAX) NULL,
+    [VendedorId]         NVARCHAR (50)  NULL,
+    [CodigoVerificacion] INT            NULL,
+    [Marca]              NVARCHAR (50)  NULL,
+    [Genero]             NVARCHAR (50)  NULL,
+    [IdCategoria]        INT            NOT NULL,
+    [FechaPublicacion]   DATETIME       NULL,
+    PRIMARY KEY CLUSTERED ([GafasId] ASC)
+);
+
+CREATE TABLE [dbo].[Municipios] (
+    [CodPro]          INT            NOT NULL,
+    [CodMun]          INT            NOT NULL,
+    [DC]              INT            NOT NULL,
+    [NombreMunicipio] NVARCHAR (MAX) NOT NULL,
+    CONSTRAINT [PK_Municipios] PRIMARY KEY CLUSTERED ([CodPro] ASC, [CodMun] ASC)
+);
+
+CREATE TABLE [dbo].[Provincias] (
+    [CodPro]          INT            NOT NULL,
+    [NombreProvincia] NVARCHAR (MAX) NOT NULL,
+    PRIMARY KEY CLUSTERED ([CodPro] ASC)
+);
+
+
+CREATE TABLE [dbo].[Pedidos] (
+    [IdPedido]      INT            IDENTITY (1, 1) NOT NULL,
+    [IdDireccion]   NVARCHAR (MAX) NOT NULL,
+    [FechaPedido]   NVARCHAR (MAX) NOT NULL,
+    [TotalPedido]   DECIMAL (18)   NOT NULL,
+    [DNICliente]    NCHAR (10)     NOT NULL,
+    [GastosEnvio]   DECIMAL (18)   NOT NULL,
+    [CuentaCliente] NVARCHAR (MAX) NOT NULL,
+    CONSTRAINT [PK_Pedidos] PRIMARY KEY CLUSTERED ([IdPedido] ASC)
+);
+
+CREATE TABLE [dbo].[ProdPedido] (
+    [IdPedidoArt] INT            NOT NULL,
+    [IdArt]       INT            IDENTITY (1, 1) NOT NULL,
+    [Detalles]    NVARCHAR (MAX) NOT NULL,
+    [GafasId]     NVARCHAR (50)  NOT NULL,
+    CONSTRAINT [PK_ProdPedido] PRIMARY KEY CLUSTERED ([IdArt] ASC)
+);
+

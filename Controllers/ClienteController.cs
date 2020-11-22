@@ -132,8 +132,9 @@ namespace Opticasion.Controllers
                         return RedirectToAction("ZonaTrabajadores", "Home");
                     }
                     else {
-                    //login ok, creamos variable de sesion: cliente
+                    //login ok, creamos variable de sesion: cliente y lista de pedidos del cliente
                         this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                        ViewData["listaPedidos"] = this._accessDB.DevolverPedido(_clienteSesion.DNI);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -153,9 +154,10 @@ namespace Opticasion.Controllers
         //-----------------------------LOGOUT---------------------------------------------
         public RedirectToActionResult btnLogOut()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Clear();//Limpiamos la sesion para desloguear al usuario
             return RedirectToAction("Index", "Home");
         }
+
         //----------------------------PERFIL-----------------------------------------------
         [HttpGet]
         public IActionResult DatosPerfil()
@@ -294,5 +296,12 @@ namespace Opticasion.Controllers
             }
 
         }       
+
+        public IActionResult ListadoPedidos(String dni)
+        {
+            Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+            ViewData["listaPedidos"] = this._accessDB.DevolverPedido(dni);
+            return View(_clienteSesion);
+        }
     }
 }

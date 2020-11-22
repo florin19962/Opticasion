@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "~/Views/Shared/_PanelPerfilCliente.cshtml";
+}
+@{
+    ViewData["Title"] = "Perfil";
+}
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+@using System;
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="crossorigin="anonymous"></script>
+<section class="container-fluid">
+    <div class="row">
+        @if (ViewBag.showSuccessAlert == true)
+        {
+            <div class="alert alert-success" role="alert">
+                <label>Los datos se guardaron correctamente</label>
+            </div>
+        }
+        @if (ViewBag.showSuccessAlert == false)
+        {
+            <div class="alert alert-danger" role="alert">
+                <label>Se produjo un error al guardar los datos.</label>
+            </div>
+        }
+        <div class="col-lg-12">
+            <div class="caja-datosPanel">
+                <div class="caja-header">
+                    <h3 class="">Pedidos en curso</h3> <p>Sus pedidos llegan de 2 a 3 días habilides desde sus compra</p>
+                </div>
+                <hr />
+                <div>
+                    <div class="container caja-body">
+                        <div class="row mb-2">
+                            <div class="col-lg-12">
+                                @foreach (Pedido unpedido in (ViewData["listaPedidos"] as List<Pedido>))//Ver como quitar los id repetidos
+                                    {
+                                    <div id="accordion">
+                                        <div class="card">
+                                            <div class="card-header" id="headingOne">
+                                                <h5 class="mb-0">
+                                                    Id Pedido: @unpedido.IdPedido<span> @unpedido.Articulos.GafasId.Marca</span>
+                                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseDatos" aria-expanded="false" aria-controls="collapseDatos">
+                                                        Mas detalles
+                                                    </button>
+                                                </h5>
+                                            </div>
+
+                                            <div class="collapse multi-collapse" id="collapseDatos">
+                                                <div class="card-body">
+                                                    <table>
+                                                        <thead>
+                                                            <tr class="header-carrito">
+                                                                <th width="150" scope="col">ARTICULO</th>
+                                                                <th width="200" scope="col">MARCA</th>
+                                                                <th width="200" scope="col">MODELO</th>
+                                                                <th width="150" scope="col">PRECIO</th>
+                                                                <th width="100" scope="col">FECHA COMPRA</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr class="caja-itemCarrito">
+                                                                <td>
+                                                                    <img src="~/ImagenesProductos/@unpedido.Articulos.GafasId.FotoGafaString" width="150" alt="Imagen Producto" />
+                                                                </td>
+
+                                                                <td>
+                                                                    <label>@unpedido.Articulos.GafasId.Marca</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <label>Modelo: @unpedido.Articulos.GafasId.NombreModelo</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <label style="color: #17a2b8;font-weight: 500;">Precio: @unpedido.Articulos.GafasId.PrecioProd €</label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <label>@unpedido.FechaPedido</label>
+                                                                </td>
+                                                                @*<td> //Hacer metodo para cancelar pedido
+                                                                    <a class="btnQuitarDeListaPedidos" asp-controller="Pedido"
+                                                                       asp-action="QuitarProducto del pedido"
+                                                                       asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.ItemGafa.GafasId} })">
+                                                                        <i class="far fa-times-circle fa-2x"></i>
+                                                                    </a>
+                                                                </td>*@
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function () {
+
+        $(document).ready(function () {
+            $('.collapse').on('show.bs.collapse', function () {
+                $('.collapse.show').collapse('toggle');
+            });
+        });
+
+    });
+</script>
+<script>
+    $('.btn-link').on('click', function () {
+        $('.collapse').on('show.bs.collapse', function () {
+            $('.collapse.hide').collapse('toggle');
+        });
+    });
+</script>

@@ -63,7 +63,7 @@ namespace Opticasion.Controllers
                 _pedido = new Pedido();
                 _pedido.ElementosCarro = new List<ItemCarrito>();
                 _pedido.GastosEnvio = 3;
-                _pedido.FechaPedido = DateTime.Now;
+                _pedido.FechaPedido = Convert.ToString(DateTime.Now);
                 _pedido.DNICliente = _clienteSesion.DNI;
                 _pedido.DireccionEnvio = _clienteSesion.DireccionPrincipal.IdDireccion;
                 _pedido.CuentaCliente = "";
@@ -205,8 +205,8 @@ namespace Opticasion.Controllers
                                         "<h4>Total de la compra: " + _pedido.TotalPedido + "€</h4><br>" +
                                     "</td>" +
                                     "<td>" +
-                                        "<label>Puede ver su pedido desde este enlace" +
-                                            "<a href='https://localhost:44367/Cliente/VerPedidos/" + _clienteSesion.CredencialesAcceso.Email + "' > Mis pedidos </a> " +
+                                        "<label>Puede ver sus pedidos desde este enlace, accediendo a su apartado Mis Pedidos desde su perfil" +
+                                            "<a href='https://localhost:44367/Cliente/Login/'> Acceder </a> " +
                                         "</label>" +
                                     "</td>" +
                                 "</tr><br>" +

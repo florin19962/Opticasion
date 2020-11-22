@@ -272,11 +272,13 @@ ul li:hover > div {
 .banner-oferta img {
     margin-top: 10%;
     margin-left: 5%;
-    width: 90%
+    width: 90%;
+    transition: .8s;
 }
 
     .banner-oferta img:hover {
         box-shadow: 0px 10px 10px black;
+        transition: .8s;
     }
 
 #carrusel {

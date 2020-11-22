@@ -10,7 +10,7 @@ namespace Opticasion.Models
         public int IdPedidoArt { get; set; }
         public int IdArt { get; set; }
         public string Detalles { get; set; }
-        public string GafasId { get; set; }
-
+        //public string GafasId { get; set; }
+        public Gafas GafasId { get; set; }
     }
 }

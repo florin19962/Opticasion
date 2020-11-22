@@ -24,14 +24,15 @@ namespace Opticasion.Interfaces
 
         #region "....metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS....   
         int UpdateDatosProductoQuery(Gafas newgafas);
-        int BorrarGafas(string gafasid);
+        int BorrarGafas(String gafasid);
         Dictionary<String, Gafas> DevolverGafas(String criterio, String valor);
         Dictionary<String, Gafas> DevolverTodosLosArticulos();
         List<Categorias> DevolverCategorias();
-        Gafas BuscarGafas(string gafasid);
+        Gafas BuscarGafas(String gafasid);
         int RegistrarPedido(Pedido newpedido);
-        //Pedido DevolverPedido(String dnicliente);
+        //Pedido DevolverPedido(String dni);
 
+        List<Pedido> DevolverPedido(String dni);
         #endregion
     }
 }

@@ -32,62 +32,60 @@
 
 </head>
 <body>
-    <div class="row">
-        <div class="menu-superior">
-            <div>
-                <ul>
-                    <li class="enl"><i class="fas fa-sign-out-alt" style="color: #b8c7ce;margin:3px 10px;"></i>@Html.ActionLink("Cerrar Sessión", "btnLogOut", "Cliente")</li>
-                </ul>
-            </div> 
-        </div>
-        <div class="col-5 cajon-externo">
-            <div class="cajon-pan">
-                <div class="row perfil">
-                    <div class="col-md-3">
-                        <img src="~/img/iconoUsuario.jpg" alt="Alternate Text" width="80px" />
-                    </div>
-                    <div class="col-md-9">
-                        <div class="col-12">
-                            <h3><i class="fas fa-home"></i> Bienvenido a tu Panel</h3>
-                        </div>
-                        <div class="col-12">
-                            <label>@_cliente.NickName</label>
-                        </div>
-                        <div class="col-12">                 
-                            <p style="color:white;font-size: 11px;"><i class="fa fa-circle text-success" style=""></i> Online</p>
-                        </div>
-                    </div>             
-                </div>
-                <hr style="background-color: #ffffffb5;">
-                <div class="enlaces-panel">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="menu-superior">
+                <div>
                     <ul>
-                        <li>
-                            <a asp-controller="Cliente" asp-action="DatosPerfil">
-                                <i class="far fa-user"></i><span> Mis datos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Cliente" asp-action="DatosPerfil">
-                                <i class="fas fa-clipboard-check"></i><span> Mis pedidos</span>
-                            </a>
-                        </li>
+                        <li class="enl"><i class="fas fa-sign-out-alt" style="color: #b8c7ce;margin:3px 10px;"></i>@Html.ActionLink("Cerrar Sessión", "btnLogOut", "Cliente")</li>
                     </ul>
-
                 </div>
             </div>
-        </div>
-        <div class="col-7 body-panel">
-            @RenderBody()
+            <div class="col-5 cajon-externo">
+                <div class="cajon-pan">
+                    <div class="row perfil">
+                        <div class="col-md-3">
+                            <img src="~/img/iconoUsuario.jpg" alt="Alternate Text" width="80px" />
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-12">
+                                <h3><i class="fas fa-home"></i> Bienvenido a tu Panel</h3>
+                            </div>
+                            <div class="col-12">
+                                <label>@_cliente.NickName</label>
+                            </div>
+                            <div class="col-12">
+                                <p style="color:white;font-size: 11px;"><i class="fa fa-circle text-success" style=""></i> Online</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="background-color: #ffffffb5;">
+                    <div class="enlaces-panel">
+                        <ul>
+                            <li>
+                                <a asp-controller="Cliente" asp-action="DatosPerfil">
+                                    <i class="far fa-user"></i><span> Mis datos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Cliente" 
+                                   asp-action="ListadoPedidos"
+                                   asp-all-route-data="@(new Dictionary<String, String>() { { "dni", @Model.DNI } });">
+                                    <i class="fas fa-clipboard-check"></i><span> Mis pedidos</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-7 body-panel">
+                @RenderBody()
+            </div>
         </div>
     </div>
 </body>
 </html>
 
 <script>
-    function logOut() {
-        if (Request.Cookies["_clienteSesion"] != null) {
-            Response.Cookies["_clienteSesion"].Expires = DateTime.Now.AddDays(-1);
-            Navigator = "Cliente", "Login";
-        }
-    }
 </script>

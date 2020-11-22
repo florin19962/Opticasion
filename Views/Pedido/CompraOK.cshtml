@@ -42,7 +42,12 @@
                     </button>
                     <div class="enlaceInferior">
                         <label style="margin-left: 49%!important;">
-                            <a style="text-decoration: underline;color:#242424;font-size: 11px;" href="#">Ir a Mis pedidos</a>
+                            <a style="text-decoration: underline;color:#242424;font-size: 11px;"
+                                asp-action="ListadoPedidos" 
+                                asp-controller="Cliente"
+                                asp-all-route-data="@(new Dictionary<String, String>() { { "dni", _cliente.DNI } });">
+                                Ir a Mis pedidos
+                            </a>
                         </label>
                     </div>
                 </div>
