@@ -4,8 +4,10 @@
     margin:0;
 }
 .categorias {
-    background-color: #ff6400;
-    height: 1000px;
+    background-color: #222d32;
+    min-height: 600px;
+    height: auto;
+    color: #b8c7ce;
 }
 .cuerpoTienda {
     background-color: white;

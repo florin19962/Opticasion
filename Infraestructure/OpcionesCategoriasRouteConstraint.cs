@@ -21,6 +21,7 @@ namespace Opticasion.Infraestructure
                                                                     "NombreModelo",
                                                                     "IdCategoria",
                                                                     "FechaPublicacion",
+                                                                    "PrecioProd",
                                                                     "Color",
                                                                     "Estilo"
                                                                     };

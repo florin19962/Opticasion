@@ -476,7 +476,7 @@ namespace Opticasion.Models
                         break;
 
                     case "Genero":
-                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Genero=@IdSub";
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
@@ -492,15 +492,20 @@ namespace Opticasion.Models
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
+                    case "PrecioProd":
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
+                        __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
+                        __micomando.Parameters["@IdSub"].Value = valor;
+                        break;
 
                     case "Color": //añadir a tabla
-                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Color=@IdSub";
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
 
                     case "Estilo": //añadir a tabla
-                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE Estilo=@IdSub";
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;

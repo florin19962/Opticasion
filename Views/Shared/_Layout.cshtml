@@ -221,7 +221,7 @@
                         </li>
                     </ul>
                     <form class="form-inline">
-                        <input id="cajaBuscar" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Busca tu modelo favorito">
+                        <input id="cajaBuscar" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Busca lo que te interesa">
                         <div class="input-group-append">
                             <a class="btn btn-group-sm" id="botonBuscar">
                                 <i class="fas fa-search" style="color: #757575;"></i>
@@ -229,8 +229,8 @@
                         </div>
                     </form>
                     <div style="display:none;" class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="radNombreModelo" name="radOpciones" class="custom-control-input" checked>
-                        <label class="custom-control-label" for="radNombreModelo">NombreModelo</label>
+                        <input type="radio" id="radMarca" name="radOpciones" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="radMarca">Marca</label>
                     </div>
                 </div>
                 <!-----------------------Menu funciones usuario(Login,Carrito,ZonaTrabajo,CerrarSesion)------------>
@@ -304,7 +304,6 @@
             "click",
             (ev) => {
                 var opcion = Array.from(document.getElementsByName("radOpciones")).find((el) => el.checked).id.replace("rad", "");
-                // window.location.href = "http://localhost:44367/Home/Buscar/?opcion=" + opcion + "&valor="  + encodeURIComponent(cajaBuscar.value);
                 window.location.href = "https://localhost:44367/Tienda/Buscar/" + opcion + "/" + encodeURIComponent(cajaBuscar.value);
             }
         );
