@@ -31,8 +31,9 @@
                     </a>
                 </div>
             </div>
-            <label>Genero</label><br />
             <form class="form-inline">
+                @* -------------------------------FILTRO POR GENERO------------------------------------------- *@
+                <h4>Genero</h4><br />
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                            id="radGenero/Sol Hombre"
@@ -45,7 +46,7 @@
                            id="radGenero/Montura Hombre"
                            name="radOpcionesFiltro"
                            class="custom-control-input">
-                    <label class="custom-control-label" for="radGenero/Montura Hombre">Hombre Mont</label>
+                    <label class="custom-control-label" for="radGenero/Montura Hombre">Hombre Montura</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio"
@@ -59,7 +60,7 @@
                            id="radGenero/Montura Mujer"
                            name="radOpcionesFiltro"
                            class="custom-control-input">
-                    <label class="custom-control-label" for="radGenero/Montura Mujer">Mujer Mont</label>
+                    <label class="custom-control-label" for="radGenero/Montura Mujer">Mujer Montura</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio"
@@ -73,7 +74,7 @@
                            id="radGenero/Montura Niño"
                            name="radOpcionesFiltro"
                            class="custom-control-input">
-                    <label class="custom-control-label" for="radGenero/Montura Niño">Niños Mont</label>
+                    <label class="custom-control-label" for="radGenero/Montura Niño">Niños Montura</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio"
@@ -82,11 +83,62 @@
                            class="custom-control-input">
                     <label class="custom-control-label" for="radGenero/Articulo">Artículos</label>
                 </div>
+                @* -------------------------------FILTRO POR PRECIO------------------------------------------- *@
+                <h4 style="position: absolute; top: 75%; margin-bottom: 40px;">Precio</h4><br />
+                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
+                    <input type="radio"
+                           id="radPrecioProd/25"
+                           name="radOpcionesFiltro"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="radPrecioProd/25">Max 25€</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
+                    <input type="radio"
+                           id="radPrecioProd/50"
+                           name="radOpcionesFiltro"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="radPrecioProd/50">Max 50€</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
+                    <input type="radio"
+                           id="radPrecioProd/75"
+                           name="radOpcionesFiltro"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="radPrecioProd/75">Max 75€</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
+                    <input type="radio"
+                           id="radPrecioProd/100"
+                           name="radOpcionesFiltro"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="radPrecioProd/100">Max 100€</label>
+                </div>
+                @* -------------------------------FILTRO POR COLOR------------------------------------------- *@
+                <h4 style="position: absolute; top: 475px; margin-bottom: 40px;">Color</h4><br />
+                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 100px;">
+                    <input type="radio"
+                           id="radColor/Rojo"
+                           name="radOpcionesFiltro"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="radColor/Rojo">Rojo</label>
+                </div>
+
+
+
+
+
+
+                @* ---------------------------FILTRO POR FECHA PUBLICACION------------------------------------ *@
+
+
+
+
+                @* -------------------------------FILTRO POR ESTILO------------------------------------------- *@
             </form>
         </div>
     </div>
 </div>
-<hr />
+
 
 
 

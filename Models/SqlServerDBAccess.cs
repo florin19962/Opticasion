@@ -493,7 +493,7 @@ namespace Opticasion.Models
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
                     case "PrecioProd":
-                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE PrecioProd <= @IdSub";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;

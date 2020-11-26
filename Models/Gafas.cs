@@ -52,6 +52,8 @@ namespace Opticasion.Models
 
         public DateTime FechaPublicacion { get; set; }
 
+        public string Color { get; set; }
+
         public Gafas()
         {
 

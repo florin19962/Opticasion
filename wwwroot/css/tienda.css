@@ -207,3 +207,67 @@
     font-weight: 500;
     margin: 0 0 -0.75rem -1rem;
 }
+
+/*CSS PARA FILTROS COLORES TIENDA*/
+/*                            input[type="radio"] {
+                                display: none;
+                            }
+
+                                input[type="radio"] + label {
+                                    color: red;
+                                    font-family: Arial, sans-serif;
+                                    font-size: 14px;
+                                }
+
+                                    input[type="radio"] + label span {
+                                        display: inline-block;
+                                        width: 19px;
+                                        height: 19px;
+                                        margin: -1px 4px 0 0;
+                                        vertical-align: middle;
+                                        cursor: pointer;
+                                        -moz-border-radius: 50%;
+                                        border-radius: 50%;
+                                    }
+
+                                    input[type="radio"] + label span {
+                                        background-color: red;
+                                    }
+
+                                input[type="radio"]:checked + label span {
+                                    background-color: black;
+                                }
+
+                                input[type="radio"] + label span,
+                                input[type="radio"]:checked + label span {
+                                    -webkit-transition: background-color 0.4s linear;
+                                    -o-transition: background-color 0.4s linear;
+                                    -moz-transition: background-color 0.4s linear;
+                                    transition: background-color 0.4s linear;
+                                } */
+/*input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}*/
