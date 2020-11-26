@@ -431,8 +431,8 @@ namespace Opticasion.Models
                     __filagafa.Genero = ((IDataRecord)__resultado)[8].ToString();
                     __filagafa.IdCategoria = Convert.ToInt16(((IDataRecord)__resultado)[9]);
                     __filagafa.FechaPublicacion = Convert.ToDateTime(((IDataRecord)__resultado)[10]);
-                    //__filagafa.Color = ((IDataRecord)__resultado)[11].ToString();
-                    //__filagafa.Estilo = ((IDataRecord)__resultado)[12].ToString();
+                    __filagafa.Color = ((IDataRecord)__resultado)[11].ToString();
+                    __filagafa.Estilo = ((IDataRecord)__resultado)[12].ToString();
                 }
                 return __filagafa;
             }
@@ -498,13 +498,13 @@ namespace Opticasion.Models
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
 
-                    case "Color": //añadir a tabla
+                    case "Color":
                         __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
                         break;
 
-                    case "Estilo": //añadir a tabla
+                    case "Estilo":
                         __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
@@ -526,9 +526,9 @@ namespace Opticasion.Models
                                                                               Marca = fila[7].ToString(),
                                                                               Genero = fila[8].ToString(),
                                                                               IdCategoria = Convert.ToInt16(fila[9]),
-                                                                              FechaPublicacion = Convert.ToDateTime(fila[10])
-                                                                              //Color = fila[11].ToString(),
-                                                                              //Estilo = fila[12].ToString()
+                                                                              FechaPublicacion = Convert.ToDateTime(fila[10]),
+                                                                              Color = fila[11].ToString(),
+                                                                              Estilo = fila[12].ToString()
                                                                           }
                                                                   select new KeyValuePair<String, Gafas>(gafasid, gafas);
 
@@ -568,9 +568,9 @@ namespace Opticasion.Models
                                                                       Marca = fila[7].ToString(),
                                                                       Genero = fila[8].ToString(),
                                                                       IdCategoria = Convert.ToInt16(fila[9]),
-                                                                      FechaPublicacion = Convert.ToDateTime(fila[10])
-                                                                      //Color = fila[11].ToString(),
-                                                                      //Estilo = fila[12].ToString()
+                                                                      FechaPublicacion = Convert.ToDateTime(fila[10]),
+                                                                      Color = fila[11].ToString(),
+                                                                      Estilo = fila[12].ToString()
                                                                   }
                                                                   select new KeyValuePair<String, Gafas>(gafasid, gafas);
 
@@ -625,7 +625,7 @@ namespace Opticasion.Models
                 SqlCommand _updateProducto = new SqlCommand();
                 _updateProducto.Connection = _miconexion;
                 _updateProducto.CommandType = CommandType.Text;
-                _updateProducto.CommandText = "Update dbo.Gafas set PrecioProd = @PrecioProd, Descripcion = @Descripcion, FotoGafaString = @FotoGafaString, VendedorId = @VendedorId, CodigoVerificacion = @CodigoVerificacion, Marca = @Marca, Genero = @Genero, IdCategoria = @IdCategoria, FechaPublicacion = @FechaPublicacion WHERE NombreModelo = @NombreModelo";
+                _updateProducto.CommandText = "Update dbo.Gafas set PrecioProd = @PrecioProd, Descripcion = @Descripcion, FotoGafaString = @FotoGafaString, VendedorId = @VendedorId, CodigoVerificacion = @CodigoVerificacion, Marca = @Marca, Genero = @Genero, IdCategoria = @IdCategoria, FechaPublicacion = @FechaPublicacion, Color = @Color, Estilo = @Estilo WHERE NombreModelo = @NombreModelo";
 
                 _updateProducto.Parameters.AddWithValue("@NombreModelo", newgafas.NombreModelo);
                 _updateProducto.Parameters.AddWithValue("@PrecioProd", Convert.ToDecimal(newgafas.PrecioProd));
@@ -637,6 +637,8 @@ namespace Opticasion.Models
                 _updateProducto.Parameters.AddWithValue("@Genero", newgafas.Genero);
                 _updateProducto.Parameters.AddWithValue("@IdCategoria", Convert.ToInt16(newgafas.IdCategoria));
                 _updateProducto.Parameters.AddWithValue("@FechaPublicacion", Convert.ToDateTime(newgafas.FechaPublicacion));
+                _updateProducto.Parameters.AddWithValue("@Color", newgafas.Color);
+                _updateProducto.Parameters.AddWithValue("@Estilo", newgafas.Estilo);
 
                 int _resultado = _updateProducto.ExecuteNonQuery();
                 return _resultado;
@@ -645,7 +647,6 @@ namespace Opticasion.Models
             {
                 return 0;
             }
-
         }
 
         public int BorrarGafas(string gafasid)
@@ -691,7 +692,7 @@ namespace Opticasion.Models
                 SqlCommand _insertarProducto = new SqlCommand();
                 _insertarProducto.Connection = __miconexion;
                 _insertarProducto.CommandType = CommandType.Text;
-                _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion) VALUES (@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion)";
+                _insertarProducto.CommandText = "INSERT INTO dbo.Gafas (NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion,Color,Estilo) VALUES (@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion,@Color,@Estilo)";
 
                 _insertarProducto.Parameters.AddWithValue("@NombreModelo", newgafas.NombreModelo);
                 _insertarProducto.Parameters.AddWithValue("@PrecioProd", Convert.ToDecimal(newgafas.PrecioProd));
@@ -703,9 +704,9 @@ namespace Opticasion.Models
                 _insertarProducto.Parameters.AddWithValue("@Genero", newgafas.Genero);
                 _insertarProducto.Parameters.AddWithValue("@IdCategoria", Convert.ToInt16(newgafas.IdCategoria));
                 _insertarProducto.Parameters.AddWithValue("@FechaPublicacion", Convert.ToDateTime(newgafas.FechaPublicacion));
+                _insertarProducto.Parameters.AddWithValue("@Color", newgafas.Color);
+                _insertarProducto.Parameters.AddWithValue("@Estilo", newgafas.Estilo);
 
-                //_insertarProducto.CommandText = "INSERT INTO dbo.Gafas (GafasId,NombreModelo,PrecioProd,Descripcion,FotoGafaString,VendedorId,CodigoVerificacion,Marca,Genero,IdCategoria,FechaPublicacion) VALUES (@GafasId,@NombreModelo,@PrecioProd,@Descripcion,@FotoGafaString,@VendedorId,@CodigoVerificacion,@Marca,@Genero,@IdCategoria,@FechaPublicacion)";
-                //_insertarProducto.Parameters.AddWithValue("@GafasId", newgafas.GafasId);
                 int _resultadoProductoInsert = _insertarProducto.ExecuteNonQuery();
                 if (_resultadoProductoInsert == 1)
                 {
@@ -835,9 +836,9 @@ namespace Opticasion.Models
                                     Marca = (string)fila["Marca"],
                                     Genero = (string)fila["Genero"],
                                     IdCategoria = (int)fila["IdCategoria"],
-                                    FechaPublicacion = (DateTime)fila["FechaPublicacion"]
-                                    //Color = fila[""],
-                                    //Estilo = fila[""]
+                                    FechaPublicacion = (DateTime)fila["FechaPublicacion"],
+                                    Color = (string)fila["Color"],
+                                    Estilo = (string)fila["Estilo"]
                                 }
                             }
                         })

@@ -19,21 +19,21 @@
 }
 
 
-<div class="container-fluid mt-3">
+<div class="container-fluid sticky-top-4" style="padding-top:15%;">
     <div class="row">
         <div class="col">
-            <h4 style="font-size:20px;">Buscar producto</h4>
+            <h4 style="font-size:20px;">Buscar productos</h4>
             <div class="input-group mb-4">
                 <input type="text" id="cajaBuscarFiltro" class="form-control" placeholder="Busca por.." aria-label="Recipient's username" aria-describedby="button-addon2" style="display:none;">
                 <div class="input-group-append">
                     <a class="btn btn-group-sm" id="botonBuscarFiltro">
-                        <i class="fas fa-search" style="color: #757575; background-color:aliceblue; padding: 10px 5px 10px 5px; border-radius:15px;"> Filtrar</i>
+                        <i class="fas fa-search" style="color: #757575; background-color:aliceblue; padding: 10px 35px 10px 30px; border-radius:15px;"> Filtrar</i>
                     </a>
                 </div>
             </div>
             <form class="form-inline">
                 @* -------------------------------FILTRO POR GENERO------------------------------------------- *@
-                <h4>Genero</h4><br />
+                <h4>Género</h4><br />
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio"
                            id="radGenero/Sol Hombre"
@@ -84,49 +84,119 @@
                     <label class="custom-control-label" for="radGenero/Articulo">Artículos</label>
                 </div>
                 @* -------------------------------FILTRO POR PRECIO------------------------------------------- *@
-                <h4 style="position: absolute; top: 75%; margin-bottom: 40px;">Precio</h4><br />
-                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
-                    <input type="radio"
-                           id="radPrecioProd/25"
-                           name="radOpcionesFiltro"
-                           class="custom-control-input">
-                    <label class="custom-control-label" for="radPrecioProd/25">Max 25€</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
-                    <input type="radio"
-                           id="radPrecioProd/50"
-                           name="radOpcionesFiltro"
-                           class="custom-control-input">
-                    <label class="custom-control-label" for="radPrecioProd/50">Max 50€</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
-                    <input type="radio"
-                           id="radPrecioProd/75"
-                           name="radOpcionesFiltro"
-                           class="custom-control-input">
-                    <label class="custom-control-label" for="radPrecioProd/75">Max 75€</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 55px;">
-                    <input type="radio"
-                           id="radPrecioProd/100"
-                           name="radOpcionesFiltro"
-                           class="custom-control-input">
-                    <label class="custom-control-label" for="radPrecioProd/100">Max 100€</label>
+                <h4 style="position: absolute; top: 330px; margin-bottom: 40px;">Precio</h4><br />
+                <div class="row" style="margin-bottom:5%;width:100%;">
+                    <div class="col-6">
+                        <div class="custom-control custom-radio" style="position: relative;top: 55px;">
+                            <input type="radio"
+                                   id="radPrecioProd/25"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label precioFiltro" for="radPrecioProd/25">Max 25€</label>
+                        </div>
+                        <div class="custom-control custom-radio" style="position: relative;top: 55px;">
+                            <input type="radio"
+                                   id="radPrecioProd/50"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label precioFiltro" for="radPrecioProd/50">Max 50€</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="custom-control custom-radio" style="position: relative;top: 55px;">
+                            <input type="radio"
+                                   id="radPrecioProd/75"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label precioFiltro" for="radPrecioProd/75">Max 75€</label>
+                        </div>
+                        <div class="custom-control custom-radio" style="position: relative;top: 55px;">
+                            <input type="radio"
+                                   id="radPrecioProd/100"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label precioFiltro" for="radPrecioProd/100">Max 100€</label>
+                        </div>
+                    </div>
                 </div>
                 @* -------------------------------FILTRO POR COLOR------------------------------------------- *@
-                <h4 style="position: absolute; top: 475px; margin-bottom: 40px;">Color</h4><br />
-                <div class="custom-control custom-radio custom-control-inline" style="position: relative;top: 100px;">
-                    <input type="radio"
-                           id="radColor/Rojo"
-                           name="radOpcionesFiltro"
-                           class="custom-control-input">
-                    <label class="custom-control-label" for="radColor/Rojo">Rojo</label>
+                <h4 style="position: relative;top: 60px;margin-bottom: 40px;">Color</h4><br />
+                <div class="row">
+                    <div class="col-6">
+                        <div class="custom-control custom-radio cajaRadio radio-Rojo" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Rojo"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Rojo"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Azul" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Azul"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Azul"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Oro" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Oro"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Oro"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Negro" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Negro"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Negro"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Naranja" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Naranja"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Naranja"></label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="custom-control custom-radio cajaRadio radio-Gris" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Gris"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Gris"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Rosa" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Rosa"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Rosa"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Marron" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Marron"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Marron"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Verde" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Verde"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Verde"></label>
+                        </div>
+                        <div class="custom-control custom-radio cajaRadio radio-Morado" style="position: relative;top: 30px;">
+                            <input type="radio"
+                                   id="radColor/Morado"
+                                   name="radOpcionesFiltro"
+                                   class="custom-control-input">
+                            <label class="custom-control-label colorFiltro" for="radColor/Morado"></label>
+                        </div>
+                    </div>
                 </div>
-
-
-
-
-
 
                 @* ---------------------------FILTRO POR FECHA PUBLICACION------------------------------------ *@
 
@@ -134,6 +204,7 @@
 
 
                 @* -------------------------------FILTRO POR ESTILO------------------------------------------- *@
+                
             </form>
         </div>
     </div>

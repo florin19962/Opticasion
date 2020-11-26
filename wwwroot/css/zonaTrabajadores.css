@@ -48,7 +48,7 @@
 
 /*APARTADO LISTADO DE PRODUCTOS*/
 .header-listado {
-    background-color: #ff7922e0;
+    background-color: #ff893d;
     height: 50px;
 }
 
@@ -60,6 +60,7 @@
 .caja-itemLista {
     border-bottom: 1px solid #17a2b8;
     transition: .5s;
+    height: 130px;
 }
 
     .caja-itemLista:hover {
@@ -72,9 +73,24 @@
 .btnEditarProducto {
     color: #17a2b8;
 }
-
+.titulo-lista-zonaT {
+    padding-bottom: 3%;
+    padding-top: 1%;
+    background-color: white;
+}
+.sticky-top-2 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 69px;
+    z-index: 500;
+}
+.sticky-top-3 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 135px;
+    z-index: 500;
+}
 /*FIN LISTADO PRODUCTOS*/
-
 /*APARTADO DETALLES PRODUCTO MODIFICAR*/
 .img_cargaModificar {
     /*visibility: hidden;*/

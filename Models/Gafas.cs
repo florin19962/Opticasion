@@ -54,6 +54,8 @@ namespace Opticasion.Models
 
         public string Color { get; set; }
 
+        public string Estilo { get; set; }
+
         public Gafas()
         {
 
@@ -68,7 +70,9 @@ namespace Opticasion.Models
                      string marca,
                      string genero,
                      int idcategoria,
-                     DateTime fechapublicacion
+                     DateTime fechapublicacion,
+                     string color,
+                     string estilo
                      )
         {
             this.GafasId = gafasid;
@@ -82,6 +86,8 @@ namespace Opticasion.Models
             this.Genero = genero;
             this.IdCategoria = idcategoria;
             this.FechaPublicacion = fechapublicacion;
+            this.Color = color;
+            this.Estilo = estilo;
         }
     }
 }

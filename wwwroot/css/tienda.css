@@ -5,7 +5,7 @@
 }
 .categorias {
     background-color: #222d32;
-    min-height: 600px;
+    min-height: 850px;
     height: auto;
     color: #b8c7ce;
 }
@@ -207,67 +207,82 @@
     font-weight: 500;
     margin: 0 0 -0.75rem -1rem;
 }
-
-/*CSS PARA FILTROS COLORES TIENDA*/
-/*                            input[type="radio"] {
-                                display: none;
-                            }
-
-                                input[type="radio"] + label {
-                                    color: red;
-                                    font-family: Arial, sans-serif;
-                                    font-size: 14px;
-                                }
-
-                                    input[type="radio"] + label span {
-                                        display: inline-block;
-                                        width: 19px;
-                                        height: 19px;
-                                        margin: -1px 4px 0 0;
-                                        vertical-align: middle;
-                                        cursor: pointer;
-                                        -moz-border-radius: 50%;
-                                        border-radius: 50%;
-                                    }
-
-                                    input[type="radio"] + label span {
-                                        background-color: red;
-                                    }
-
-                                input[type="radio"]:checked + label span {
-                                    background-color: black;
-                                }
-
-                                input[type="radio"] + label span,
-                                input[type="radio"]:checked + label span {
-                                    -webkit-transition: background-color 0.4s linear;
-                                    -o-transition: background-color 0.4s linear;
-                                    -moz-transition: background-color 0.4s linear;
-                                    transition: background-color 0.4s linear;
-                                } */
-/*input[type='radio']:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
-    background-color: #d1d3d1;
-    content: '';
-    display: inline-block;
-    visibility: visible;
-    border: 2px solid white;
+.banner-oferta-tienda img {
+    margin-left: 5%;
+    width: 90%;
+    transition: .8s;
 }
-input[type='radio']:checked:after {
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
-    top: -2px;
-    left: -1px;
-    position: relative;
-    background-color: #ffa500;
-    content: '';
-    display: inline-block;
-    visibility: visible;
-    border: 2px solid white;
+/*CSS PARA FILTROS COLORES TIENDA*/
+.sticky-top-4 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 56px;
+    z-index: 1020;
+}
+.colorFiltro {
+    padding-right: 120px;
+    float: left;
+    text-align: left;
+    color: white;
+}
+.cajaRadio {
+    border-radius: 20px;
+    margin-bottom: 10px;
+    transition: .4s;
+}
+    .cajaRadio:hover {
+        position: relative;
+        top: 25px !important;
+        transition:.4s;
+    }
+.precioFiltro {
+    font-size: 12px;
+    float: left;
+}
+.radio-Rojo{
+    background-color: red;
+}
+.radio-Azul {
+    background-color: darkblue;
+}
+.radio-Oro {
+    background-color: #fba543;
+}
+.radio-Negro {
+    background-color: black;
+}
+.radio-Naranja {
+    background-color: darkorange;
+}
+.radio-Gris {
+    background-color: grey;
+}
+.radio-Rosa {
+    background-color: hotpink;
+}
+.radio-Marron {
+    background-color: saddlebrown;
+}
+.radio-Verde {
+    background-color: green;
+}
+.radio-Morado {
+    background-color: purple;
+}
+/*.radio-Multicolor {
+    background-color:;
 }*/
+
+.filtroSuperior {
+    background-color: #222d32;
+    height: 50px;
+    width: 158vh;
+    padding-top: 5px;
+}
+.sticky-top-5 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 69px;
+    z-index: 500;
+    margin-left: -15px;
+}

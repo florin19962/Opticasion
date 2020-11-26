@@ -64,6 +64,25 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">
+                            <label for="estilo">Estilo</label>
+                            <select id="estilo" asp-for="@Model.Estilo" class="form-control" required>
+                                <option value="null">Elija un estilo</option>
+                                <option value="Ovalada">Ovalada</option>
+                                <option value="Piloto">Piloto</option>
+                                <option value="Mariposa">Mariposa</option>
+                                <option value="Redonda">Redonda</option>
+                                <option value="Rectangular">Rectangular</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="Color">Color</label>
+                            <input value="@Model.Color" id="color" asp-for="@Model.Color" type="text" class="form-control" placeholder="Color del producto" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
                             <label for="descripcion">Descripción</label>
                             <textarea value="@Model.Descripcion" id="descripcion" asp-for="@Model.Descripcion" type="text" class="form-control" placeholder="Descripción del producto"></textarea>
                         </div>
@@ -83,7 +102,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="gafasid">Id del artículo</label>
-                            <input value="@Model.GafasId" id="gafasid" asp-for="@Model.GafasId" type="text" class="form-control" placeholder="Id del artículo" readonly/>
+                            <input value="@Model.GafasId" id="gafasid" asp-for="@Model.GafasId" type="text" class="form-control" placeholder="Id del artículo" readonly />
                         </div>
                     </div>
 

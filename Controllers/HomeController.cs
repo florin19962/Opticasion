@@ -252,6 +252,14 @@ namespace Opticasion.Controllers
                 return RedirectToAction("ListarProductosZoTrabajo", "Home");
             }
         }
+
+        public IActionResult Buscar()
+        {
+            String opcion = RouteData.Values["opcion"].ToString();
+            String valor = RouteData.Values["valor"].ToString();
+
+            return View("ListarProductosZoTrabajo", this._accessDB.DevolverGafas(opcion, valor));
+        }
         #endregion
     }
 }

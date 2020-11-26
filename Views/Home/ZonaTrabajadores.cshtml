@@ -138,8 +138,27 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
+                                    <label for="estilo">Estilo</label>
+                                    <select id="estilo" asp-for="@Model.Estilo" class="form-control" required>
+                                        <option value="null">Elija un estilo</option>
+                                        <option value="Ovalada">Ovalada</option>
+                                        <option value="Piloto">Piloto</option>
+                                        <option value="Mariposa">Mariposa</option>
+                                        <option value="Redonda">Redonda</option>
+                                        <option value="Rectangular">Rectangular</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="Color">Color</label>
+                                    <input id="color" asp-for="@Model.Color" type="text" class="form-control" placeholder="Color del producto" />
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
                                     <label for="fotogafasurl">Foto del producto *</label>
-                                    <input asp-for="@Model.FotoGafasUrl" size="25" class="form-control custom-file-input" id="inputImgGafa"  style="visibility:hidden">
+                                    <input asp-for="@Model.FotoGafasUrl" size="25" class="form-control custom-file-input" id="inputImgGafa" style="visibility:hidden">
                                     <button type="button" class="btn btnSubirImagen" id="btnFileChangeGafa" onclick="lanzaFile()">Subir imagen</button>
                                     <div>
                                         <span asp-validation-for="@Model.FotoGafasUrl" class="text-danger"></span>
@@ -154,7 +173,7 @@
 
                             <div class="caja-inferior-footerZonaT">
                                 <button type="submit" onsubmit="limpiarYEnviar()" class="btn btn-primary">Guardar</button>
-                                <button type="button" onclick="limpiarFormulario()" class="btn btn-danger" >Vaciar</button>
+                                <button type="button" onclick="limpiarFormulario()" class="btn btn-danger">Vaciar</button>
                             </div>
                         </div>
                     </div>

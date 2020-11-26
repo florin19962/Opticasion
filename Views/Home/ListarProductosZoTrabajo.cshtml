@@ -32,28 +32,52 @@
             <label>Se produjo un error al borrar el producto.</label>
         </div>
     }
-    <div style="margin-bottom: 2%;margin-top: 1%;">
-        <h3 style="width: 50%;float: left;">Listado de productos en almacen</h3>
-        <a class="btn btn-info"
-           asp-action="ZonaTrabajadores"
-           asp-controller="Home">
-            Añadir nuevo
-        </a><i class="far fa-plus-circle fa-2x" style="color: #3f7f92;"></i>
+<div class="sticky-top-2 titulo-lista-zonaT">
+    <h3 style="width: 50%;float: left;">Listado de productos en almacen</h3>
+    @* Apartado añadir nuevo producto *@
+    <a class="btn btn-info"
+       asp-action="ZonaTrabajadores"
+       asp-controller="Home">
+        <i class="fas fa-plus-circle" style="color: white;">Añadir nuevo</i>
+    </a>
+    @* Apartado busqueda de producto en almacen *@
+    <form class="form-inline" style=" float: right;">
+        <input id="cajaBuscarTrabajo" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Buscar producto por modelo">
+        <div class="input-group-append">
+            <a class="btn btn-group-sm" id="botonBuscarTrabajo">
+                <i class="fas fa-search" style="color: #757575;"></i>
+            </a>
+        </div>
+    </form>
+    <div style="display:none;" class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="radNombreModelo" name="radOpcionesTrabajo" class="custom-control-input" checked>
+        <label class="custom-control-label" for="radMarca">NombreModelo</label>
     </div>
+    @* Apartado tabla productos *@
+</div>
     <div class="row">
         <div class="col-12">
+            <div class="row header-listado sticky-top-3">
+                <div class="col-1">ID</div>
+                <div class="col-3">ARTICULO</div>
+                <div class="col-2">MARCA</div>
+                <div class="col-3">MODELO</div>
+                <div class="col-2">PRECIO</div>
+                <div class="col-1">ACCION</div>
+            </div>
             <table>
                 <hr />
                 <thead>
-                    <tr class="header-listado">
-                        <th width="50" scope="col">ID</th>
-                        <th width="300" scope="col">ARTICULO</th>
-                        <th width="300" scope="col">MARCA</th>
-                        <th width="300" scope="col">MODELO</th>
-                        <th width="200" scope="col">PRECIO</th>
-                        <th width="100" scope="col">ACCION</th>
+                    <tr class="">
+                        <th width="50" scope="col"></th>
+                        <th width="300" scope="col"></th>
+                        <th width="300" scope="col"></th>
+                        <th width="300" scope="col"></th>
+                        <th width="200" scope="col"></th>
+                        <th width="100" scope="col"></th>
                     </tr>
                 </thead>
+
                 <tbody>
                     @foreach (Gafas unarticulo in Model.Values)
                     {
@@ -64,3 +88,17 @@
         </div>
     </div>
 </div>
+<script>
+        //------seccion de script para Busqueda-----------
+        var cajaBuscarTrabajo = document.getElementById("cajaBuscarTrabajo");
+        var botonBuscarTrabajo = document.getElementById("botonBuscarTrabajo");
+
+        botonBuscarTrabajo.addEventListener(
+            "click",
+            (ev) => {
+                var opcion = Array.from(document.getElementsByName("radOpcionesTrabajo")).find((el) => el.checked).id.replace("rad", "");
+                window.location.href = "https://localhost:44367/Home/Buscar/" + opcion + "/" + encodeURIComponent(cajaBuscarTrabajo.value);
+            }
+        );
+
+</script>

@@ -203,9 +203,13 @@ ul li:hover > div {
         padding: 5px 15px 5px 15px;
         border-radius: 7%;
         background-color: #be5f31;
+        transition: 0.8s !important;
     }
         .listaMarcas li:hover {
             box-shadow: 4px 3px 12px 3px black;
+            top: -8px;
+            transition: 0.8s !important;
+
         }
         .listaMarcas li a {
             color: #ffffff;

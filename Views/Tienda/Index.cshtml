@@ -44,6 +44,58 @@
             </div>
 
             <div class="col-10 cuerpoTienda">
+                @* Menu filtro superior *@
+                <div class="filtroSuperior sticky-top-5">
+                    <form class="form-inline">
+                        <h4 style="color: #b8c7ce;margin-right: 10px;font-size: 17px;margin-top: 10px;">Estilo</h4><br />
+                        <div class="row" style="">
+                            <div class="col-12">
+                                <div class="custom-control custom-radio custom-control-inline" style="">
+                                    <input type="radio"
+                                           id="radEstilo/Ovalada"
+                                           name="radOpcionesFiltro"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="radEstilo/Ovalada"><img src="~/img/TipOvalada.png" width="100" alt="TipOvalada" /></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline" style="">
+                                    <input type="radio"
+                                           id="radEstilo/Piloto"
+                                           name="radOpcionesFiltro"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="radEstilo/Piloto"><img src="~/img/TipPiloto.png" width="100" alt="TipPiloto" /></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline" style="">
+                                    <input type="radio"
+                                           id="radEstilo/Mariposa"
+                                           name="radOpcionesFiltro"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="radEstilo/Mariposa"><img src="~/img/TipMariposa.png" width="100" alt="TipMariposa" /></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline" style="">
+                                    <input type="radio"
+                                           id="radEstilo/Redonda"
+                                           name="radOpcionesFiltro"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="radEstilo/Redonda"><img src="~/img/TipRedonda.png" width="100" alt="TipRedonda" /></label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline" style="">
+                                    <input type="radio"
+                                           id="radEstilo/Rectangular"
+                                           name="radOpcionesFiltro"
+                                           class="custom-control-input">
+                                    <label class="custom-control-label" for="radEstilo/Rectangular"><img src="~/img/TipRectangular.png" width="100" alt="TipRectangular" /></label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @* Banner anuncio oferta *@
+                <div class="wow animate__animated animate__pulse animate__infinite	infinite">
+                    <a href="#" class="banner-oferta-tienda">
+                        <img src="~/img/bannerOfert.jpg" />
+                    </a>
+                </div>
+                @* Vista de cada producto *@
                 <div class="container-fluid wow animate__animated animate__fadeInRight">
                     @foreach (Gafas unagafa in Model.Values)
                     {
