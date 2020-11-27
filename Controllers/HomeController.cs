@@ -217,7 +217,6 @@ namespace Opticasion.Controllers
                     {
                         using (var fileStream = new FileStream(this._env.WebRootPath + "/ImagenesProductos/" + newgafas.FotoGafaString, FileMode.Create))
                         {
-                            //BUSCAR ALTERNATIVA PARA COPYTOASYNC DA PROBLEMAS.
                             newgafas.FotoGafasUrl.CopyToAsync(fileStream);
                             Thread.Sleep(2000); //creamos hila de espera para dejarlo cargar la imagen bien
                         }

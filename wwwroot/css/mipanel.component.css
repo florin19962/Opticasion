@@ -1,11 +1,37 @@
 /*CSS DEL PANEL INCIO*/
-.body-panel{
+.btnSubirImagenUsu {
+    color: #ffffff7a !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    position: relative;
+    top: -15vh;
+    left: 0vh;
+    transition: 0.5s !important;
+    border-radius: 50px;
+    background: #fff0;
+    border: none;
+    display: inline-block;
+    padding: 20px !important;
+}
+    .btnSubirImagenUsu:hover {
+        color: #ffffff !important;
+        background-color: #fffefe33 !important;
+        transition: 0.5s !important;
+    }
+    .btnSubirImagenUsu:focus, .btnSubirImagenUsu:visited {
+        opacity: 0;
+        -moz-opacity: 0;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+    }
+
+
+.body-panel {
     float: right;
-    background-color:#f0f0f0;
+    background-color: #f0f0f0;
 }
 .cajon-externo {
     background-color: #f0f0f0;
-    min-height: 630px;
+    min-height: 630px !important;
 }
 a{
     color:#484848;

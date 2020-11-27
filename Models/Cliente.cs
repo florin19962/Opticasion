@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Opticasion.Infraestructure;
 
 namespace Opticasion.Models
@@ -47,6 +48,9 @@ namespace Opticasion.Models
 
         public Pedido PedidosCliente { get; set; }
 
+        public IFormFile FotoUsuarioUrl { get; set; }
+
+        public string FotoUsuarioString { get; set; }
 
         //------------------atributo validacion personalizado---------
         [AceptarTerminos(ErrorMessage = "Debes aceptar los terminos y politica de privacidad")]

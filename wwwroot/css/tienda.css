@@ -213,6 +213,30 @@
     transition: .8s;
 }
 /*CSS PARA FILTROS COLORES TIENDA*/
+.btn-filtrar {
+    position: relative;
+    top: 0px;
+    transition: 0.2s;
+}
+.btn-filtrar:hover {
+    position: relative;
+    top: -4px;
+    transition: 0.2s;
+}
+/*BTN RADIO BUTTOM PERSONALIZADOS*/
+.custom-control-label::before {
+    position: absolute;
+    top: .25rem;
+    left: -1.5rem;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    pointer-events: none;
+    content: "";
+    background-color: #fff0 !important;
+    border: #00BCD4 solid 1px !important;
+}
+/*--------------------------------*/
 .sticky-top-4 {
     position: -webkit-sticky;
     position: sticky;
@@ -278,6 +302,7 @@
     height: 50px;
     width: 158vh;
     padding-top: 5px;
+    padding-left: 20vh;
 }
 .sticky-top-5 {
     position: -webkit-sticky;

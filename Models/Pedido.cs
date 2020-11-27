@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,6 +39,9 @@ namespace Opticasion.Models
             }
         }
         public List<ItemCarrito> ElementosCarro { get; set; }
+
+        [Required(ErrorMessage = "La cuenta bancaria es obligatorio")]
+        [RegularExpression(@"^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$", ErrorMessage = "formato IBAN invalido: ES00-0000-0000-0000-0000-0000")]
         public String CuentaCliente { get; set; }
         #endregion
 

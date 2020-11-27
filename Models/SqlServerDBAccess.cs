@@ -18,7 +18,7 @@ namespace Opticasion.Models
             try
             {
                 
-                //-----------inserto los datos de direccion del cliente-----------------------
+                //-----------inserto los datos del cliente-----------------------
                 SqlConnection __miconexion = new SqlConnection();
                 __miconexion.ConnectionString = this._conexionDB;
                 __miconexion.Open();
@@ -27,37 +27,40 @@ namespace Opticasion.Models
                 _cmd.Connection = __miconexion;
                 _cmd.CommandType = CommandType.Text;
 
-                _cmd.CommandText = "INSERT INTO dbo.Direcciones (IdDireccion, CodPro, CodMun, Calle, CP) VALUES (@IdDireccion, @CodPro, @CodMun, @Calle, @CP)";
+                _cmd.CommandText = "INSERT INTO dbo.Clientes VALUES (@DNI,@Nombre,@Apellidos,@Email,@HashPassword,@Telefono,@CuentaActiva,@NickName,@Tipo,@IdDireccion,@FotoUsuarioString)";
+                _cmd.Parameters.AddWithValue("@DNI", nuevoCliente.DNI);
+                _cmd.Parameters.AddWithValue("@Nombre", nuevoCliente.Nombre);
+                _cmd.Parameters.AddWithValue("@Apellidos", nuevoCliente.Apellidos);
+                _cmd.Parameters.AddWithValue("@Email", nuevoCliente.CredencialesAcceso.Email);
+                _cmd.Parameters.AddWithValue("@HashPassword", BCrypt.Net.BCrypt.HashPassword(nuevoCliente.CredencialesAcceso.Password));
+                _cmd.Parameters.AddWithValue("@Telefono", nuevoCliente.Telefono);
+                _cmd.Parameters.AddWithValue("@CuentaActiva", false);
+                _cmd.Parameters.AddWithValue("@NickName", nuevoCliente.NickName);
+                _cmd.Parameters.AddWithValue("@Tipo", nuevoCliente.Tipo);
                 _cmd.Parameters.AddWithValue("@IdDireccion", "Principal-" + nuevoCliente.DNI);
-                _cmd.Parameters.AddWithValue("@CodPro", Convert.ToInt32(nuevoCliente.DireccionPrincipal.Provincia));
-                _cmd.Parameters.AddWithValue("@CodMun", Convert.ToInt32(nuevoCliente.DireccionPrincipal.Localidad));
-                _cmd.Parameters.AddWithValue("@Calle", nuevoCliente.DireccionPrincipal.Calle);
-                _cmd.Parameters.AddWithValue("@CP", Convert.ToInt32(nuevoCliente.DireccionPrincipal.CP));
+                _cmd.Parameters.AddWithValue("@FotoUsuarioString", nuevoCliente.FotoUsuarioString);
 
-                int _datosDireccionInsert = _cmd.ExecuteNonQuery();
-                if (_datosDireccionInsert == 1)
+                int _datosClienteInsert = _cmd.ExecuteNonQuery();
+                if (_datosClienteInsert == 1)
                 {
-                //-----inserto el resto de datos del cliente-----------------------------------   
+                    //-----inserto el resto de datos del cliente, direccion-----------------------------------   
                     _cmd = null;
                     _cmd = new SqlCommand();
                     _cmd.Connection = __miconexion;
                     _cmd.CommandType = CommandType.Text;
 
-                    _cmd.CommandText = "INSERT INTO dbo.Clientes VALUES (@DNI,@Nombre,@Apellidos,@Email,@HashPassword,@Telefono,@CuentaActiva,@NickName,@Tipo,@IdDireccion)";
-                    _cmd.Parameters.AddWithValue("@DNI", nuevoCliente.DNI);
-                    _cmd.Parameters.AddWithValue("@Nombre", nuevoCliente.Nombre);
-                    _cmd.Parameters.AddWithValue("@Apellidos", nuevoCliente.Apellidos);
-                    _cmd.Parameters.AddWithValue("@Email", nuevoCliente.CredencialesAcceso.Email);
-                    _cmd.Parameters.AddWithValue("@HashPassword", BCrypt.Net.BCrypt.HashPassword(nuevoCliente.CredencialesAcceso.Password));
-                    _cmd.Parameters.AddWithValue("@Telefono", nuevoCliente.Telefono);
-                    _cmd.Parameters.AddWithValue("@CuentaActiva", false);
-                    _cmd.Parameters.AddWithValue("@NickName", nuevoCliente.NickName);
-                    _cmd.Parameters.AddWithValue("@Tipo", nuevoCliente.Tipo);
+                    _cmd.CommandText = "INSERT INTO dbo.Direcciones (IdDireccion, CodPro, CodMun, Calle, CP) VALUES (@IdDireccion, @CodPro, @CodMun, @Calle, @CP)";
                     _cmd.Parameters.AddWithValue("@IdDireccion", "Principal-" + nuevoCliente.DNI);
+                    _cmd.Parameters.AddWithValue("@CodPro", Convert.ToInt32(nuevoCliente.DireccionPrincipal.Provincia));
+                    _cmd.Parameters.AddWithValue("@CodMun", Convert.ToInt32(nuevoCliente.DireccionPrincipal.Localidad));
+                    _cmd.Parameters.AddWithValue("@Calle", nuevoCliente.DireccionPrincipal.Calle);
+                    _cmd.Parameters.AddWithValue("@CP", Convert.ToInt32(nuevoCliente.DireccionPrincipal.CP));
 
-                    int _datosClienteInsert = _cmd.ExecuteNonQuery();
-                    if(_datosClienteInsert == 1)
+                    int _datosDireccionInsert = _cmd.ExecuteNonQuery();
+                    if (_datosDireccionInsert == 1)
                     {
+
+                    
                         return _datosClienteInsert;
                     }
                     else
@@ -136,7 +139,8 @@ namespace Opticasion.Models
                                 Provincia = fila["CodPro"].ToString(),
                                 Localidad = fila["CodMun"].ToString()
 
-                            }
+                            },
+                            FotoUsuarioString = fila["FotoUsuarioString"].ToString()
                         })
                         .Single<Cliente>();
 
@@ -281,7 +285,8 @@ namespace Opticasion.Models
                                      Provincia = fila["CodPro"].ToString(),
                                      Localidad = fila["CodMun"].ToString()
 
-                                 }
+                                 },
+                                 FotoUsuarioString = fila["FotoUsuarioString"].ToString()
                              })
                         .Single<Cliente>();
 
@@ -309,6 +314,31 @@ namespace Opticasion.Models
             catch (SqlException ex)
             {
                 return false;
+            }
+        }
+
+        public int UpdateFotoPerfilQuery(Cliente newcliente)
+        {
+            //....codigo para hacer un Update contra la tabla Clientes
+            try
+            {
+                SqlConnection _miconexion = new SqlConnection();
+                _miconexion.ConnectionString = this._conexionDB;
+                _miconexion.Open();
+
+                SqlCommand _updateCliente = new SqlCommand();
+                _updateCliente.Connection = _miconexion;
+                _updateCliente.CommandType = CommandType.Text;
+                _updateCliente.CommandText = "Update dbo.Clientes set FotoUsuarioString = @FotoUsuarioString WHERE Email = @Email";
+                _updateCliente.Parameters.AddWithValue("@FotoUsuarioString", newcliente.FotoUsuarioString);
+                _updateCliente.Parameters.AddWithValue("@Email", newcliente.CredencialesAcceso.Email);
+
+                int _resultado = _updateCliente.ExecuteNonQuery();
+                return _resultado;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
 
@@ -488,9 +518,13 @@ namespace Opticasion.Models
                         break;
 
                     case "FechaPublicacion":
-                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE FechaPublicacion=@IdSub";
+                        __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE " + criterio + " LIKE '%' + @IdSub + '%'";
+                        valor = DateTime.Today.ToString();
+                        string valor2 = DateTime.Today.AddDays(-2).ToString();
+
                         __micomando.Parameters.Add("@IdSub", SqlDbType.NVarChar);
                         __micomando.Parameters["@IdSub"].Value = valor;
+                        __micomando.Parameters["@IdSub2"].Value = valor2;
                         break;
                     case "PrecioProd":
                         __micomando.CommandText = "SELECT * FROM dbo.Gafas WHERE PrecioProd <= @IdSub";
@@ -804,7 +838,6 @@ namespace Opticasion.Models
                 __micomando.Connection = __miconexion;
                 __micomando.CommandType = CommandType.Text;
                 __micomando.CommandText = "SELECT * FROM dbo.Pedidos p, dbo.ProdPedido a, dbo.Gafas g WHERE p.IdPedido = a.IdPedidoArt AND a.GafasId = g.GafasId AND p.DNICliente = @DNICliente";
-                //__micomando.CommandText = "SELECT * FROM dbo.Pedidos p, dbo.ProdPedido a WHERE p.IdPedido = a.IdPedidoArt AND p.DNICliente = @DNICliente";
                 __micomando.Parameters.AddWithValue("@DNICliente", dni);
 
                 return __micomando
@@ -824,7 +857,6 @@ namespace Opticasion.Models
                                 IdPedidoArt = (int)fila["IdPedidoArt"],
                                 IdArt = (int)fila["IdArt"],
                                 Detalles = fila["Detalles"].ToString(),
-                                //GafasId = fila["GafasId"].ToString()
                                 GafasId = new Gafas()
                                 {
                                     GafasId = (string)fila["GafasId"],

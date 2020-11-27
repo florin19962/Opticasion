@@ -17,6 +17,7 @@ namespace Opticasion.Interfaces
         List<Municipio> DevolverMunicipios();
         List<Municipio> DevolverMunicipios(int codpro);
         Boolean ComprobarCredsCliente(String emailCliente, String passw);
+        int UpdateFotoPerfilQuery(Cliente newcliente);
         int UpdateDatosPersonalesQuery(Cliente newcliente);
         int UpdateDatosAccesoQuery(Cliente newcliente);
         int UpdateDatosDireccionQuery(Cliente newcliente);

@@ -40,6 +40,12 @@
        asp-controller="Home">
         <i class="fas fa-plus-circle" style="color: white;">Añadir nuevo</i>
     </a>
+    @* Volver a todos *@
+    <a class="btn btn-info"
+       asp-action="ListarProductosZoTrabajo"
+       asp-controller="Home">
+        Ver todo
+    </a>
     @* Apartado busqueda de producto en almacen *@
     <form class="form-inline" style=" float: right;">
         <input id="cajaBuscarTrabajo" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Buscar producto por modelo">

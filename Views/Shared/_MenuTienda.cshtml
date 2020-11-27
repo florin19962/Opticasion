@@ -25,13 +25,13 @@
             <h4 style="font-size:20px;">Buscar productos</h4>
             <div class="input-group mb-4">
                 <input type="text" id="cajaBuscarFiltro" class="form-control" placeholder="Busca por.." aria-label="Recipient's username" aria-describedby="button-addon2" style="display:none;">
-                <div class="input-group-append">
+                <div class="input-group-append btn-filtrar">
                     <a class="btn btn-group-sm" id="botonBuscarFiltro">
                         <i class="fas fa-search" style="color: #757575; background-color:aliceblue; padding: 10px 35px 10px 30px; border-radius:15px;"> Filtrar</i>
                     </a>
                 </div>
             </div>
-            <form class="form-inline">
+            <form class="form-inline" id="formulario">
                 @* -------------------------------FILTRO POR GENERO------------------------------------------- *@
                 <h4>Género</h4><br />
                 <div class="custom-control custom-radio custom-control-inline">
@@ -196,15 +196,7 @@
                             <label class="custom-control-label colorFiltro" for="radColor/Morado"></label>
                         </div>
                     </div>
-                </div>
-
-                @* ---------------------------FILTRO POR FECHA PUBLICACION------------------------------------ *@
-
-
-
-
-                @* -------------------------------FILTRO POR ESTILO------------------------------------------- *@
-                
+                </div>                
             </form>
         </div>
     </div>

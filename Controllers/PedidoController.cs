@@ -135,7 +135,7 @@ namespace Opticasion.Controllers
             catch (ArgumentNullException ex)
             {
                 ModelState.AddModelError("", "No tiene nada en su carrito");
-                TempData["Message"] = "Su carrito esta vacio, compre algo antes";
+                ViewBag.showSuccessAlert = false;
                 return RedirectToAction("Index","Tienda");
             }
         }
@@ -148,7 +148,7 @@ namespace Opticasion.Controllers
             Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
             if (!ModelState.IsValid)
             {
-                return View(datospedido);
+                return RedirectToAction("FinalizarPedido","Pedido",datospedido);
             }
             else
             {//hacer el INSERT en la bd...
@@ -220,8 +220,9 @@ namespace Opticasion.Controllers
                     }
                 else
                     {
-                        ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
-                        return View(datospedido);
+                    ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
+                    ViewBag.showSuccessAlert = false;
+                    return RedirectToAction("FinalizarPedido", "Pedido");
                     }
             }
         }

@@ -47,7 +47,8 @@
                 @* Menu filtro superior *@
                 <div class="filtroSuperior sticky-top-5">
                     <form class="form-inline">
-                        <h4 style="color: #b8c7ce;margin-right: 10px;font-size: 17px;margin-top: 10px;">Estilo</h4><br />
+                        @* -------------------------------FILTRO POR ESTILO------------------------------------------- *@
+                        <h4 style="color: #b8c7ce;margin-right: 10px;font-size: 17px;">Estilo</h4><br />
                         <div class="row" style="">
                             <div class="col-12">
                                 <div class="custom-control custom-radio custom-control-inline" style="">
@@ -86,6 +87,20 @@
                                     <label class="custom-control-label" for="radEstilo/Rectangular"><img src="~/img/TipRectangular.png" width="100" alt="TipRectangular" /></label>
                                 </div>
                             </div>
+                            
+                        @* ---------------------------FILTRO POR FECHA PUBLICACION------------------------------------ *@
+                        @*@{
+                            string valor = DateTime.Today.ToString();
+                        }
+                        <div class="col-12">
+                            <div class="custom-control custom-radio custom-control-inline" style="">
+                                <input type="radio"
+                                       id="radFechaPublicacion/@valor"
+                                       name="radOpcionesFiltro"
+                                       class="custom-control-input">
+                                <label class="custom-control-label" for="radFechaPublicacion/@valor">Ultimas publicaciones</label>
+                            </div>
+                        </div>*@
                         </div>
                     </form>
                 </div>

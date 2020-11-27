@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Providers.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -20,13 +23,16 @@ namespace Opticasion.Controllers
         private IDBAccess _accessDB;
         private IClienteEnvioEmail _clienteEmail;
         private IHttpContextAccessor _httpContext;
+        private IHostingEnvironment _env;
         public ClienteController(IDBAccess servicioDB,
                                  IClienteEnvioEmail clienteMAILJET,
-                                 IHttpContextAccessor httpContext)
+                                 IHttpContextAccessor httpContext,
+                                 IHostingEnvironment env)
         {
             this._accessDB = servicioDB;
             this._clienteEmail = clienteMAILJET;
             this._httpContext = httpContext;
+            this._env = env;
         }
 
 
@@ -50,6 +56,7 @@ namespace Opticasion.Controllers
             else
             {   //hacer el INSERT en la bd...
                 newcliente.Tipo = "Cliente";
+                newcliente.FotoUsuarioString = "iconoUsuarioDefecto.png";
                 int _filasRegistradas = this._accessDB.RegistrarCliente(newcliente);
                 if (_filasRegistradas == 1)
                 {
@@ -68,7 +75,7 @@ namespace Opticasion.Controllers
                 else
                 {
                     ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
-                    return View(newcliente);
+                    return RedirectToAction("Registro",newcliente);
                 }
             }
         }
@@ -170,10 +177,52 @@ namespace Opticasion.Controllers
         }
 
         [HttpPost]
+        public IActionResult UpdateFotoPerfil(Cliente newcliente)
+        {
+            string _email = newcliente.CredencialesAcceso.Email;
+            Cliente usuarioSinModificar = this._accessDB.DevolverCliente(_email);//busco producto por id y devuelvo el articulo para mas tarde 
+
+
+            String formatoImg = ".png";
+            if (newcliente.FotoUsuarioUrl == null)
+            {
+                newcliente.FotoUsuarioString = usuarioSinModificar.FotoUsuarioString;//si al guardar no ha seleccionado ninguna imagen y ya habia una de antes, deja la misma para no pasar valor null newgafas.FotoUsuarioString = "iconoUsuarioDefecto.jpg";
+            }
+            else
+            {
+                formatoImg = "." + newcliente.FotoUsuarioUrl.ContentType.Split("/")[1];
+                newcliente.FotoUsuarioString = "imagenUsuario-" + usuarioSinModificar.DNI + formatoImg;
+            }
+
+            int _filasRegistradas = this._accessDB.UpdateFotoPerfilQuery(newcliente);
+            if (_filasRegistradas == 1)
+            {
+                //guardamos la imagen si se inserta bien y si se a seleccionado
+                if (newcliente.FotoUsuarioUrl != null)
+                {
+                    using (var fileStream = new FileStream(this._env.WebRootPath + "/ImagenUsuario/" + newcliente.FotoUsuarioString, FileMode.Create))
+                    {
+                        newcliente.FotoUsuarioUrl.CopyToAsync(fileStream);
+                        Thread.Sleep(2000); //creamos hila de espera para dejarlo cargar la imagen bien
+                    }
+                }
+                ViewBag.showSuccessAlert = true;
+                Cliente _clienteSesion = this._accessDB.DevolverCliente(_email);
+                this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                return RedirectToAction("DatosPerfil", newcliente);
+            }
+            else
+            {
+                ViewBag.showSuccessAlert = false;
+                ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo mas tarde..");
+                return View(newcliente);
+            }
+        }
+
+        [HttpPost]
         public IActionResult UpdateDatosPersonales(Cliente newcliente)
         {
             string _email = newcliente.CredencialesAcceso.Email;
-            //HACER ALGUNA COMPROBACION ANTES DE ACTUALIZAR DATOS
 
             int _filasRegistradas = this._accessDB.UpdateDatosPersonalesQuery(newcliente);
             if (_filasRegistradas == 1)

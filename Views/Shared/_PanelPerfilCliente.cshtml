@@ -45,7 +45,21 @@
                 <div class="cajon-pan">
                     <div class="row perfil">
                         <div class="col-md-3">
-                            <img src="~/img/iconoUsuario.jpg" alt="Alternate Text" width="80px" />
+                            <form asp-action="UpdateFotoPerfil" asp-controller="Cliente" method="post" enctype="multipart/form-data" style=" height: 150px; ">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <img src="~/ImagenUsuario/@Model.FotoUsuarioString" width="80" height="80" id="imgDefecto" class="img_cargaModificar" alt="Imagen del usuario" />
+                                        <input asp-for="@Model.FotoUsuarioUrl" size="25" class="form-control custom-file-input" id="inputImgUsuario" style="visibility:hidden">
+                                        <input value="@_cliente.CredencialesAcceso.Email" required id="email" asp-for="@Model.CredencialesAcceso.Email" type="text" class="form-control" style="display:none;" />
+                                        <button type="button" class="btnSubirImagenUsu hidden" id="btnFileChangeUsuario" onclick="lanzaFile()">Subir imagen</button>
+                                        <div>
+                                            <span asp-validation-for="@Model.FotoUsuarioUrl" class="text-danger"></span>
+                                        </div>
+                                        <button style="position: absolute;top: 13vh;" type="submit" class="btn btn-info">Guardar</button>
+                                    </div>
+                                </div>                                
+                            </form>
+
                         </div>
                         <div class="col-md-9">
                             <div class="col-12">
@@ -88,4 +102,27 @@
 </html>
 
 <script>
+    function readURLUsuario(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imgDefecto').attr('src', e.target.result);
+                document.getElementById('imgDefecto').style.visibility = "visible";
+                var imagenpath = document.getElementById('inputImgUsuario').value;
+                console.log(document.getElementById('inputImgUsuario').value);
+                var imagenName = imagenpath.split('fakepath');
+                document.getElementById('btnFileChangeUsuario').innerHTML = "Imagen: " + imagenName[imagenName.length - 1];
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function lanzaFile() {
+        document.getElementById('inputImgUsuario').click();
+    }
+
+    $("#inputImgUsuario").change(function () {
+        readURLUsuario(this);
+    });
 </script>
