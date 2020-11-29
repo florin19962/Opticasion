@@ -349,14 +349,50 @@ ul li:hover > div {
 }
 /*FIN CARROUSEL*/
 /*CAJON ELEGIR*/
+.caja-elegirCat {
+    opacity: 0;
+}
+.afectado {
+    opacity: initial;
+    transition: 0.6s;
+    position: relative;
+    top: -120px;
+    background-color: white;
+    padding: 10px;
+}
+.afectado2 {
+    opacity: initial;
+    transition: 0.6s;
+    position: relative;
+    top: -120px;
+    background-color: white;
+    padding: 10px;
+}
+.sinAfectar {
+    opacity: 0;
+    position: relative;
+    top: 0px;
+    transition: 0.6s;
+    padding: 10px;
+    background-color: white;
+}
+.sinAfectar2 {
+    opacity: 0;
+    position: relative;
+    top: 0px;
+    transition: 0.6s;
+    padding: 10px;
+    background-color: white;
+}
 .cajonElegir {
     width: 90%;
-    margin-left: 7%;
+    margin-left: 5%;
 }
-.cajonElegirImg img{
+.cajonElegirImg img {
     border-radius: 6.5px;
     margin-right: 2%;
     transition: .8s;
+    width: 100%;
 }
 .cajonElegirImg img:hover {
     background-color: #ececec;
@@ -364,9 +400,100 @@ ul li:hover > div {
     /*background-clip: content-box;*/
     transition: .8s;
     box-shadow: 0px 10px 10px black;
+    
 }
 /*FIN CAJON ELEGIR*/
+/*FORMULARIO CITA*/
+.caja-fomulario {
+    height: 450px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(6,6,51,1) 41%, rgba(9,102,121,1) 65%);
+}
+.caja-fomulario-Anuncio {
+    text-align: center;
+    padding: 10px;
+    margin-top: 13vh;
+}
+    .caja-fomulario-Anuncio h2 {
+        color: white;
+        text-align: left;
+        margin-bottom: 25px;
+    }
+    .caja-fomulario-Anuncio h4 {
+        color: white;
+        text-align: left;
+    }
+.caja-fomulario-form {
+    padding: 16px 0 0px 120px !important;
+    color: white;
+}
+/*--------------------------------------------*/
+.contact-form .form-field {
+    position: relative;
+    margin: 32px 0;
+}
 
+.contact-form .input-text {
+    display: block;
+    height: 25px;
+    border-width: 0 0 2px 0;
+    border-color: #fff;
+    font-family: Lusitana, serif;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    background-color: #ffffff00;
+    color: white;
+}
+    .contact-form .input-text:focus {
+        outline: none;
+    }
+    .contact-form .input-text:focus + .label, .contact-form .input-text.not-empty + .label {
+        transform: translateY(-24px);
+    }
+
+.contact-form .label {
+    position: absolute;
+    left: 20px;
+    bottom: 14px;
+    font-family: Lusitana, serif;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #888;
+    cursor: text;
+    transition: transform 0.2s ease-in-out;
+}
+
+.submit-btn {
+    display: inline-block;
+    background-color: #0000;
+    color: #fff;
+    font-family: Raleway, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-color: white;
+    transition: 0.6s;
+}
+    .submit-btn:hover {
+        background-color: #ffffff2e;
+        transition:0.6s;
+    }
+
+.textareaFomulario {
+    overflow: auto;
+    resize: none;
+    border-width: 2px;
+    border-color: #fff;
+    width: 550px;
+    height: 100px;
+    color: white;
+    background-color: #ffffff00;
+}
+/*FIN FORMULARIO*/
 /*FOOTER*/
 .caja-footer {
     width: 90%;

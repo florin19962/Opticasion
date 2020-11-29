@@ -43,6 +43,14 @@ namespace Opticasion.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Fomulario()
+        {
+            //AQUI HACER METODO PARA RECOGER DATOS DEL FORMULARIO Y ENVIAR EL CORREO A TODOS LOS TRABAJADORES
+            //Sacar por pantalla alerta de que el formulario se envio correctamente;
+            return RedirectToAction("Index","Home");
+        }
+
         #region "-----------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES------------------------------------------------"
         
         [HttpGet]

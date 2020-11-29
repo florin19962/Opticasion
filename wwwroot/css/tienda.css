@@ -298,11 +298,12 @@
 }*/
 
 .filtroSuperior {
-    background-color: #222d32;
+    background-color: #ffffff;
     height: 50px;
     width: 158vh;
     padding-top: 5px;
     padding-left: 20vh;
+    border-bottom: solid 1px #0000003b;
 }
 .sticky-top-5 {
     position: -webkit-sticky;

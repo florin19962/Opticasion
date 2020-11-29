@@ -71,66 +71,92 @@
     </div>
     <hr style="margin-top:2%;margin-bottom:2%" />
 
-    <div class="row">
-        <div class="col">
-
-        </div>
-    </div>
-
-
+    @*----------------------------CAJONES FOTO ELECCION CATEGORIAS----------*@
     <hr style="margin-top:2%;margin-bottom:2%" />
     <div class="row">
         <div class="col">
             <div class="cajonElegir">
-
-                <div class="wow animate__animated animate__fadeInLeft" style="float:left;">
-                    <div class="col cajonElegirImg">
-                        <a href="#"><img src="~/img/hombre.jpg" width="575" height="375" /></a>
-                    </div>
-                    <div class="col-12">
-                        <h2>MONTURAS para GRADUADAS</h2>
-                        <p>Escoge entre cientos de monturas y luce tu mejor mirada.</p>
-                        <div class="row">
-                            <div class="col-4">
-                                <button class="btn btn-info">Hombre</button>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-info">Mujer</button>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-info">Niños</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="wow animate__animated animate__fadeInRight">
-                    <div class="col cajonElegirImg">
-                        <a href="#"><img src="~/img/miniMujer2.jpg" width="575" height="375" /></a>
-                    </div>
-                    <div class="col-12">
-                        <h2>GAFAS de SOL</h2>
-                        <p>Escoge entre cientos de gafas de sol y luce tu mejor mirada.</p>
-                        <div class="row">
-                            <div class="col-4">
-                                <button class="btn btn-info">Hombre</button>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-info">Mujer</button>
-                            </div>
-                            <div class="col-4">
-                                <button class="btn btn-info">Niños</button>
+                <div class="col-6 wow animate__animated animate__fadeInRight" style="float:right;">
+                    <div class="col-12 cajonElegirImg" id="cajonElegirImg">
+                        <a href="https://localhost:44367/Tienda/Buscar/IdCategoria/1"><img src="~/img/hombre.jpg" /></a>
+                        <div class="col-12 caja-elegirCat" id="afectado">
+                            <h2>MONTURAS para GRADUADAS</h2>
+                            <p>Escoge entre cientos de monturas y luce tu mejor mirada.</p>
+                            <div class="row ">
+                                <div class="col-2">
+                                    <a class="btn btn-info" href="https://localhost:44367/Tienda/Buscar/Genero/Montura%20Hombre">Hombre</a>
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-info" href="https://localhost:44367/Tienda/Buscar/Genero/Montura%20Mujer">Mujer</a>
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-info" href="https://localhost:44367/Tienda/Buscar/Genero/Montura%20Niño">Niños</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="col-6 wow animate__animated animate__fadeInLeft">
+                    <div class="col-12 cajonElegirImg" id="cajonElegirImg2">
+                        <a href="https://localhost:44367/Tienda/Buscar/IdCategoria/2"><img src="~/img/miniMujer2.jpg" /></a>
+                        <div class="col-12 caja-elegirCat" id="afectado2">
+                            <h2>GAFAS de SOL</h2>
+                            <p>Escoge entre cientos de gafas de sol y luce tu mejor mirada.</p>
+                            <div class="row ">
+                                <div class="col-2">
+                                    <a class="btn btn-info" href="https://localhost:44367/Tienda/Buscar/Genero/Sol%20Hombre">Hombre</a>
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-info" href="https://localhost:44367/Tienda/Buscar/Genero/Sol%20Mujer">Mujer</a>
+                                </div>
+                                <div class="col-2">
+                                    <a class="btn btn-info" href="https://localhost:44367/Tienda/Buscar/Genero/Sol%20Niño">Niños</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <hr style="width:90%;margin-left: 5%;" />
-    <!--------------------------------pie de pagina----------------------->
+    <h2 class="d-flex justify-content-center" id="formularioCitas">PIDE CITA YA</h2>
+    <div class="row caja-fomulario">
+        <div class="col-6 caja-fomulario-form">
+            <form asp-action="Fomulario" asp-controller="Home" method="post" class="contact-form row">
+                <div class="form-field col x-25">
+                    <input id="nombre" name="nombre" class="input-text js-input" type="text" required>
+                    <label class="label" for="nombre"><b> Nombre</b></label>
+                </div>
+                <div class="form-field col x-25">
+                    <input id="email" name="email" class="input-text js-input" type="email" required>
+                    <label class="label" for="email"><b>E-mail</b></label>
+                </div>
+                <div class="form-field col x-25">
+                    <input id="telefono" name="telefono" class="input-text js-input" type="text" required>
+                    <label class="label" for="telefono"><b>Teléfono</b></label>
+                </div>
+                <div class="form-field col x-25">
+                    <input id="fecha" name="fecha" class="input-text js-input" type="date" required>
+                    <label class="label" for="fecha"><b>Elija fecha</b></label>
+                </div>
+                <div class="form-field col x-100">
+                    <label class="label" for="mensaje"><b>Cuentanos que deseas hacer..</b></label>
+                    <textarea class="textareaFomulario" id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <div class="form-field col x-100 align-center">
+                    <input class="submit-btn" type="submit" value="Enviar">
+                </div>
+            </form>
+        </div>
+        <div class="col-6 caja-fomulario-Anuncio">
+            <h2>¿Ya no usas esas viejas gafas?¿Quieres venderlas?</h2>
+            <h4>No te lo pienses más y pide cita ahora desde este fomulario y traenos esas viejas gafas que ya no usas y llevate dinero por ellas!</h4>
+        </div>
+    </div>
 
+    @*------------------------------------FOOTER-----------------------------*@
     <footer>
         <div class="caja-footer wow animate__animated animate__fadeInDown" id="footer">
             <h1>ES HORA DE VENDER LO QUE NO NECESITAS</h1>
@@ -153,6 +179,7 @@
 
 <!-------------------------scripts------------------------------------->
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+@* Script carousel marcas *@
 <script>
     var current = 0;
     var imagenes = new Array();
@@ -200,4 +227,31 @@
             return false;
         });
     });
+</script>
+@* Scripts cajones foto eleccion *@
+<script>
+    var cajonElegirImg = document.getElementById("cajonElegirImg");
+    var afectado = document.getElementById("afectado");
+    cajonElegirImg.addEventListener("mouseover", () => {
+        afectado.className = "afectado";
+    }, false)
+    afectado.addEventListener("mouseover", () => {
+        afectado.className = "sinAfectar";
+    }, false)
+    cajonElegirImg.addEventListener("mouseout", () => {
+        afectado.className = "sinAfectar";
+    }, false)
+</script>
+<script>
+    var cajonElegirImg2 = document.getElementById("cajonElegirImg2");
+    var afectado2 = document.getElementById("afectado2");
+    cajonElegirImg2.addEventListener("mouseover", () => {
+        afectado2.className = "afectado2";
+    }, false)
+    afectado2.addEventListener("mouseover", () => {
+        afectado2.className = "sinAfectar2";
+    }, false)
+    cajonElegirImg2.addEventListener("mouseout", () => {
+        afectado2.className = "sinAfectar2";
+    }, false)
 </script>
