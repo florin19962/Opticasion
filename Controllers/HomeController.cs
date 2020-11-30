@@ -79,7 +79,41 @@ namespace Opticasion.Controllers
         }
 
         #region "-----------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES------------------------------------------------"
-        
+        public IActionResult ListarCitasZoTrabajo()
+        {
+            try
+            {
+                Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
+                //si el tipo de usuario registrado devuelto por la sesion es un trabajador entra aqui
+                if (_clienteSesion.Tipo.Equals("Trabajador"))
+                {
+                    this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                    //Cargamos los formularios que hay en BD ahora-----------------------------------
+                    try
+                    {
+                        ViewData["cliente"] = _clienteSesion;
+                        return View(this._accessDB.DevolverTodosLosFormularios());
+                    }
+                    catch (Exception)
+                    {
+                        ViewData["cliente"] = null;
+                        return View(this._accessDB.DevolverTodosLosFormularios());
+                    }
+                }
+                //si es otro tipo de usuario vuelve a home y mando mensaje
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            catch (Exception)
+            {
+                //no existe variable de sesion cliente...muestro vista Login por si se quieren colar por url a pelo
+                return RedirectToAction("Login", "Cliente");
+            }
+        }
+
+
         [HttpGet]
         public IActionResult ZonaTrabajadores()
         {
