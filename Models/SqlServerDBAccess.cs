@@ -13,6 +13,72 @@ namespace Opticasion.Models
 
         //--------------------------PARTE DE LOS CLIENTES--------------------------------------
         #region "----------------------Metodos de acceso a tablas relacionadas con los clientes--------------------------------"
+        public int GuardarFormulario(FormularioContacto newformulario)
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
+
+                SqlCommand _insertarDato = new SqlCommand();
+                _insertarDato.Connection = __miconexion;
+                _insertarDato.CommandType = CommandType.Text;
+                _insertarDato.CommandText = "INSERT INTO dbo.Formularios (Nombre,Email,Telefono,Fecha,Mensaje,CitaAceptada) VALUES (@Nombre,@Email,@Telefono,@Fecha,@Mensaje,@CitaAceptada)";
+
+                _insertarDato.Parameters.AddWithValue("@Nombre", newformulario.Nombre);
+                _insertarDato.Parameters.AddWithValue("@Email", newformulario.Email);
+                _insertarDato.Parameters.AddWithValue("@Telefono", newformulario.Telefono);
+                _insertarDato.Parameters.AddWithValue("@Fecha", newformulario.Fecha);
+                _insertarDato.Parameters.AddWithValue("@Mensaje", newformulario.Mensaje);
+                _insertarDato.Parameters.AddWithValue("@CitaAceptada", false);                
+
+                int _resultadoFormularioInsert = _insertarDato.ExecuteNonQuery();
+                if (_resultadoFormularioInsert == 1)
+                {
+                    return _resultadoFormularioInsert;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                return 0;
+            }
+        }
+
+
+        public List<FormularioContacto> DevolverFormularios()
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "SELECT * FROM dbo.Formularios";
+
+                return __micomando
+                        .ExecuteReader()
+                        .Cast<IDataRecord>()
+                        .Select((fila) => new FormularioContacto()
+                        {
+                            //IdCategoria = Convert.ToInt32(fila[0]),
+                            //NombreCategoria = fila[1].ToString()
+                        })
+                        .ToList<FormularioContacto>();
+            }
+            catch (SqlException ex)
+            {
+                return null;
+            }
+        }
+
         public int RegistrarCliente(Cliente nuevoCliente)
         {
             try

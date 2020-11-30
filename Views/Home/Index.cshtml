@@ -3,6 +3,24 @@
 }
 
 <div class="container-fluid">
+    @if (ViewBag.SuccessAlertFormu == true)
+    {
+    <div class="alert alert-info" role="alert" style="position: absolute;top: 112px;width: 100%;z-index: 10;">
+        <label>Fomulario enviado correctamente, se le respondera en un plazo de 24h. Muchas gracias</label>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    }
+    @if (ViewBag.SuccessAlertFormu == false)
+    {
+        <div class="alert alert-info" role="alert" style="position: absolute;top: 112px;width: 100%;z-index: 10;">
+            <label>Algo salio mal, por favor intentelo más tarde</label>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
     <div class="row">
         <div class="col">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -254,4 +272,22 @@
     cajonElegirImg2.addEventListener("mouseout", () => {
         afectado2.className = "sinAfectar2";
     }, false)
+</script>
+@* Script limitar fecha minima a la del dia que se cree la cita no pudiendo elegir anteriores dias *@
+<script>
+    let hoy = new Date();
+    let dd = hoy.getDate();
+    let mm = hoy.getMonth() + 1; //Enero es 1!
+    let yyyy = hoy.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    hoy = yyyy + '-' + mm + '-' + dd;
+    let fecha = document.getElementById("fecha");
+
+    //fechadesde.max = ;
+    fecha.min = hoy;
 </script>

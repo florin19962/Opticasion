@@ -44,11 +44,38 @@ namespace Opticasion.Controllers
         }
 
         [HttpPost]
-        public IActionResult Fomulario()
+        public IActionResult Fomulario(FormularioContacto newformulario)
         {
-            //AQUI HACER METODO PARA RECOGER DATOS DEL FORMULARIO Y ENVIAR EL CORREO A TODOS LOS TRABAJADORES
-            //Sacar por pantalla alerta de que el formulario se envio correctamente;
-            return RedirectToAction("Index","Home");
+            if (!ModelState.IsValid)
+            {
+                return View(newformulario);
+            }
+            else
+            {
+                int _filasRegistradas = this._accessDB.GuardarFormulario(newformulario);
+                if (_filasRegistradas == 1)
+                {
+                    //mandar email al cliente informando que ha realizado una cita
+                    String _mensajeHTMLEmail = "<h3>Estimado/a " + newformulario.Nombre + "</h3> <br>"
+                     + "<p>\n Usted ha solicitado una cita el día " + newformulario.Fecha + " en nuestro centro." +
+                     "<p>\n En el plazo de 12-24h se le confirmará la cita cuando nuestros trabajadores lo revisen o sera modificada." +
+                     "<hr/>" +
+                     "<p>\n Mientras espera, puede echar un vistazo a nuestros productos de la tienda desde el enlace que le facilitamos " +
+                     "\n <a href='https://localhost:44367/Tienda/Buscar/PrecioProd/100/'> Tienda </a> </p> " +
+                     "<br><hr><p>Muchas gracias por confiar en nosotros y por su paciencia, atentamente: Opticasion</p>";
+
+                    this._clienteEmail.EnviarEmail(newformulario.Email, "Informacion de cita en Opticasion.com", _mensajeHTMLEmail);
+                    ViewBag.SuccessAlertFormu = true;
+                    return View("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
+                    ViewBag.SuccessAlertFormu = false;
+                    return View("Index", newformulario);
+                }
+            }
+                
         }
 
         #region "-----------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES------------------------------------------------"

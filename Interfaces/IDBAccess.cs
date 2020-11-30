@@ -9,6 +9,7 @@ namespace Opticasion.Interfaces
     public interface IDBAccess
     {
         #region ".....metodos de acceso a la BD a tablas relacionadas con el CLIENTE....
+        int GuardarFormulario(FormularioContacto newformulario);
         int RegistrarCliente(Cliente newCliente);
         int RegistrarProducto(Gafas newgafas);
         int ActivarCuentaCliente(String emailCliente);
