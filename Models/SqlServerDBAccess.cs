@@ -68,8 +68,13 @@ namespace Opticasion.Models
                         .Cast<IDataRecord>()
                         .Select((fila) => new FormularioContacto()
                         {
-                            //IdCategoria = Convert.ToInt32(fila[0]),
-                            //NombreCategoria = fila[1].ToString()
+                            IdFormulario = (int)fila[0],
+                            Nombre = fila[1].ToString(),
+                            Email = fila[2].ToString(),
+                            Telefono = (int)fila[3],
+                            Fecha = fila[4].ToString(),
+                            Mensaje = fila[5].ToString(),
+                            CitaAceptada = (bool)fila[6],
                         })
                         .ToList<FormularioContacto>();
             }

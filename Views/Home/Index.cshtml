@@ -1,16 +1,16 @@
 ﻿@{
     ViewBag.Title = "Home";
 }
-
+@model FormularioContacto
 <div class="container-fluid">
     @if (ViewBag.SuccessAlertFormu == true)
     {
-    <div class="alert alert-info" role="alert" style="position: absolute;top: 112px;width: 100%;z-index: 10;">
-        <label>Fomulario enviado correctamente, se le respondera en un plazo de 24h. Muchas gracias</label>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+        <div class="alert alert-info" role="alert" style="position: absolute;top: 112px;width: 100%;z-index: 10;">
+            <label>Fomulario enviado correctamente, se le respondera en un plazo de 24h. Muchas gracias</label>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     }
     @if (ViewBag.SuccessAlertFormu == false)
     {
@@ -146,22 +146,37 @@
                 <div class="form-field col x-25">
                     <input id="nombre" name="nombre" class="input-text js-input" type="text" required>
                     <label class="label" for="nombre"><b> Nombre</b></label>
+                    <div>
+                        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-field col x-25">
                     <input id="email" name="email" class="input-text js-input" type="email" required>
                     <label class="label" for="email"><b>E-mail</b></label>
+                    <div>
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-field col x-25">
                     <input id="telefono" name="telefono" class="input-text js-input" type="text" required>
                     <label class="label" for="telefono"><b>Teléfono</b></label>
+                    <div>
+                        <span asp-validation-for="@Model.Telefono" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-field col x-25">
                     <input id="fecha" name="fecha" class="input-text js-input" type="date" required>
                     <label class="label" for="fecha"><b>Elija fecha</b></label>
+                    <div>
+                        <span asp-validation-for="@Model.Fecha" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-field col x-100">
                     <label class="label" for="mensaje"><b>Cuentanos que deseas hacer..</b></label>
                     <textarea class="textareaFomulario" id="mensaje" name="mensaje" required></textarea>
+                    <div>
+                        <span asp-validation-for="@Model.Mensaje" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-field col x-100 align-center">
                     <input class="submit-btn" type="submit" value="Enviar">
