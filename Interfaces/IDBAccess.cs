@@ -10,7 +10,9 @@ namespace Opticasion.Interfaces
     {
         #region ".....metodos de acceso a la BD a tablas relacionadas con el CLIENTE....
         Dictionary<String, FormularioContacto> DevolverTodosLosFormularios();
+        FormularioContacto DevolverFormulario(String idformulario);
         int GuardarFormulario(FormularioContacto newformulario);
+        int AceptarCita(String idformulario);
         int RegistrarCliente(Cliente newCliente);
         int RegistrarProducto(Gafas newgafas);
         int ActivarCuentaCliente(String emailCliente);

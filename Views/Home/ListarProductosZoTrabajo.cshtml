@@ -33,7 +33,7 @@
         </div>
     }
 <div class="sticky-top-2 titulo-lista-zonaT">
-    <h3 style="width: 50%;float: left;">Listado de productos en almacen</h3>
+    <h3 style="width: 40%;float: left;">Listado de productos en almacen</h3>
     @* Apartado añadir nuevo producto *@
     <a class="btn btn-info"
        asp-action="ZonaTrabajadores"
@@ -45,6 +45,12 @@
        asp-action="ListarProductosZoTrabajo"
        asp-controller="Home">
         Ver todo
+    </a>
+    @* Volver a principal *@
+    <a class="btn btn-info"
+       asp-action="ZonaTrabajadores"
+       asp-controller="Home">
+        Volver
     </a>
     @* Apartado busqueda de producto en almacen *@
     <form class="form-inline" style=" float: right;">

@@ -50,6 +50,10 @@
 .header-listado {
     background-color: #ff893d;
     height: 50px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0px 3px 6px #969494;
+    padding-top: 1%;
+    font-weight: 700;
 }
 
     .header-listado ul li {
@@ -100,3 +104,10 @@
     border-radius: 10px;
 }
 /*FIN APARTADO MODIFICAR*/
+/*PANTALLA CITAS*/
+.caja-itemListaCita {
+    border-bottom: 1px solid #17a2b8;
+    transition: .5s;
+    height: 75px;
+    padding-top: 20px;
+}

@@ -1,1 +1,102 @@
-﻿@* LISTAR CITAS Y PODER ACEPTARLAS SI EL CAMPO ESTA A FALSE EN LA TABLA, SI EL CAMPO ESTA A TRUE NO APARECE BOTON DE ACEPTAR CITA *@
+﻿@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
+@{
+    ViewData["Title"] = "Listado de citas";
+}
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+}
+<link rel="stylesheet" href="~/css/zonaTrabajadores.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.0/css/all.css" integrity="sha384-OLYO0LymqQ+uHXELyx93kblK5YIS3B2ZfLGBmsJaUyor7CpMTBsahDHByqSuWW+q" crossorigin="anonymous">
+
+<div class="container">
+    @if (ViewBag.SuccessAlertFormu == true)
+    {
+        <div class="alert alert-success" role="alert">
+            <label>La cita ha sido aceptada</label>
+        </div>
+    }
+    @if (ViewBag.SuccessAlertFormu == false)
+    {
+        <div class="alert alert-danger" role="alert">
+            <label>Algo salio mal, intentelo de nuevo mas tarde.</label>
+        </div>
+    }
+    <div class="sticky-top-2 titulo-lista-zonaT">
+        <h3 style="width: 50%;float: left;">Listado de productos en almacen</h3>
+        @* Volver a zona trabajador *@
+        <a class="btn btn-info"
+           asp-action="ZonaTrabajadores"
+           asp-controller="Home" title="Volver a Zona de trabajo">
+            Volver
+        </a>
+        @* Apartado busqueda de citas en bd *@
+        @*<form class="form-inline" style=" float: right;">
+            <input id="cajaBuscarTrabajo" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Buscar producto por modelo">
+            <div class="input-group-append">
+                <a class="btn btn-group-sm" id="botonBuscarTrabajo">
+                    <i class="fas fa-search" style="color: #757575;"></i>
+                </a>
+            </div>
+        </form>
+        <div style="display:none;" class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="radNombreModelo" name="radOpcionesTrabajo" class="custom-control-input" checked>
+            <label class="custom-control-label" for="radMarca">NombreModelo</label>
+        </div>*@
+        @* Apartado tabla citas *@
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row header-listado sticky-top-3">
+                <div class="col-3">Nombre</div>
+                <div class="col-3">Email</div>
+                <div class="col-3">Fecha elegida</div>
+                <div class="col-3">
+                    <a data-toggle="collapse" href="#id" role="button" aria-expanded="false" aria-controls="id" title="Ver más información"><i class="fas fa-plus-circle" style="color: white;">Más información</i></a>
+                </div>
+            </div>
+            <table>
+                <hr />
+                <thead>
+                    <tr class="">
+                        <th width="400" scope="col"></th>
+                        <th width="400" scope="col"></th>
+                        <th width="400" scope="col"></th>
+                        <th width="400" scope="col"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (FormularioContacto unformulario in Model.Values)
+                    {
+                        <partial name="_VistaMiniFormulario" model="unformulario" />                
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@*<script>
+        //------seccion de script para Busqueda-----------
+        var cajaBuscarTrabajo = document.getElementById("cajaBuscarTrabajo");
+        var botonBuscarTrabajo = document.getElementById("botonBuscarTrabajo");
+
+        botonBuscarTrabajo.addEventListener(
+            "click",
+            (ev) => {
+                var opcion = Array.from(document.getElementsByName("radOpcionesTrabajo")).find((el) => el.checked).id.replace("rad", "");
+                window.location.href = "https://localhost:44367/Home/Buscar/" + opcion + "/" + encodeURIComponent(cajaBuscarTrabajo.value);
+            }
+        );
+
+</script>*@

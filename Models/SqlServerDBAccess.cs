@@ -49,8 +49,45 @@ namespace Opticasion.Models
             }
         }
 
+        public Dictionary<string, FormularioContacto> DevolverTodosLosFormularios()
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = _conexionDB;
+                __miconexion.Open();
 
-        public List<FormularioContacto> DevolverFormularios()
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "SELECT * FROM dbo.Formularios";
+
+                IEnumerable<KeyValuePair<String, FormularioContacto>> _form = from fila in __micomando.ExecuteReader().Cast<IDataRecord>()
+                                                                  let formularioid = fila[0].ToString()
+                                                                  let formulario = new FormularioContacto()
+                                                                  {
+                                                                      IdFormulario = fila[0].ToString(),
+                                                                      Nombre = fila[1].ToString(),
+                                                                      Email = fila[2].ToString(),
+                                                                      Telefono = (int)fila[3],
+                                                                      Fecha = fila[4].ToString(),
+                                                                      Mensaje = fila[5].ToString(),
+                                                                      CitaAceptada = (bool)fila[6]
+                                                                  }
+                                                                    select new KeyValuePair<String, FormularioContacto>(formularioid, formulario);
+
+                Dictionary<String, FormularioContacto> _formADevolver = _form.ToDictionary(par => par.Key, par => par.Value);
+                __miconexion.Close();
+
+                return _formADevolver;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public FormularioContacto DevolverFormulario(string idformulario)
         {
             try
             {
@@ -61,26 +98,58 @@ namespace Opticasion.Models
                 SqlCommand __micomando = new SqlCommand();
                 __micomando.Connection = __miconexion;
                 __micomando.CommandType = CommandType.Text;
-                __micomando.CommandText = "SELECT * FROM dbo.Formularios";
+                __micomando.CommandText = "SELECT * FROM dbo.Formularios WHERE IdFormulario = @Id";
+                __micomando.Parameters.AddWithValue("@Id", idformulario);
 
                 return __micomando
                         .ExecuteReader()
                         .Cast<IDataRecord>()
                         .Select((fila) => new FormularioContacto()
                         {
-                            IdFormulario = (int)fila[0],
-                            Nombre = fila[1].ToString(),
-                            Email = fila[2].ToString(),
-                            Telefono = (int)fila[3],
-                            Fecha = fila[4].ToString(),
-                            Mensaje = fila[5].ToString(),
-                            CitaAceptada = (bool)fila[6],
+                            Nombre = fila["Nombre"].ToString(),
+                            Email = fila["Email"].ToString(),
+                            Telefono = (int)fila["Telefono"],
+                            Fecha = fila["Fecha"].ToString(),
+                            Mensaje = fila["Mensaje"].ToString()
                         })
-                        .ToList<FormularioContacto>();
+                        .Single<FormularioContacto>();
+
             }
             catch (SqlException ex)
             {
+
                 return null;
+            }
+        }
+        public int AceptarCita(string idformulario)
+        {
+            try
+            {
+                SqlConnection __miconexion = new SqlConnection();
+                __miconexion.ConnectionString = this._conexionDB;
+                __miconexion.Open();
+
+                SqlCommand __micomando = new SqlCommand();
+                __micomando.Connection = __miconexion;
+                __micomando.CommandType = CommandType.Text;
+                __micomando.CommandText = "Update dbo.Formularios set CitaAceptada = @CitaAceptada WHERE IdFormulario = @IdFormulario";
+                __micomando.Parameters.AddWithValue("@CitaAceptada", true);
+                __micomando.Parameters.AddWithValue("@IdFormulario", idformulario);
+
+                int _resultadoDelete = __micomando.ExecuteNonQuery();
+                if (_resultadoDelete == 1)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                return 0;
             }
         }
 

@@ -1,0 +1,67 @@
+﻿@model Opticasion.Models.FormularioContacto;
+@using Microsoft.AspNetCore.Http;
+@using Newtonsoft.Json;
+
+@{
+    Cliente _cliente;
+    try
+    {
+        _cliente = JsonConvert.DeserializeObject<Cliente>(Context.Session.GetString("cliente"));
+    }
+    catch (Exception)
+    {
+        // ...no hay variable de sesion de cliente logueado...
+        _cliente = null;
+    }
+
+}
+<div class="row caja-itemListaCita">
+    <div class="col-3">
+        <label>@Model.Nombre</label>
+    </div>
+
+    <div class="col-3">
+        <label>@Model.Email</label>
+    </div>
+
+    <div class="col-3">
+        <label>@Model.Fecha</label>
+    </div>
+
+    <div class="col-3">
+       @if (Model.CitaAceptada == false)
+        {
+        <div class="row">
+            <div class="col-3">
+                <a class="btnQuitarDeLista" style="float:left;" asp-controller="Home" asp-action="CancelarCitaLista"
+                   asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })">
+                    <i style="color: red;" class="far fa-calendar-times fa-2x" title="Cancelar cita"></i>
+                </a>
+            </div>
+            <div class="col-3">
+                <a class="btnEditarProducto" asp-controller="Home" asp-action="AceptarCitaLista"
+                   asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })">
+                    <i class="far fa-check-square fa-2x" title="Confirmar cita"></i>
+                </a>
+            </div>
+        </div>    
+        }
+        else
+        {
+        <div class="row">
+            <div class="col-3" style="color: #17a2b8;">
+                <i style="color: green;" class="far fa-calendar-check fa-2x" title="Cita aceptada"></i>
+            </div>
+            <div class="col-3" style="color: #17a2b8;">
+                Aceptada
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<div class="row collapse" id="id">
+    <div class="card card-body">
+        <h5>Mensaje:</h5>
+        <label>@Model.Mensaje</label>
+    </div>
+</div>

@@ -38,7 +38,11 @@
         <a class="btn btn-info" style="margin-left: 25%;margin-top:1%;" asp-action="ListarProductosZoTrabajo" asp-controller="Home">Ver listado de productos</a>
     </div>
     <div class="col-6">
-        <a class="btn btn-info" style="margin-left: 50%;margin-top:1%;" asp-action="ListarCitasZoTrabajo" asp-controller="Home">Ver listado de citas</a>
+        <a class="btn btn-info" style="margin-left: 50%;margin-top:1%;" asp-action="ListarCitasZoTrabajo" asp-controller="Home">Citas
+            <span class="badge badge-info">
+                @* HACER FUNCION PARA CONTAR CITAS PENDIENTES POR CONFIRMAR *@1  
+            </span>
+        </a>
     </div>
 </div>
     <div class="row" style="width: 80%;margin-left: 10%;">
@@ -62,7 +66,6 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    @* HACER DESPLEGABLE CON CATEGORIAS *@
                                     <label for="idcategoria">Categoría *</label>
                                     <select id="idcategoria" asp-for="@Model.IdCategoria" class="form-control" required>
                                         <option value="0" selected>Elija una categoría...</option>

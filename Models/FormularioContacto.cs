@@ -8,7 +8,7 @@ namespace Opticasion.Models
 {
     public class FormularioContacto
     {
-        public int IdFormulario { get; set; }
+        public String IdFormulario { get; set; }
 
 
         [Required(ErrorMessage = "Nombre obligatorio")]
