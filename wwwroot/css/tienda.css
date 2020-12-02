@@ -19,8 +19,8 @@
 .cajon-miniprod {
     float: left;
     background-color: white;
-    margin-top: 5%;
-    border: 1px solid #00000040;
+    margin-top: 50px;
+    border: 1px solid #00000017;
     border-radius: 5px;
     height: 400px;
     max-width: 255px !important;
@@ -29,6 +29,8 @@
 }
     .cajon-miniprod:hover {
         box-shadow: 2px 4px 9px 0px black;
+        margin-top: 30px;
+        margin-bottom: 0px;
         transition: .5s;
     }
 
@@ -240,7 +242,7 @@
 .sticky-top-4 {
     position: -webkit-sticky;
     position: sticky;
-    top: 56px;
+    top: 70px;
     z-index: 1020;
 }
 .colorFiltro {

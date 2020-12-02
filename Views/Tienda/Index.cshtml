@@ -33,11 +33,11 @@
 <body>
     <div class="container-fluid">
         @*@if (ViewBag.Message != null)
-        {
-            <div class="alert alert-danger" role="alert">
-                @ViewBag.Message
-            </div>
-        }*@
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.Message
+                </div>
+            }*@
         <div class="row cajon-tienda">
             <div class="col-2 categorias">
                 <partial name="~/Views/Shared/_MenuTienda.cshtml" />
@@ -87,20 +87,20 @@
                                     <label class="custom-control-label" for="radEstilo/Rectangular"><img src="~/img/TipRectangular.png" width="100" alt="TipRectangular" /></label>
                                 </div>
                             </div>
-                            
-                        @* ---------------------------FILTRO POR FECHA PUBLICACION------------------------------------ *@
-                        @*@{
-                            string valor = DateTime.Today.ToString();
-                        }
-                        <div class="col-12">
-                            <div class="custom-control custom-radio custom-control-inline" style="">
-                                <input type="radio"
-                                       id="radFechaPublicacion/@valor"
-                                       name="radOpcionesFiltro"
-                                       class="custom-control-input">
-                                <label class="custom-control-label" for="radFechaPublicacion/@valor">Ultimas publicaciones</label>
-                            </div>
-                        </div>*@
+
+                            @* ---------------------------FILTRO POR FECHA PUBLICACION------------------------------------ *@
+                            @*@{
+                                    string valor = DateTime.Today.ToString();
+                                }
+                                <div class="col-12">
+                                    <div class="custom-control custom-radio custom-control-inline" style="">
+                                        <input type="radio"
+                                               id="radFechaPublicacion/@valor"
+                                               name="radOpcionesFiltro"
+                                               class="custom-control-input">
+                                        <label class="custom-control-label" for="radFechaPublicacion/@valor">Ultimas publicaciones</label>
+                                    </div>
+                                </div>*@
                         </div>
                     </form>
                 </div>
@@ -111,7 +111,7 @@
                     </a>
                 </div>
                 @* Vista de cada producto *@
-                <div class="container-fluid wow animate__animated animate__fadeInRight">
+                <div class="container-fluid wow animate__animated animate__fadeInRight d-flex flex-wrap">
                     @foreach (Gafas unagafa in Model.Values)
                     {
                         <partial name="_VistaMiniGafa" model="unagafa" />
@@ -120,7 +120,24 @@
             </div>
         </div>
     </div>
-
+    <footer style="width:100%;">
+        <div class="caja-footer wow animate__animated animate__fadeInDown" id="footer">
+            <h1>ES HORA DE VENDER LO QUE NO NECESITAS</h1>
+            <div class="d-flex justify-content-center" style="padding:10px 0 10px 0;">
+                <div class="">
+                    <img src="~/img/logoRecortado2.png" width="300" />
+                </div>
+                <div class="">
+                    <div style="margin-left:30px;">
+                        <a class="icono-social" href=""><i class="fas fa-phone"></i></a>901 23 41 51
+                        <a class="icono-social" href="mailto:florin19962@hotmail.com"><i class="fa fa-envelope"></i></a> Correo personal
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>Esta página a sido creada y diseñado por <a style="color: #ff5555;" href="https://www.linkedin.com/in/florin-velea-643104109/" target="_blank">Florin Velea</a>. Todos los derechos reservados © 2020</p>
+        <p>Alcalá de Henares, Madrid(España)</p>
+    </footer>
 </body>
 </html>
 

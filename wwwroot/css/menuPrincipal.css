@@ -6,8 +6,8 @@
 /* mini-menu */
 .mini-menu {
     height: 44px;
-    background-color: #ff6700 !important;
-    margin-bottom: 0%!important;
+    background-color: #0d92ad !important;
+    margin-bottom: 0% !important;
     z-index: 200;
     position: relative;
     min-width: 1226px;
@@ -99,6 +99,9 @@ body {
     width: 240px;
     padding-left: 13px;
 }
+input:-internal-autofill-selected {
+    background-color: #fff0;
+}
 .separacion {
     margin-top: 2%;
     margin-bottom: -8%;
@@ -172,8 +175,8 @@ ul li:hover > div {
 
 .producto {
     float: left;
-    width: 249px;
-    padding: 15px 20px 15px 20px;
+    width: 240px;
+    padding: 0px 0px 15px 22px;
     transition: 0.8s;
 }
     .producto:hover {
@@ -188,9 +191,9 @@ ul li:hover > div {
         .producto a img {
             border-radius: 10px;
         }
-        .producto a img:hover {
-            box-shadow: 4px 3px 12px 3px black;
-        }
+            .producto a img:hover {
+                box-shadow: 2px 3px 6px 0px black;
+            }
 .listaMarcas {
     width: 700px;
     padding-bottom: 1%;
@@ -496,17 +499,16 @@ ul li:hover > div {
 /*FIN FORMULARIO*/
 /*FOOTER*/
 .caja-footer {
-    width: 90%;
+    width: 95%;
     position: relative;
     top: 10%;
-    left: 5%;
+    left: 2.5%;
     height: 230px;
     box-shadow: 7px 8px 20px 0px #080808;
-    background-color: #080808d6;
     margin-bottom: 5%;
     background-repeat: no-repeat;
-    background-size: 711px;
-    background: url(../img/otros/banner.svg)-260px 230px #c74000ba;
+    background-size: 100vh;
+    background: url(../img/otros/banner.svg)50%,linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(6,6,51,1) 41%, rgba(9,102,121,1) 65%);
 }
 
 footer {
@@ -514,7 +516,7 @@ footer {
     height: 400px;
     color: white;
     text-align: center;
-    background: linear-gradient(180deg, #00000008, #40200a)
+    background: linear-gradient(180deg, #00000008, #020212);
 }
 
     footer h1 {
@@ -534,8 +536,8 @@ footer {
     line-height: 35px;
     text-align: center;
     display: inline-block;
-    color: #2b2b2b;
-    border: 1px solid#2b2b2b;
+    color: #b1b1b1;
+    border: 1px solid #b1b1b1;
     margin-right: 2px;
     margin-left: 2px;
     -webkit-border-radius: 50%;
