@@ -52,8 +52,11 @@
             <div class="col-3" style="color: #17a2b8;">
                 <i style="color: green;" class="far fa-calendar-check fa-2x" title="Cita aceptada"></i>
             </div>
-            <div class="col-3" style="color: #17a2b8;">
-                Aceptada
+            <div class="col-3">
+                <a class="btnQuitarDeLista" style="float:left;" asp-controller="Home" asp-action="CancelarCitaLista"
+                   asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })" title="Eliminar de la lista">
+                    Quitar
+                </a>
             </div>
         </div>
         }
@@ -63,5 +66,6 @@
     <div class="card card-body">
         <h5>Mensaje:</h5>
         <label>@Model.Mensaje</label>
+        <label>@Model.Telefono</label>
     </div>
 </div>

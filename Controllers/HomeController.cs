@@ -44,7 +44,7 @@ namespace Opticasion.Controllers
         }
 
         [HttpPost]
-        public IActionResult Fomulario(FormularioContacto newformulario)
+        public IActionResult Formulario(FormularioContacto newformulario)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Opticasion.Controllers
                     //mandar email al cliente informando que ha realizado una cita
                     String _mensajeHTMLEmail = "<h3>Estimado/a " + newformulario.Nombre + "</h3> <br>"
                      + "<p>\n Usted ha solicitado una cita el día " + newformulario.Fecha + " en nuestro centro." +
-                     "<p>\n En el plazo de 12-24h se le confirmará la cita cuando nuestros trabajadores lo revisen o sera modificada." +
+                     "<p>\n En el plazo de 12-24h se le confirmará la cita cuando nuestros trabajadores lo revisen o sera rechazada teniendo que elegir usted otro día. Muchas gracias." +
                      "<hr/>" +
                      "<p>\n Mientras espera, puede echar un vistazo a nuestros productos desde el enlace que le facilitamos " +
                      "\n <a href='https://localhost:44367/Tienda/Buscar/PrecioProd/100/'> Tienda </a> </p> " +
@@ -113,6 +113,7 @@ namespace Opticasion.Controllers
             }
         }
 
+
         public IActionResult AceptarCitaLista(string id)
         {
             FormularioContacto _formulario = this._accessDB.DevolverFormulario(id);
@@ -122,7 +123,7 @@ namespace Opticasion.Controllers
                 //mandar email al cliente informando que ha realizado una cita
                 String _mensajeHTMLEmail = "<h3>Estimado/a " + _formulario.Nombre + "</h3> <br>"
                  + "<p>\n Usted solicito una cita el día " + _formulario.Fecha + " en nuestro centro." +
-                 "<p>\n Nuestros trabajadores han confirmado su cita. Por favor acuda de forma puntual al recito a las 16:00h y no olvide traer su documento de identidad, el producto a vender y su mascarilla." +
+                 "<p>\n Nuestros trabajadores han confirmado su cita. Por favor acuda de forma puntual a nuestro centro desde las 16:00h hasta 16:30, no olvide traer su documento de identidad, el producto a vender y su mascarilla. Muchas gracias" +
                  "<hr/>" +
                  "<p>\n Si le interesa comprar algo, puede echar un vistazo a nuestros productos desde el enlace que le facilitamos " +
                  "\n <a href='https://localhost:44367/Tienda/Buscar/PrecioProd/100/'> Tienda </a> </p> " +
@@ -140,16 +141,17 @@ namespace Opticasion.Controllers
             }
         }
 
-        /*public IActionResult CancelarCitaLista(string id)
+
+        public IActionResult CancelarCitaLista(string id)
         {
             FormularioContacto _formulario = this._accessDB.DevolverFormulario(id);
-            int _filasRegistradas = this._accessDB.AceptarCita(id);
+            int _filasRegistradas = this._accessDB.CancelarCita(id);
             if (_filasRegistradas == 1)
             {
                 //mandar email al cliente informando que ha realizado una cita
                 String _mensajeHTMLEmail = "<h3>Estimado/a " + _formulario.Nombre + "</h3> <br>"
                  + "<p>\n Usted solicito una cita el día " + _formulario.Fecha + " en nuestro centro." +
-                 "<p>\n Nuestros trabajadores han confirmado su cita. Por favor acuda de forma puntual al recito a las 16:00h y no olvide traer su documento de identidad, el producto a vender y su mascarilla." +
+                 "<p>\n Nuestros trabajadores no han podido confirmado su cita el día elegido, por favor solicite otro día para realizar la cita desde nuestro formulario. Muchas gracias y sentimos las molestias" +
                  "<hr/>" +
                  "<p>\n Si le interesa comprar algo, puede echar un vistazo a nuestros productos desde el enlace que le facilitamos " +
                  "\n <a href='https://localhost:44367/Tienda/Buscar/PrecioProd/100/'> Tienda </a> </p> " +
@@ -165,7 +167,7 @@ namespace Opticasion.Controllers
                 ViewBag.SuccessAlertFormu = false;
                 return RedirectToAction("ListarCitasZoTrabajo", "Home");
             }
-        }*/
+        }
 
         [HttpGet]
         public IActionResult ZonaTrabajadores()
@@ -179,6 +181,9 @@ namespace Opticasion.Controllers
                 if (_clienteSesion.Tipo.Equals("Trabajador"))
                 {
                     this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
+                    int cantidadCitas = this._accessDB.DevolverTodosLosFormulariosFalse().Count;
+                    ViewData["cantidadCitas"] = cantidadCitas;
+
                     return View();
                 }
                 //si es otro tipo de usuario vuelve a home y mando mensaje
@@ -194,7 +199,6 @@ namespace Opticasion.Controllers
                 return RedirectToAction("Login", "Cliente");
             }
         }
-
 
         [HttpPost]
         public IActionResult ZonaTrabajadores(Gafas newgafas)
@@ -298,7 +302,6 @@ namespace Opticasion.Controllers
             //busco el producto por el id y lo paso a la vista detallada del producto donde puede editarlo
             return View("ProductoDetallado", this._accessDB.BuscarGafas(id));
         }
-
 
         [HttpPost]
         public IActionResult UpdateDatosProducto(Gafas newgafas)

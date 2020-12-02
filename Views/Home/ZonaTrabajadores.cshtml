@@ -16,6 +16,7 @@
         // ...no hay variable de sesion de cliente logueado...
         _cliente = null;
     }
+    
 }
 
 <link rel="stylesheet" href="~/css/zonaTrabajadores.css" />
@@ -40,7 +41,7 @@
     <div class="col-6">
         <a class="btn btn-info" style="margin-left: 50%;margin-top:1%;" asp-action="ListarCitasZoTrabajo" asp-controller="Home">Citas
             <span class="badge badge-info">
-                @* HACER FUNCION PARA CONTAR CITAS PENDIENTES POR CONFIRMAR *@1  
+                @ViewData["cantidadCitas"]
             </span>
         </a>
     </div>
