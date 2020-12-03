@@ -496,7 +496,38 @@ ul li:hover > div {
     color: white;
     background-color: #ffffff00;
 }
-/*FIN FORMULARIO*/
+/*SECCION SELLOS GARANTIA*/
+.caja-sellos img {
+    width: 150px;
+    height: 150px;
+}
+.sello {
+    transition: .8s;
+}
+    .sello:hover {
+        background-color: #d0faffb3;
+        padding: 1%;
+        transition: .8s;
+    }
+/*SECCION REDES SOCIALES*/
+.caja-redes-sociales {
+    width: 80%;
+    margin-left: 10% !important;
+    height: 65px;
+    margin-top: 15%;
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(7,60,73,1) 50%, rgba(4,135,162,1) 100%);
+}
+    .caja-redes-sociales a {
+        color: #cacaca;
+        transition: .8s;
+        position: relative;
+        top: 0px;
+    }
+        .caja-redes-sociales a:hover {
+            color: #158da0;
+            top: -10px;
+            transition: .8s;
+        }
 /*FOOTER*/
 .caja-footer {
     width: 95%;
@@ -508,11 +539,10 @@ ul li:hover > div {
     margin-bottom: 5%;
     background-repeat: no-repeat;
     background-size: 100vh;
-    background: url(../img/otros/banner.svg)50%,linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(6,6,51,1) 41%, rgba(9,102,121,1) 65%);
+    background: url(../img/otros/banner.svg)50%, linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(14,36,80,1) 50%, rgba(4,135,162,1) 100%);
 }
 
 footer {
-    margin-top: 10%;
     height: 400px;
     color: white;
     text-align: center;
