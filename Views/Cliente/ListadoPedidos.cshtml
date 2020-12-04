@@ -40,26 +40,23 @@
             <div class="caja-datosPanel">
                 <div class="caja-header">
                     <h3 class="">Pedidos en curso</h3> <p>Sus pedidos llegaran de 2 a 3 días habilides desde sus compra</p>
-                </div>
+                    <a data-toggle="collapse" href="#masDetalles" role="button" aria-expanded="false" aria-controls="id" title="Ver más información"><i class="fas fa-plus-circle" style="color: dimgrey;">Más detalles</i></a>
+                </div>     
                 <hr />
                 <div>
                     <div class="container caja-body">
                         <div class="row mb-2">
                             <div class="col-lg-12">
-                           @foreach (Pedido unpedido in (ViewData["listaPedidos"] as List<Pedido>))//Ver como quitar los id repetidos
-                            {
-                                <div id="accordion">
+                                @foreach (Pedido unpedido in (ViewData["listaPedidos"] as List<Pedido>))//Ver como quitar los id repetidos
+                                {
                                     <div class="card">
                                         <div class="card-header" id="headingOne">
                                             <h5 class="mb-0">
                                                 Id Pedido: @unpedido.IdPedido<span> @unpedido.Articulos.GafasId.Marca</span>
-                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseDatos" aria-expanded="false" aria-controls="collapseDatos">
-                                                    Mas detalles
-                                                </button>
                                             </h5>
                                         </div>
-                                        <div class="collapse multi-collapse" id="collapseDatos">
-                                            <div class="card-body">
+                                        <div class="row collapse" id="masDetalles">
+                                            <div class="card card-body">
                                                 <table>
                                                     <thead>
                                                         <tr class="header-carrito">
@@ -104,8 +101,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            }
+                                    
+                                }
                             </div>
                         </div>
                     </div>
