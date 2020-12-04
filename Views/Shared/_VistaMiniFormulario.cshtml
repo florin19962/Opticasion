@@ -27,38 +27,37 @@
     <div class="col-3">
         <label>@Model.Fecha</label>
     </div>
-
     <div class="col-3">
-       @if (Model.CitaAceptada == false)
+        @if (Model.CitaAceptada == false)
         {
-        <div class="row">
-            <div class="col-3">
-                <a class="btnQuitarDeLista" style="float:left;" asp-controller="Home" asp-action="CancelarCitaLista"
-                   asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })">
-                    <i style="color: red;" class="far fa-calendar-times fa-2x" title="Cancelar cita"></i>
-                </a>
+            <div class="row">
+                <div class="col-3">
+                    <a class="btnQuitarDeLista" style="float:left;" asp-controller="Home" asp-action="CancelarCitaLista"
+                       asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })" onclick="return confirm_alertCancelCita(this)">
+                        <i style="color: red;" class="far fa-calendar-times fa-2x" title="Cancelar cita"></i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a class="btnEditarProducto" asp-controller="Home" asp-action="AceptarCitaLista"
+                       asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })" onclick="return confirm_alertAceptCita(this)">
+                        <i class="far fa-check-square fa-2x" title="Confirmar cita"></i>
+                    </a>
+                </div>
             </div>
-            <div class="col-3">
-                <a class="btnEditarProducto" asp-controller="Home" asp-action="AceptarCitaLista"
-                   asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })">
-                    <i class="far fa-check-square fa-2x" title="Confirmar cita"></i>
-                </a>
-            </div>
-        </div>    
         }
         else
         {
-        <div class="row">
-            <div class="col-3" style="color: #17a2b8;">
-                <i style="color: green;" class="far fa-calendar-check fa-2x" title="Cita aceptada"></i>
+            <div class="row">
+                <div class="col-3" style="color: #17a2b8;">
+                    <i style="color: green;" class="far fa-calendar-check fa-2x" title="Cita aceptada"></i>
+                </div>
+                <div class="col-3">
+                    <a class="btnQuitarDeLista" style="float:left;" asp-controller="Home" asp-action="CancelarCitaLista"
+                       asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })" title="Eliminar de la lista" onclick="return confirm_alertLimpiarCita(this)">
+                        Quitar
+                    </a>
+                </div>
             </div>
-            <div class="col-3">
-                <a class="btnQuitarDeLista" style="float:left;" asp-controller="Home" asp-action="CancelarCitaLista"
-                   asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.IdFormulario} })" title="Eliminar de la lista">
-                    Quitar
-                </a>
-            </div>
-        </div>
         }
     </div>
 </div>

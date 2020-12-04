@@ -42,17 +42,17 @@
         </a>
         @* Apartado busqueda de citas en bd *@
         @*<form class="form-inline" style=" float: right;">
-            <input id="cajaBuscarTrabajo" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Buscar producto por modelo">
-            <div class="input-group-append">
-                <a class="btn btn-group-sm" id="botonBuscarTrabajo">
-                    <i class="fas fa-search" style="color: #757575;"></i>
-                </a>
-            </div>
-        </form>
-        <div style="display:none;" class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="radNombreModelo" name="radOpcionesTrabajo" class="custom-control-input" checked>
-            <label class="custom-control-label" for="radMarca">NombreModelo</label>
-        </div>*@
+                <input id="cajaBuscarTrabajo" class="form-control mr-sm-2" style="font-size: 14px; width: 265px!important;" type="text" placeholder="Buscar producto por modelo">
+                <div class="input-group-append">
+                    <a class="btn btn-group-sm" id="botonBuscarTrabajo">
+                        <i class="fas fa-search" style="color: #757575;"></i>
+                    </a>
+                </div>
+            </form>
+            <div style="display:none;" class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="radNombreModelo" name="radOpcionesTrabajo" class="custom-control-input" checked>
+                <label class="custom-control-label" for="radMarca">NombreModelo</label>
+            </div>*@
         @* Apartado tabla citas *@
     </div>
     <div class="row">
@@ -79,13 +79,26 @@
                 <tbody>
                     @foreach (FormularioContacto unformulario in Model.Values)
                     {
-                        <partial name="_VistaMiniFormulario" model="unformulario" />                
+                        <partial name="_VistaMiniFormulario" model="unformulario" />
+
                     }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+@* SCRIPT LANZAR AVISO CONFIRMACION CITA *@
+<script>
+    function confirm_alertAceptCita(node) {
+        return confirm("Confirmar cita?");
+    }
+    function confirm_alertCancelCita(node) {
+        return confirm("Quieres cancelar la cita?");
+    }
+    function confirm_alertLimpiarCita(node) {
+        return confirm("Quieres quitar la cita de la lista?");
+    }
+</script>
 @*<script>
         //------seccion de script para Busqueda-----------
         var cajaBuscarTrabajo = document.getElementById("cajaBuscarTrabajo");

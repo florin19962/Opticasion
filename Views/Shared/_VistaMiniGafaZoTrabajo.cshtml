@@ -38,14 +38,12 @@
 
     <td>
         <a class="btnQuitarDeLista" asp-controller="Home" asp-action="QuitarGafaLista"
-           asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
+           asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })" onclick="return confirm_alert(this)">
             <i style="color: red;" class="far fa-times-circle fa-2x" title="Eliminar producto"></i>
         </a>
         <a class="btnEditarProducto" asp-controller="Home" asp-action="EditarProducto"
            asp-all-route-data="@(new Dictionary<String,String>() { { "id", Model.GafasId} })">
             <i class="fas fa-edit fa-2x" title="Modificar producto"></i>
         </a>
-
-
     </td>
 </tr>

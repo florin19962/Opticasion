@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="caja-inferior-footer">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="submit" class="btn btn-primary" onclick="return confirm_alertCambios(this)">Guardar</button>
                         <button asp-action="ListarProductosZoTrabajo" asp-controller="Home" class="btn btn-secondary">Volver a listado</button>
                     </div>
                 </div>
@@ -182,5 +182,11 @@
     });
 
     Array.from(document.getElementsByClassName("input-validation-error")).forEach((el) => el.style.borderColor = "red");
+</script>
+@* SCRIPT LANZAR AVISO CONFIRMACION CAMBIOS *@
+<script>
+    function confirm_alertCambios(node) {
+        return confirm("Quieres guardar los cambios?");
+    }
 </script>
 
