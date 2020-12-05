@@ -21,7 +21,14 @@
             <a asp-controller="Tienda"
                asp-action="DetallesGafas"
                asp-all-route-data="@(new Dictionary<String, String>() { { "id", @Model.GafasId } });">
-                <img src="~/ImagenesProductos/@Model.FotoGafaString" width="200" alt="Alternate Text" />
+                @if (Model.Estado == true)
+                {
+                    <img src="~/ImagenesProductos/@Model.FotoGafaString" width="200" alt="Alternate Text" />
+                }
+                @if (Model.Estado == false)
+                {
+                    <img src="~/ImagenesProductos/@Model.FotoGafaString" width="200" alt="Alternate Text" />//modificar y añadir capa vendido con css a la foto
+                }
             </a>
         </div>
         <div class="col-md-7">
@@ -32,24 +39,32 @@
             <label class="precio"><strong>@Model.PrecioProd.ToString()€</strong></label>
         </div>
         <div class="col-12" style="min-height: 165px;">
-
-            @if (_cliente != null)
+            @if (Model.Estado == true)
             {
-                <a class="btn-comprarTienda"
-                   asp-controller="Pedido"
-                   asp-action="AddGafaPedido"
-                   asp-all-route-data="@(new Dictionary<string, string>() { { "id", Model.GafasId }, { "cantidad", "1"}  })">
-                    COMPRAR
-                </a>
+                @if (_cliente != null)
+                {
+                    <a class="btn-comprarTienda"
+                       asp-controller="Pedido"
+                       asp-action="AddGafaPedido"
+                       asp-all-route-data="@(new Dictionary<string, string>() { { "id", Model.GafasId }, { "cantidad", "1" } })">
+                        COMPRAR
+                    </a>
+                }
+                else
+                {
+                    <a class="btn-comprarTienda"
+                       asp-controller="Cliente"
+                       asp-action="Login">
+                        Iniciar Sesion
+                    </a>
+                }
             }
             else
             {
-                <a class="btn-comprarTienda"
-                   asp-controller="Cliente"
-                   asp-action="Login">
-                    Iniciar Sesion
-                </a>
+               <a class="btn-comprarTienda">
+                   VENDIDO
+               </a>
             }
-        </div>
+            </div>
     </div>
 </div>

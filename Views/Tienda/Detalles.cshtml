@@ -56,24 +56,32 @@
                     <label class="detalleprecio"><strong>Precio: @Model.PrecioProd.ToString()€</strong></label>
                 </div>
                 <div class="col-6">
-
-                    @if (_cliente != null)
+                    @if (Model.Estado == true)
                     {
-                        <div id="btnCarro-@Model.GafasId" style="margin-top:7%">
-                            <a class="btnCarro"
-                               asp-controller="Pedido"
-                               asp-action="AddGafaPedido"
-                               asp-all-route-data="@(new Dictionary<string, string>() { { "id", @Model.GafasId }, { "cantidad", "1"}  })">
-                                Añadir al carrito
+                        @if (_cliente != null)
+                        {
+                            <div id="btnCarro-@Model.GafasId" style="margin-top:7%">
+                                <a class="btnCarro"
+                                   asp-controller="Pedido"
+                                   asp-action="AddGafaPedido"
+                                   asp-all-route-data="@(new Dictionary<string, string>() { { "id", @Model.GafasId }, { "cantidad", "1" } })">
+                                    Añadir al carrito
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="btn-comprarTienda"
+                               asp-controller="Cliente"
+                               asp-action="Login">
+                                Iniciar Sesion
                             </a>
-                        </div>
+                        }
                     }
                     else
                     {
-                        <a class="btn-comprarTienda"
-                           asp-controller="Cliente"
-                           asp-action="Login">
-                            Iniciar Sesion
+                        <a class="btn-comprarTienda">
+                            VENDIDO
                         </a>
                     }
                 </div>

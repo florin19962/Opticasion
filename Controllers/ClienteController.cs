@@ -142,7 +142,7 @@ namespace Opticasion.Controllers
                     //login ok, creamos variable de sesion: cliente y lista de pedidos del cliente
                         this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
                         ViewData["listaPedidos"] = this._accessDB.DevolverPedido(_clienteSesion.DNI);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Tienda");
                     }
                 }
                 else

@@ -215,8 +215,7 @@ namespace Opticasion.Controllers
                 Random r = new Random();
                 int numeroAleatorio;
                 numeroAleatorio = r.Next(10000000, 99999999);
-                //METER TAMBIEN COLOR DE GAFAS Y FORMA PARA TENER MAS FILTROS EN LA TIENDA
-
+                newgafas.Estado = true;//AÑADIR PODER MODIFICAR ESTE CAMPO DESDE FORMULARIO
                 newgafas.CodigoVerificacion = numeroAleatorio;
                 newgafas.FechaPublicacion = DateTime.Now;//REVISAR QUE ESTO SE INSERTA BIEN Y A LA HORA DE BUSCAR POR FECHA FUNCIONA
                 //CODIGO PARA SUBIDA IMAGEN---------------------------------------------------------
@@ -319,7 +318,7 @@ namespace Opticasion.Controllers
                 Random r = new Random();
                 int numeroAleatorio;
                 numeroAleatorio = r.Next(10000000, 99999999);
-                //METER TAMBIEN COLOR DE GAFAS Y FORMA PARA TENER MAS FILTROS EN LA TIENDA
+                //newgafas.Estado = true;//AÑADIR PODER MODIFICAR ESTE CAMPO DESDE FORMULARIO
 
                 newgafas.CodigoVerificacion = numeroAleatorio;
                 newgafas.FechaPublicacion = DateTime.Now;

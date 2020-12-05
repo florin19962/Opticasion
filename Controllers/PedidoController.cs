@@ -46,77 +46,99 @@ namespace Opticasion.Controllers
         public IActionResult AddGafaPedido(String id)
         {
             Gafas _newgafapedido = this._accessDB.BuscarGafas(id);
-            Pedido _pedido;
-            Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
-            try
-            {
-                _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
-                int _cantidad = System.Convert.ToInt32(this._httpContext.HttpContext.Request.Query["cantidad"]);
+            _newgafapedido.Estado = false;
+            int _filasRegistradas = this._accessDB.UpdateDatosProductoQuery(_newgafapedido);
+            if (_filasRegistradas == 1) {
+                Pedido _pedido;
+                Cliente _clienteSesion = JsonConvert.DeserializeObject<Cliente>(this._httpContext.HttpContext.Session.GetString("cliente"));
 
-                //hay pedido, comprobamos si la gafa existe en la lista de gafas del carro...recuperar de la variable de sesion la lista de itemscarro y ver si la gafa existe en ellos
-                this._GenerarPedido(_pedido, _newgafapedido, _cantidad);
-                this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
-            }
-            catch (ArgumentNullException ex)
-            {
-                //no existe la variable de sesion del carrito
-                _pedido = new Pedido();
-                _pedido.ElementosCarro = new List<ItemCarrito>();
-                _pedido.GastosEnvio = 3;
-                _pedido.FechaPedido = Convert.ToString(DateTime.Now);
-                _pedido.DNICliente = _clienteSesion.DNI;
-                _pedido.DireccionEnvio = _clienteSesion.DireccionPrincipal.IdDireccion;
-                _pedido.CuentaCliente = "";
-                _pedido.ElementosCarro.Add(
-                                        new ItemCarrito()
-                                        {
-                                            ItemCantidadGafa = 1,
-                                            ItemGafa = _newgafapedido
-                                        }
-                                                );
+                try
+                {
+                    _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+                    int _cantidad = System.Convert.ToInt32(this._httpContext.HttpContext.Request.Query["cantidad"]);
 
-                this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
+                    //hay pedido, comprobamos si la gafa existe en la lista de gafas del carro...recuperar de la variable de sesion la lista de itemscarro y ver si la gafa existe en ellos
+                    this._GenerarPedido(_pedido, _newgafapedido, _cantidad);
+                    this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
+                }
+                catch (ArgumentNullException ex)
+                {
+                    //no existe la variable de sesion del carrito
+                    _pedido = new Pedido();
+                    _pedido.ElementosCarro = new List<ItemCarrito>();
+                    _pedido.GastosEnvio = 3;
+                    _pedido.FechaPedido = Convert.ToString(DateTime.Now);
+                    _pedido.DNICliente = _clienteSesion.DNI;
+                    _pedido.DireccionEnvio = _clienteSesion.DireccionPrincipal.IdDireccion;
+                    _pedido.CuentaCliente = "";
+                    _pedido.ElementosCarro.Add(
+                                            new ItemCarrito()
+                                            {
+                                                ItemCantidadGafa = 1,
+                                                ItemGafa = _newgafapedido
+                                            }
+                                                    );
+
+                    this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
+                }
+                catch (FormatException ex2)
+                {
+                    _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+                    this._GenerarPedido(_pedido, _newgafapedido, 1);
+                }
+                //crear variable de sesion con el pedido
+                return View("AddGafaPedido", _pedido);
             }
-            catch (FormatException ex2)
-            {
-                _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
-                this._GenerarPedido(_pedido, _newgafapedido, 1);
+            else
+            {     
+            ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
+            ViewBag.showSuccessAlert = false;
+            return RedirectToAction("Index", "Tienda");
             }
 
-            //crear variable de sesion con el pedido
-            return View("AddGafaPedido", _pedido);
         }
 
 
         public IActionResult QuitarGafaPedido(String id)
         {
             Gafas _newgafapedido = this._accessDB.BuscarGafas(id);
-            Pedido _pedido;
-            try
+            _newgafapedido.Estado = true;
+            int _filasRegistradas = this._accessDB.UpdateDatosProductoQuery(_newgafapedido);
+            if (_filasRegistradas == 1)
             {
-                _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
-
-                if (_pedido.ElementosCarro.Count == 1)
+                Pedido _pedido;
+                try
                 {
-                    //ya solo queda uno, elimino el pedido y redirecciono al Home
-                    this._httpContext.HttpContext.Session.Remove("pedido");
+                    _pedido = JsonConvert.DeserializeObject<Pedido>(this._httpContext.HttpContext.Session.GetString("pedido"));
+
+                    if (_pedido.ElementosCarro.Count == 1)
+                    {
+                        //ya solo queda uno, elimino el pedido y redirecciono al Home
+                        this._httpContext.HttpContext.Session.Remove("pedido");
+                        return RedirectToAction("Index", "Tienda");
+                    }
+                    //...quito gafa de la coleccion de gafas del pedido
+                    _pedido.ElementosCarro.Remove(
+                        _pedido.ElementosCarro.Where<ItemCarrito>((unitem) => unitem.ItemGafa.GafasId == id).Single<ItemCarrito>()
+                        );
+
+
+                    //....regeneramos variable de sesion...
+                    this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
+
+                    return View("AddGafaPedido", _pedido);
+                }
+                catch (ArgumentNullException ex)
+                {
+                    // ya no hay pedido...
                     return RedirectToAction("Index", "Tienda");
                 }
-                //...quito gafa de la coleccion de gafas del pedido
-                _pedido.ElementosCarro.Remove(
-                    _pedido.ElementosCarro.Where<ItemCarrito>((unitem) => unitem.ItemGafa.GafasId == id).Single<ItemCarrito>()
-                    );
-
-
-                //....regeneramos variable de sesion...
-                this._httpContext.HttpContext.Session.SetString("pedido", JsonConvert.SerializeObject(_pedido));
-
-                return View("AddGafaPedido", _pedido);
             }
-            catch (ArgumentNullException ex)
+            else
             {
-                // ya no hay pedido...
-                return RedirectToAction("Index", "Tienda");
+            ModelState.AddModelError("", "ERROR INTERNO DEL SERVIDOR, intentelo de nuevo mas tarde..");
+            ViewBag.showSuccessAlert = false;
+            return RedirectToAction("Index", "Tienda");
             }
         }
 
@@ -156,6 +178,7 @@ namespace Opticasion.Controllers
 
                 datospedido = _pedido;
                 int _filaRegistradaIdPedido = this._accessDB.RegistrarPedido(datospedido);
+
                 if (_filaRegistradaIdPedido >= 1)
                     {
                     // mandar al mail del cliente un resumen del pedido AQUI y redirigir a una pantalla de fin de compra con exito
