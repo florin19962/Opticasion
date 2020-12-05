@@ -175,8 +175,11 @@ namespace Opticasion.Controllers
             else
             {//hacer el INSERT en la bd...
                 _pedido.CuentaCliente = datospedido.CuentaCliente;
-
                 datospedido = _pedido;
+                Random r = new Random();
+                int numeroAleatorio;
+                numeroAleatorio = r.Next(10000000, 99999999);
+                datospedido.CodigoVerificacion = numeroAleatorio;//generamos un codigo aleatorio provisional  para la verificacion para la recogida del producto si el cliente viene al local y lo metemos en bd
                 int _filaRegistradaIdPedido = this._accessDB.RegistrarPedido(datospedido);
 
                 if (_filaRegistradaIdPedido >= 1)

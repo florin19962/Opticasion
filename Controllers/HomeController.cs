@@ -172,6 +172,8 @@ namespace Opticasion.Controllers
         [HttpGet]
         public IActionResult ZonaTrabajadores()
         {
+            int cantidadCitas = this._accessDB.DevolverTodosLosFormulariosFalse().Count;
+            ViewData["cantidadCitas"] = cantidadCitas;
             //comprobamos que el usuario este logueado y sea un trabajador para poder acceder a esta zona
             try
             {
@@ -181,7 +183,6 @@ namespace Opticasion.Controllers
                 if (_clienteSesion.Tipo.Equals("Trabajador"))
                 {
                     this._httpContext.HttpContext.Session.SetString("cliente", JsonConvert.SerializeObject(_clienteSesion));
-                    int cantidadCitas = this._accessDB.DevolverTodosLosFormulariosFalse().Count;
                     ViewData["cantidadCitas"] = cantidadCitas;
 
                     return View();
@@ -203,6 +204,8 @@ namespace Opticasion.Controllers
         [HttpPost]
         public IActionResult ZonaTrabajadores(Gafas newgafas)
         {
+            int cantidadCitas = this._accessDB.DevolverTodosLosFormulariosFalse().Count;
+            ViewData["cantidadCitas"] = cantidadCitas;
             ViewData["listaCategorias"] = this._accessDB.DevolverCategorias();
             ViewData["listaFormularios"] = _accessDB.DevolverTodosLosFormularios();
             if (!ModelState.IsValid)
@@ -211,13 +214,8 @@ namespace Opticasion.Controllers
             }
             else
             {
-                //generamos un codigo aleatorio provisional  para la verificacion para la recogida del producto si el cliente viene al local y lo metemos en bd
-                Random r = new Random();
-                int numeroAleatorio;
-                numeroAleatorio = r.Next(10000000, 99999999);
-                newgafas.Estado = true;//AÑADIR PODER MODIFICAR ESTE CAMPO DESDE FORMULARIO
-                newgafas.CodigoVerificacion = numeroAleatorio;
-                newgafas.FechaPublicacion = DateTime.Now;//REVISAR QUE ESTO SE INSERTA BIEN Y A LA HORA DE BUSCAR POR FECHA FUNCIONA
+                newgafas.Estado = true;
+                newgafas.FechaPublicacion = DateTime.Now;
                 //CODIGO PARA SUBIDA IMAGEN---------------------------------------------------------
 
                 //asociamos la imagen con un nombre unico o ponemos una por defecto en caso de que no la pasen
@@ -315,12 +313,7 @@ namespace Opticasion.Controllers
             }
             else
             {
-                Random r = new Random();
-                int numeroAleatorio;
-                numeroAleatorio = r.Next(10000000, 99999999);
                 //newgafas.Estado = true;//AÑADIR PODER MODIFICAR ESTE CAMPO DESDE FORMULARIO
-
-                newgafas.CodigoVerificacion = numeroAleatorio;
                 newgafas.FechaPublicacion = DateTime.Now;
                 String formatoImg = ".png";
                 if (newgafas.FotoGafasUrl == null)

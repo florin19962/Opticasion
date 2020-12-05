@@ -36,9 +36,6 @@ namespace Opticasion.Models
         public string VendedorId { get; set; }
 
 
-        public int CodigoVerificacion { get; set; }
-
-
         [Required(ErrorMessage = "La Marca es obligatoria")]
         public string Marca { get; set; }
 
@@ -68,7 +65,6 @@ namespace Opticasion.Models
                      string descripcion,
                      IFormFile fotogafasurl,
                      string vendedorid,
-                     int codigoverificacion,
                      string marca,
                      string genero,
                      int idcategoria,
@@ -84,7 +80,6 @@ namespace Opticasion.Models
             this.Descripcion = descripcion;
             this.FotoGafasUrl = fotogafasurl;
             this.VendedorId = vendedorid;
-            this.CodigoVerificacion = codigoverificacion;
             this.Marca = marca;
             this.Genero = genero;
             this.IdCategoria = idcategoria;

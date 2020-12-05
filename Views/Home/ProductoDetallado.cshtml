@@ -119,6 +119,13 @@
                                 <option value="Articulo">Articulo</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select id="estado" asp-for="@Model.Estado" class="form-control" required>
+                                <option value="true">En venta</option>
+                                <option value="false">Vendido</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group">

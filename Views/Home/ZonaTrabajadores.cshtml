@@ -23,15 +23,21 @@
 <div class="container-fluid" style="background-color: #f0f0f0;">
     @if (ViewBag.showSuccessAlert == true)
     {
-        <div class="alert alert-success" role="alert">
-            <label>Los datos se guardaron correctamente</label>
-        </div>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <label>Los datos se guardaron correctamente</label>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
     }
     @if (ViewBag.showSuccessAlert == false)
     {
-        <div class="alert alert-danger" role="alert">
-            <label>Se produjo un error en la carga de producto.</label>
-        </div>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <label></label>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
     }
    
 <div class="row">
@@ -58,8 +64,8 @@
                         <div class="row mb-2">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label for="vendedirid">Nombre y Apellidos Vendedor *</label>
-                                    <input type="text" class="form-control" id="vendedirid" asp-for="@Model.VendedorId" placeholder="Nombre completo del vendedor">
+                                    <label for="vendedorid">Nombre y Apellidos Vendedor *</label>
+                                    <input type="text" class="form-control" id="vendedorid" asp-for="@Model.VendedorId" placeholder="Nombre completo del vendedor">
                                     <div>
                                         <span asp-validation-for="@Model.VendedorId" class="text-danger"></span>
                                     </div>
@@ -92,7 +98,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="precioprod">Precio del producto *</label>
-                                    <input type="text" class="form-control" id="precioprod" asp-for="@Model.PrecioProd" placeholder="Precio del articulo a publicar">
+                                    <input type="text" class="form-control" id="precioprod" asp-for="@Model.PrecioProd" placeholder="Precio del articulo con coma">
                                     <div>
                                         <span asp-validation-for="@Model.PrecioProd" class="text-danger"></span>
                                     </div>
@@ -181,8 +187,8 @@
                             </div>
 
                             <div class="caja-inferior-footerZonaT">
-                                <button type="submit" onsubmit="limpiarYEnviar()" class="btn btn-primary">Guardar</button>
-                                <button type="button" onclick="limpiarFormulario()" class="btn btn-danger">Vaciar</button>
+                                <button type="submit" class="btn btn-primary" >Guardar</button>
+                                <button class="btn btn-danger" onclick="limpiar()">Vaciar</button>
                             </div>
                         </div>
                     </div>
@@ -230,11 +236,15 @@
 </script>
 <!--script para resetear campos formulario desde boton vaciar y al subir datos-->
 <script>
-    function limpiarFormulario() {
-        document.getElementById("miForm").reset();
-    }
-    function limpiarYEnviar() {
-        limpiarFormulario();
-        return true;
+    function limpiar() {
+        document.getElementById("vendedorid").value = "";
+        document.getElementById("idcategoria").value = "0";
+        document.getElementById("precioprod").value = "";
+        document.getElementById("marca").value = "";
+        document.getElementById("nombremodelo").value = "";
+        document.getElementById("descripcion").value = "";
+        document.getElementById("genero").value = "0";
+        document.getElementById("estilo").value = "0";
+        document.getElementById("color").value = "";
     }
 </script>
