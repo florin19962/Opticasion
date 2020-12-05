@@ -22,7 +22,7 @@
     margin-top: 50px;
     border: 1px solid #00000017;
     border-radius: 5px;
-    height: 400px;
+    min-height: 440px;
     max-width: 255px !important;
     transition: .5s;
     margin-right: 1%;
@@ -36,12 +36,12 @@
 
 .btn-comprarTienda {
     background-color: #ff5e00c4;
-    color: white;
+    color: white !important;
     width: 100%;
     border-radius: 4px;
     padding: 5% 25% 5% 25%;
-    position: relative;
-    top: 50px;
+/*    position: relative;
+    top: 50px;*/
     transition: .5s;
     box-shadow: 1px 2px 5px 1px black;
 }
@@ -71,8 +71,23 @@
     font-size: 20px;
     text-shadow: 3px 9px 20px #000000a6;
 }
-
-
+.capaProducto {
+   /* position: relative;
+    left: 5px;
+    z-index: 0;*/
+   position: relative;
+    left: 5px;
+    top: 30%;
+    z-index: 0;
+}
+.capaVendido {
+    /*position: relative;
+    z-index: 1;*/
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+}
 /*CSS PARTE DETALLES DEL PRODUCTO*/
 .btnCarro {
     padding: 5% 15% 5% 15%;
