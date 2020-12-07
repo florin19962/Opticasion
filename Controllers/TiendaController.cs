@@ -69,8 +69,17 @@ namespace Opticasion.Controllers
 
         public IActionResult Buscar()
         {
-            String opcion = RouteData.Values["opcion"].ToString();
-            String valor = RouteData.Values["valor"].ToString();
+            string valor;
+            string opcion;
+            if (RouteData.Values["opcion"] == null || RouteData.Values["valor"] == null)
+            {
+                valor = "";
+                opcion = "Marca";
+            }
+            else {
+            opcion = RouteData.Values["opcion"].ToString();
+            valor = RouteData.Values["valor"].ToString();
+            }
 
             return View("Index", this._accessDB.DevolverGafas(opcion, valor));
         }

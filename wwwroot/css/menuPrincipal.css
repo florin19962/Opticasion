@@ -266,8 +266,8 @@ ul li:hover > div {
 /*FIN CSS MENU*/
 
 /*CSS CARROUSEL MARCAS*/
-.carousel-item{
-    max-height:524px;
+.carousel-item {
+    max-height: 600px
 }
 .banner-marcas {
     border: 1px solid #d0d0d0;

@@ -30,7 +30,7 @@
             @if (Model.Estado == false)
             {
                 <img class="capaVendido" src="~/img/capa_vendido.png" style="width:400px!important;margin-left: 25%;" alt="Alternate Text" />
-                <img class="capaProducto" src="~/ImagenesProductos/@Model.FotoGafaString" style="margin-left: 20%;width:550px;" alt="Alternate Text" />
+                <img class="capaProductoDetalle" src="~/ImagenesProductos/@Model.FotoGafaString" style="margin-left: 20%;width:550px;" alt="Alternate Text" />
             }
 
         </div>
@@ -64,7 +64,7 @@
                 <div class="col-6">
                     <label class="detalleprecio"><strong>Precio: @Model.PrecioProd.ToString()€</strong></label>
                 </div>
-                <div class="col-6">
+                <div class="col-6" style="margin-top: 4%;">
                     @if (Model.Estado == true)
                     {
                         @if (_cliente != null)
