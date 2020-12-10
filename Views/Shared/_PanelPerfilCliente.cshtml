@@ -34,7 +34,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="menu-superior">
+            <div class="menu-superior sticky-top-7">
                 <div>
                     <ul>
                         <li class="enl"><i class="fas fa-sign-out-alt" style="color: #b8c7ce;margin:3px 10px;"></i>@Html.ActionLink("Cerrar Sessión", "btnLogOut", "Cliente")</li>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="col-5 cajon-externo">
-                <div class="cajon-pan">
+                <div class="cajon-pan sticky-top-6">
                     <div class="row perfil">
                         <div class="col-md-3">
                             <form asp-action="UpdateFotoPerfil" asp-controller="Cliente" method="post" enctype="multipart/form-data" style=" height: 150px; ">

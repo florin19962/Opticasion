@@ -71,6 +71,7 @@ namespace Opticasion.Controllers
         {
             string valor;
             string opcion;
+            //hacemos una comprobacion por si no pasan valor y le dan a buscar, que no pete
             if (RouteData.Values["opcion"] == null || RouteData.Values["valor"] == null)
             {
                 valor = "";
