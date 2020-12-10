@@ -35,7 +35,7 @@ namespace Opticasion.Controllers
             this._env = env;
         }
 
-
+        #region "--------------------FUNCIONES PARA LOS USUARIOS NOS REGISTRADOS------------------------"
         //------------------------REGISTRO-----------------------------------------------
         [HttpGet]
         public IActionResult Registro()
@@ -157,7 +157,9 @@ namespace Opticasion.Controllers
                 return View(creds);
             }
         }
+        #endregion
 
+        #region "--------------------ZONA PERFIL USUARIOS---------------------------"
         //-----------------------------LOGOUT---------------------------------------------
         public RedirectToActionResult btnLogOut()
         {
@@ -165,7 +167,7 @@ namespace Opticasion.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //----------------------------PERFIL-----------------------------------------------
+        //-----------------------------PERFIL---------------------------------------------
         [HttpGet]
         public IActionResult DatosPerfil()
         {
@@ -352,5 +354,6 @@ namespace Opticasion.Controllers
             ViewData["listaPedidos"] = this._accessDB.DevolverPedido(dni);
             return View(_clienteSesion);
         }
+        #endregion
     }
 }

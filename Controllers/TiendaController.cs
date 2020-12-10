@@ -20,9 +20,7 @@ namespace Opticasion.Controllers
             this._accessDB = _servicioBD;
             this._httpContext = httpContext;
         }
-
-
-        
+        #region "--------------------------METODOS CONSTRUCTOR ACCESOS EN PANTALLAS DE LA TIENDA-----------------------"
         public ActionResult Index()
         {
             if (TempData["Message"] != null)
@@ -84,6 +82,6 @@ namespace Opticasion.Controllers
 
             return View("Index", this._accessDB.DevolverGafas(opcion, valor));
         }
-
+        #endregion
     }
 }

@@ -639,6 +639,11 @@ namespace Opticasion.Models
 
         }
         #endregion
+
+
+
+
+
         //---------------------------PARTE DE LA TIENDA----------------------------------------
         #region "---------------------Metodos de acceso a tablas relacionadas con los productos--------------------------------"
         public Gafas BuscarGafas(string gafasid)

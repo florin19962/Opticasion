@@ -10,11 +10,11 @@ namespace Opticasion.Models
 {
     public class Cliente
     {
-
-        //-----------credenciales para el login--------(creadas en registro)
+        #region "----Propiedades de clase----"
+        //-----------Credenciales para el login--------(creadas en registro)
         public Credenciales CredencialesAcceso { get; set; }
 
-        //--------------datos personales de cita
+        //--------------Datos personales
         [Required(ErrorMessage = "El nombre es obligatorio")]
         public String Nombre { get; set; }
 
@@ -48,16 +48,18 @@ namespace Opticasion.Models
 
         public Pedido PedidosCliente { get; set; }
 
+
         public IFormFile FotoUsuarioUrl { get; set; }
 
+
         public string FotoUsuarioString { get; set; }
+
 
         //------------------atributo validacion personalizado---------
         [AceptarTerminos(ErrorMessage = "Debes aceptar los terminos y politica de privacidad")]
         public Boolean PoliticaPrivacidadDatos { get; set; }
 
 
-        //-----gafas que vende el cliete-----------------------------
         public Gafas Gafas { get; set; }
 
 
@@ -67,21 +69,21 @@ namespace Opticasion.Models
 
         public class Credenciales
         {
-  
             [Required(ErrorMessage = "Email obligatorio")]
             [RegularExpression(@"^.*@.*\.(com|es|org)$", ErrorMessage = "El formato de email es incorrecto")]
             public String Email { get; set; }
+
 
             [Required(ErrorMessage = "Password obligatoria")]
             [MinLength(8,ErrorMessage = "Contraseña invalida")]
             public String Password { get; set; }
 
+
             public String RepPassword { get; set; }
 
 
             public String HashPassword { get; set; }
-
-            
         }
+        #endregion
     }
 }

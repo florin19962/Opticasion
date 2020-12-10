@@ -8,7 +8,7 @@ namespace Opticasion.Interfaces
 {
     public interface IDBAccess
     {
-        #region ".....metodos de acceso a la BD a tablas relacionadas con el CLIENTE....
+        #region "-------Metodos de acceso a la BD a tablas relacionadas con el CLIENTE----------
         Dictionary<String, FormularioContacto> DevolverTodosLosFormularios();
         Dictionary<String, FormularioContacto> DevolverTodosLosFormulariosFalse();
         FormularioContacto DevolverFormulario(String idformulario);
@@ -29,7 +29,7 @@ namespace Opticasion.Interfaces
         int UpdateDatosDireccionQuery(Cliente newcliente);
         #endregion
 
-        #region "....metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS....   
+        #region "-------Metodos de acceso a la BD a tablas relacionadas con la TIENDA y sus PRODUCTOS----------  
         int UpdateDatosProductoQuery(Gafas newgafas);
         int BorrarGafas(String gafasid);
         Dictionary<String, Gafas> DevolverGafas(String criterio, String valor);

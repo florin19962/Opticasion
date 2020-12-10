@@ -37,6 +37,7 @@ namespace Opticasion.Controllers
             this._env = env;
         }
 
+        #region "---------------------------METODOS ACCION EN PANTALLA PRINCIPAL-------------------------------------"
         [HttpGet]
         public IActionResult Index()
         {
@@ -77,8 +78,9 @@ namespace Opticasion.Controllers
             }
                 
         }
+        #endregion
 
-        #region "-----------------------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES------------------------------------------------"
+        #region "---------------------------METODOS CONSTRUCTOR PARA ZONA TRABAJADORES-------------------------------"
         public IActionResult ListarCitasZoTrabajo()
         {
             try

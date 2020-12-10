@@ -10,7 +10,7 @@ namespace Opticasion.Models
 {
     public class Gafas
     {
-        //[Required(ErrorMessage = "El Id es obligatorio")]
+        #region "----Propiedades de clase----"
         public string GafasId { get; set; }
 
 
@@ -54,7 +54,8 @@ namespace Opticasion.Models
         public string Estilo { get; set; }
 
         public bool Estado { get; set; }
-
+        #endregion
+        #region "----Constructores----"
         public Gafas()
         {
 
@@ -88,5 +89,6 @@ namespace Opticasion.Models
             this.Estilo = estilo;
             this.Estado = estado;
         }
+        #endregion
     }
 }

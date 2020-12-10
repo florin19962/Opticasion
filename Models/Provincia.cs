@@ -7,11 +7,9 @@ namespace Opticasion.Models
 {
     public class Provincia
     {
-        #region "...propiedades de clase..."
-
+        #region "----Propiedades de clase----"
         public int CodPro { get; set; }
         public String NombreProvincia { get; set; }
-
         #endregion
     }
 }

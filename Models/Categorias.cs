@@ -8,9 +8,10 @@ namespace Opticasion.Models
 {
     public class Categorias
     {
+        #region "----Propiedades de clase----"
         [Required(ErrorMessage = "Debe seleccionar una Categoria")]
         public int IdCategoria  {get; set;}
         public String NombreCategoria { get; set; }
-
+        #endregion
     }
 }

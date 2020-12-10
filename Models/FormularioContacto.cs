@@ -8,6 +8,7 @@ namespace Opticasion.Models
 {
     public class FormularioContacto
     {
+        #region "----Propiedades de clase----"
         public String IdFormulario { get; set; }
 
 
@@ -32,7 +33,8 @@ namespace Opticasion.Models
         [Required(ErrorMessage = "Mensaje obligatorio")]
         public String Mensaje { get; set; }
 
-        public bool CitaAceptada { get; set; }
 
+        public bool CitaAceptada { get; set; }
+        #endregion
     }
 }

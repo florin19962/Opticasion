@@ -8,27 +8,31 @@ namespace Opticasion.Models
 {
     public class Direccion
     {
-        #region "...propiedades de clase..."
+        #region "-----Propiedades de clase---------"
         public String Pais { get; set; }
 
         public String IdDireccion { get; set; }
 
+
         [Required(ErrorMessage = "La provincia es obligatoria para su envio")]
         public String Provincia { get; set; }
+
 
         [Required(ErrorMessage = "La localidad es obligatoria para su envio")]
         public String Localidad { get; set; }
 
+
         [Required(ErrorMessage = "La calle es obligatoria para su envio")]
         public String Calle { get; set; }
+
 
         [Required(ErrorMessage = " El CP es necesario para el envio")]
         [RegularExpression("^[0-9]{5}$", ErrorMessage = "Formato invalido CP (5 digitos): 28803")]
         public String CP { get; set; }
         #endregion
 
-        #region "...metodos de clase..."
-        #region "constructores"
+        #region "-----Metodos de clase--------"
+        #region "-----Constructores-----------"
         public Direccion()
         {
 

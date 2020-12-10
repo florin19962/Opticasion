@@ -7,7 +7,7 @@ namespace Opticasion.Models
 {
     public class Municipio
     {
-        #region "...propiedades de clase..."
+        #region "----Propiedades de clase----"
         public int CodPro { get; set; }
         public int CodMun { get; set; }
         public int DC { get; set; }

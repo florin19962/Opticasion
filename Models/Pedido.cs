@@ -8,13 +8,19 @@ namespace Opticasion.Models
 {
     public class Pedido
     {
-        #region "...propiedades de clase..."
+        #region "----Propiedades de clase----"
         public int IdPedido { get; set; }
+
         public ProdPedido Articulos { get; set; }
+
         public String DNICliente { get; set; }
+
         public String FechaPedido { get; set; }
+
         public Decimal GastosEnvio { get; set; }
+
         public String DireccionEnvio { get; set; }
+
         public Decimal SubTotalPedido
         {
             get
@@ -26,6 +32,7 @@ namespace Opticasion.Models
 
             }
         }
+
         public Decimal TotalPedido
         {
             get
@@ -37,16 +44,19 @@ namespace Opticasion.Models
 
             }
         }
+
         public List<ItemCarrito> ElementosCarro { get; set; }
+
 
         [Required(ErrorMessage = "La cuenta bancaria es obligatorio")]
         [RegularExpression(@"^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$", ErrorMessage = "formato IBAN invalido: ES00-0000-0000-0000-0000-0000")]
         public String CuentaCliente { get; set; }
+
         public int CodigoVerificacion { get; set; }
         #endregion
 
 
-        #region "...metodos de clase..."
+        #region "---Metodos de clase---"
 
         private Decimal _calculaSubTotalPedido()
         {

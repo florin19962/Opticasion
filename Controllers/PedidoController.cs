@@ -26,6 +26,7 @@ namespace Opticasion.Controllers
             this._httpContext = httpContext;
         }
 
+        #region "--------------------------------METODOS CONSTRUCTOR FUNCIONES DE LOS PEDIDOS-------------------------------"
         public IActionResult Carrito()
         {
             try
@@ -260,7 +261,7 @@ namespace Opticasion.Controllers
         }
 
 
-        #region "...metodos privados internos controlador..."
+        #region "...Metodos privados internos controlador..."
         private Pedido _GenerarPedido(Pedido _pedido, Gafas _newgafapedido, int _cantidad)
         {
             bool _gafasencarro = false;
@@ -297,13 +298,6 @@ namespace Opticasion.Controllers
 
         }
         #endregion
-
-
-
-
-
-
-
-
+        #endregion
     }
 }
