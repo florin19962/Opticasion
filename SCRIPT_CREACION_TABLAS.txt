@@ -1,14 +1,15 @@
 CREATE TABLE [dbo].[Clientes] (
-    [DNI]          NCHAR (10)     NOT NULL,
-    [Nombre]       NVARCHAR (50)  NOT NULL,
-    [Apellidos]    NVARCHAR (100) NOT NULL,
-    [Email]        NVARCHAR (50)  NOT NULL,
-    [HashPassword] NVARCHAR (MAX) NOT NULL,
-    [Telefono]     NCHAR (11)     NOT NULL,
-    [CuentaActiva] BIT            NOT NULL,
-    [NickName]     NVARCHAR (50)  NOT NULL,
-    [Tipo]         NCHAR (10)     NOT NULL,
-    [IdDireccion]  NVARCHAR (50)  NULL,
+    [DNI]               NCHAR (10)     NOT NULL,
+    [Nombre]            NVARCHAR (50)  NOT NULL,
+    [Apellidos]         NVARCHAR (100) NOT NULL,
+    [Email]             NVARCHAR (50)  NOT NULL,
+    [HashPassword]      NVARCHAR (MAX) NOT NULL,
+    [Telefono]          NCHAR (11)     NOT NULL,
+    [CuentaActiva]      BIT            NOT NULL,
+    [NickName]          NVARCHAR (50)  NOT NULL,
+    [Tipo]              NCHAR (10)     NOT NULL,
+    [IdDireccion]       NVARCHAR (50)  NULL,
+    [FotoUsuarioString] NVARCHAR (MAX) NULL,
     PRIMARY KEY CLUSTERED ([DNI] ASC)
 );
 
@@ -28,17 +29,19 @@ CREATE TABLE [dbo].[Categorias] (
 );
 
 CREATE TABLE [dbo].[Gafas] (
-    [GafasId]            INT            IDENTITY (1, 1) NOT NULL,
-    [NombreModelo]       NVARCHAR (50)  NULL,
-    [PrecioProd]         DECIMAL (5, 2) NULL,
-    [Descripcion]        NVARCHAR (MAX) NULL,
-    [FotoGafaString]     NVARCHAR (MAX) NULL,
-    [VendedorId]         NVARCHAR (50)  NULL,
-    [CodigoVerificacion] INT            NULL,
-    [Marca]              NVARCHAR (50)  NULL,
-    [Genero]             NVARCHAR (50)  NULL,
-    [IdCategoria]        INT            NOT NULL,
-    [FechaPublicacion]   DATETIME       NULL,
+    [GafasId]          INT            IDENTITY (1, 1) NOT NULL,
+    [NombreModelo]     NVARCHAR (50)  NULL,
+    [PrecioProd]       DECIMAL (5, 2) NULL,
+    [Descripcion]      NVARCHAR (MAX) NULL,
+    [FotoGafaString]   NVARCHAR (MAX) NULL,
+    [VendedorId]       NVARCHAR (50)  NULL,
+    [Marca]            NVARCHAR (50)  NULL,
+    [Genero]           NVARCHAR (50)  NULL,
+    [IdCategoria]      INT            NOT NULL,
+    [FechaPublicacion] DATETIME       NOT NULL,
+    [Color]            NVARCHAR (50)  NULL,
+    [Estilo]           NVARCHAR (50)  NULL,
+    [Estado]           BIT            NULL,
     PRIMARY KEY CLUSTERED ([GafasId] ASC)
 );
 
@@ -58,13 +61,14 @@ CREATE TABLE [dbo].[Provincias] (
 
 
 CREATE TABLE [dbo].[Pedidos] (
-    [IdPedido]      INT            IDENTITY (1, 1) NOT NULL,
-    [IdDireccion]   NVARCHAR (MAX) NOT NULL,
-    [FechaPedido]   NVARCHAR (MAX) NOT NULL,
-    [TotalPedido]   DECIMAL (18)   NOT NULL,
-    [DNICliente]    NCHAR (10)     NOT NULL,
-    [GastosEnvio]   DECIMAL (18)   NOT NULL,
-    [CuentaCliente] NVARCHAR (MAX) NOT NULL,
+    [IdPedido]           INT            IDENTITY (1, 1) NOT NULL,
+    [IdDireccion]        NVARCHAR (MAX) NOT NULL,
+    [FechaPedido]        NVARCHAR (MAX) NOT NULL,
+    [TotalPedido]        DECIMAL (18)   NOT NULL,
+    [DNICliente]         NCHAR (10)     NOT NULL,
+    [GastosEnvio]        DECIMAL (18)   NOT NULL,
+    [CuentaCliente]      NVARCHAR (MAX) NOT NULL,
+    [CodigoVerificacion] INT            NOT NULL,
     CONSTRAINT [PK_Pedidos] PRIMARY KEY CLUSTERED ([IdPedido] ASC)
 );
 
@@ -76,3 +80,13 @@ CREATE TABLE [dbo].[ProdPedido] (
     CONSTRAINT [PK_ProdPedido] PRIMARY KEY CLUSTERED ([IdArt] ASC)
 );
 
+CREATE TABLE [dbo].[Formularios] (
+    [IdFormulario] INT            IDENTITY (1, 1) NOT NULL,
+    [Nombre]       NVARCHAR (50)  NOT NULL,
+    [Email]        NVARCHAR (100) NOT NULL,
+    [Telefono]     INT            NOT NULL,
+    [Fecha]        NVARCHAR (50)  NOT NULL,
+    [Mensaje]      NVARCHAR (200) NOT NULL,
+    [CitaAceptada] BIT            NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdFormulario] ASC)
+);
